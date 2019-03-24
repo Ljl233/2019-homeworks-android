@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_collation">
+        <item>按开始时间排序</item>
+        <item>按截止时间排序</item>
+    </string-array>
+</resources>

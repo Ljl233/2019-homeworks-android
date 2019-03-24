@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_information"
+            android:icon="@mipmap/ic_launcher_round"
+            android:title="个人信息"
+            android:checkable="true"/>
+        <item
+            android:id="@+id/nav_remind"
+            android:icon="@mipmap/ic_launcher_round"
+            android:title="消息提醒"
+            android:checkable="true" />
+        <item
+            android:id="@+id/nav_assignment"
+            android:icon="@mipmap/ic_launcher_round"
+            android:title="我的任务"
+            android:checkable="true" />
+        <item
+            android:id="@+id/nav_notice"
+            android:icon="@mipmap/ic_launcher_round"
+            android:title="我的通知"
+            android:checkable="true" />
+        <item
+            android:id="@+id/nav_friends"
+            android:icon="@mipmap/ic_launcher_round"
+            android:title="好友管理"
+            android:checkable="true"/>
+    </group>
+
+    <item
+        android:id="@+id/nav_logoff"
+        android:checkable="true"
+        android:title="退出登录"/>
+
+</menu>
