@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mini.homeworks.R;
+import com.mini.homeworks.Utils.GetDate;
 
 import java.util.List;
 
@@ -17,15 +18,21 @@ public class TaskAdapter extends RecyclerView.Adapter<com.mini.homeworks.MainAct
     private List<TaskBean.AssignListBean> mDates;
     private com.mini.homeworks.MainActivity.TaskAdapter.OnItemClickListener mOnItemClickListener;
 
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
-    }
-
     public void setOnItemClickListener(com.mini.homeworks.MainActivity.TaskAdapter.OnItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
-    public TaskAdapter(List<TaskBean.AssignListBean> mDates){
 
+    private OnItemClickListener onRecyclerViewItemClickListener;
+
+    public interface OnItemClickListener {
+        void onClick(int position);
+    }
+
+    public void setOnRecyclerViewItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onRecyclerViewItemClickListener = onItemClickListener;
+    }
+
+    public TaskAdapter(List<TaskBean.AssignListBean> mDates){
         this.mDates = mDates;
     }
 
@@ -38,8 +45,10 @@ public class TaskAdapter extends RecyclerView.Adapter<com.mini.homeworks.MainAct
     @Override
     public void onBindViewHolder (com.mini.homeworks.MainActivity.TaskAdapter.MyViewHolder holder, final int position){
         TaskBean.AssignListBean dataBean = mDates.get(position);
-        holder.tv_begin.setText(dataBean.getBeginTime());
-        holder.tv_ddl.setText(dataBean.getEndTime());
+        String begintime = GetDate.TimeStampToDate(""+dataBean.getBeginTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
+        String endtime = GetDate.TimeStampToDate(""+dataBean.getEndTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
+        holder.tv_begin.setText(begintime+" "+GetDate.DateToWeek(begintime));
+        holder.tv_ddl.setText(endtime+" "+GetDate.DateToWeek(endtime));
         holder.tv_assignName.setText(dataBean.getAssignName());
     }
     @Override
