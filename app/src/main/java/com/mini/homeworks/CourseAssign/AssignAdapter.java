@@ -1,5 +1,6 @@
 package com.mini.homeworks.CourseAssign;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mini.homeworks.R;
+import com.mini.homeworks.Utils.GetDate;
 
 import java.util.List;
 
@@ -38,8 +40,10 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
     @Override
     public void onBindViewHolder (MyViewHolder holder, final int position){
         TasksBean.DataBean dataBean = mDates.get(position);
-        holder.tv_begin.setText(dataBean.getBeginTime());
-        holder.tv_ddl.setText(dataBean.getEndTime());
+        String begintime = GetDate.TimeStampToDate(""+dataBean.getBeginTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
+        String endtime = GetDate.TimeStampToDate(""+dataBean.getEndTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
+        holder.tv_begin.setText(begintime+" "+GetDate.DateToWeek(begintime));
+        holder.tv_ddl.setText(endtime+" "+GetDate.DateToWeek(endtime));
         holder.tv_assignName.setText(dataBean.getAssignName());
     }
     @Override
@@ -58,7 +62,6 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
             tv_ddl = view.findViewById(R.id.tv_ddl);
             tv_assignName = view.findViewById(R.id.tv_assignName);
             tv_begin = view.findViewById(R.id.tv_begin);
-
             itemLayout = view.findViewById(R.id.tasks_item);
         }
     }

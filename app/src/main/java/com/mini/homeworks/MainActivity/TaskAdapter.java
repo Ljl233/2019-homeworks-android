@@ -12,13 +12,13 @@ import com.mini.homeworks.Utils.GetDate;
 
 import java.util.List;
 
-public class TaskAdapter extends RecyclerView.Adapter<com.mini.homeworks.MainActivity.TaskAdapter.MyViewHolder> {
+public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> {
 
     private Context mContext;
     private List<TaskBean.AssignListBean> mDates;
-    private com.mini.homeworks.MainActivity.TaskAdapter.OnItemClickListener mOnItemClickListener;
+    private TaskAdapter.OnItemClickListener mOnItemClickListener;
 
-    public void setOnItemClickListener(com.mini.homeworks.MainActivity.TaskAdapter.OnItemClickListener mOnItemClickListener) {
+    public void setOnItemClickListener(TaskAdapter.OnItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
 
@@ -37,13 +37,13 @@ public class TaskAdapter extends RecyclerView.Adapter<com.mini.homeworks.MainAct
     }
 
     @Override
-    public com.mini.homeworks.MainActivity.TaskAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public TaskAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View view = View.inflate(mContext, R.layout.tasks_item, null);
-        return new com.mini.homeworks.MainActivity.TaskAdapter.MyViewHolder(view);
+        return new TaskAdapter.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder (com.mini.homeworks.MainActivity.TaskAdapter.MyViewHolder holder, final int position){
+    public void onBindViewHolder (TaskAdapter.MyViewHolder holder, final int position){
         TaskBean.AssignListBean dataBean = mDates.get(position);
         String begintime = GetDate.TimeStampToDate(""+dataBean.getBeginTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
         String endtime = GetDate.TimeStampToDate(""+dataBean.getEndTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
