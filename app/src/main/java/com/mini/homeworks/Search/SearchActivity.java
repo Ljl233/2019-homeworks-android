@@ -3,6 +3,7 @@ package com.mini.homeworks.Search;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -26,7 +27,7 @@ public class SearchActivity extends AppCompatActivity {
     SearchView mSearchView;
     SearchView.SearchAutoComplete mSearchAutoComplete;
     String cookie, token;
-    ListView listView;
+  RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         toolbar = findViewById(R.id.toolbar_search);
-        listView = findViewById(R.id.lv_search);
+        recyclerView = findViewById(R.id.ry_search);
         setSupportActionBar(toolbar);
 
 

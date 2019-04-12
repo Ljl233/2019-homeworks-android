@@ -15,9 +15,11 @@
         app:title="搜索"
         app:titleTextColor="@color/white"
         />
-    <ListView
-        android:id="@+id/lv_search"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/ry_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+
 
 </LinearLayout>
