@@ -23,6 +23,8 @@
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
+    <style name="myassign_colorchange_dialog_theme" parent="AlertDialog.AppCompat.Light">
 
+    </style>
 
 </resources>

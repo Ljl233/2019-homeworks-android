@@ -58,8 +58,6 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
     List<TaskBean.AssignListBean> tasklist, tmptasklist;
     TaskBean.AssignListBean[] task;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -353,7 +351,6 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
             public void onFailure(Call<TaskBean> call, Throwable t) {
             }
         });
-
     }
 
     private void request_course() {
@@ -378,7 +375,6 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
     }
 
     private void initView() {
-
         initNav();
         initVP();
         initToolbar();

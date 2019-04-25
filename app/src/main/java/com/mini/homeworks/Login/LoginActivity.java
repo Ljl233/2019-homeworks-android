@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -23,19 +24,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-    Button btn_signin;
-    EditText et_password, et_userName;
-    CheckBox remember;
-    TextView forget;
+    private Button btn_signin;
+    private EditText et_password, et_userName;
+    private CheckBox remember;
+    private TextView forget;
     private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         initView();
-
     }
 
     private void initView() {
@@ -64,8 +64,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        sp = getSharedPreferences("UserInfo" , Activity.MODE_PRIVATE);
-        if (sp != null || remember.isChecked()) {
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isRemember = sp.getBoolean("remember_password" , false);
+        if (isRemember) {
             String userName = sp.getString("userName", "");
             String password = sp.getString("password", "");
             et_userName.setText(userName);
@@ -81,8 +82,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<CourseBean> call, Response<CourseBean> response) {
                 if (response.isSuccessful()) {
-                    if (remember.isChecked() && sp == null)
-                        SaveUserInfo();
+                    SaveUserInfo();
                     Intent intent = new Intent(LoginActivity.this, CourseAndTaskActivity.class);
                     intent.putExtra("token",response.body().getToken());
                     intent.putExtra("cookie",response.body().getCookie());
@@ -98,12 +98,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void SaveUserInfo() {
-        String userName = et_userName.getText().toString();
-        String password = et_password.getText().toString();
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString("userName", userName);
-        editor.putString("password", password);
-        editor.commit();
+        editor = sp.edit();
+        if (remember.isChecked()) {
+            String userName = et_userName.getText().toString();
+            String password = et_password.getText().toString();
+            editor.putBoolean("remember_password",true);
+            editor.putString("userName", userName);
+            editor.putString("password", password);
+        } else {
+            editor.clear();
+        }
+        editor.apply();
     }
 
     public void GetWrong() {

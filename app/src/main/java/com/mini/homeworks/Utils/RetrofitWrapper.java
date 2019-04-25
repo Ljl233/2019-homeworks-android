@@ -1,11 +1,20 @@
 package com.mini.homeworks.Utils;
 
 
+import com.mini.homeworks.BuildConfig;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitWrapper {
+
+
+    OkHttpClient client = new OkHttpClient.Builder()
+            .addNetworkInterceptor(new TokenHeaderInterceptor())
+            .build();
+
 
     private Retrofit retrofit;
     private static RetrofitWrapper instance;
@@ -15,6 +24,7 @@ public class RetrofitWrapper {
                 .baseUrl(Constant.BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
                 .build();
     }
 

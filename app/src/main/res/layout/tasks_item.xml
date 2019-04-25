@@ -4,7 +4,7 @@
     android:id="@+id/tasks_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/corners_wh"
+    android:background="@drawable/rounded_rectangle_ffffff"
     android:orientation="vertical">
 
     <LinearLayout
@@ -13,7 +13,7 @@
         android:layout_margin="5dp"
         android:layout_weight="3"
 
-        android:background="@drawable/corners_bg"
+        android:background="@drawable/rounded_rectangle_039be5"
         android:orientation="vertical">
 
         <LinearLayout
