@@ -163,28 +163,20 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
     }
 
     private void initVP() {
+
         vp_CourseAndTask = findViewById(R.id.vp_CourseAndTask);
-
-        List<View> viewList = new ArrayList<>();
-        List<String> titleList = new ArrayList<>();
-
-        titleList.add("课堂列表");
-        titleList.add("任务列表");
-
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View tl1 = inflater.inflate(R.layout.course_view, null);
-        View tl2 = inflater.inflate(R.layout.task_view, null);
-
+        tl_CourseAndTask = findViewById(R.id.tl_CourseAndTask);
         rv_course = findViewById(R.id.rv_course);
         rv_task = findViewById(R.id.rv_task);
 
-        viewList.add(tl1);
-        viewList.add(tl2);
+        tl_CourseAndTask.addTab(tl_CourseAndTask.newTab().setText("课堂列表"));
+        tl_CourseAndTask.addTab(tl_CourseAndTask.newTab().setText("任务列表"));
+        tl_CourseAndTask.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        tl_CourseAndTask = findViewById(R.id.tl_CourseAndTask);
-        VPAdapter viewPagerAdapter = new VPAdapter(titleList, viewList);
+        VPAdapter viewPagerAdapter = new VPAdapter(getSupportFragmentManager(),tl_CourseAndTask.getTabCount());
         vp_CourseAndTask.setAdapter(viewPagerAdapter);
-        tl_CourseAndTask.setupWithViewPager(vp_CourseAndTask);
+        tl_CourseAndTask.setupWithViewPager(vp_CourseAndTask);//关联ViewPager
+
     }
 
     private void initToolbar() {

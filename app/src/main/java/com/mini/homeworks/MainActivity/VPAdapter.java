@@ -1,38 +1,31 @@
 package com.mini.homeworks.MainActivity;
 
-import android.support.v4.view.PagerAdapter;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
-import java.util.List;
-
-public class VPAdapter  extends PagerAdapter {
-
-    private List<String> titleList;
-    private List<View> viewList;
-    public VPAdapter(List<String> titleList, List<View> viewList) {
-        this.titleList = titleList;
-        this.viewList = viewList;
+public class VPAdapter extends FragmentStatePagerAdapter {
+    int nNumOfTabs;
+    public VPAdapter(FragmentManager fm,int nNumOfTabs) {
+        super(fm);
+        this.nNumOfTabs=nNumOfTabs;
     }
+    @Override
+    public Fragment getItem(int position) {
+        switch(position)
+        {
+            case 0:
+                CourseFragment tab1 =new CourseFragment();
+                return tab1;
+            case 1:
+                TaskFragment tab2 = new TaskFragment();
+                return tab2;
+        }
+        return null;
+    }
+
     @Override
     public int getCount() {
-        return viewList.size();
-    }
-    @Override
-    public boolean isViewFromObject(View view, Object object) {
-        return view == object;
-    }
-    @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        container.addView(viewList.get(position));
-        return viewList.get(position);
-    }
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView(viewList.get(position));
-    }
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return titleList.get(position);
+        return nNumOfTabs;
     }
 }
