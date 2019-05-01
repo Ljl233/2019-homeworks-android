@@ -54,7 +54,7 @@ public class Information extends AppCompatActivity {
         tv_name = findViewById(R.id.tv_name);
         tv_num = findViewById(R.id.tv_num);
         initToolbar();
-        request_init();
+        //request_init();
         setmailbox();
 
 
@@ -130,14 +130,14 @@ public class Information extends AppCompatActivity {
                         || actionId == EditorInfo.IME_ACTION_DONE
                         || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
                     String newMail = et_mailbox.getText().toString();
-                    request_changemail(newMail);
+                 //   request_changemail(newMail);
                 }
                 return false;
             }
         });
     }
 
-    private void request_init() {
+ /*   private void request_init() {
         InformationService informationService = RetrofitWrapper.getInstance().create(InformationService.class);
         Call<InformationBean> call = informationService.getInformationBean();
         call.enqueue(new Callback<InformationBean>() {
@@ -158,10 +158,10 @@ public class Information extends AppCompatActivity {
             }
         });
     }
-
-    private void request_changemail(String newmail){
+*/
+  /*  private void request_changemail(String newmail){
         ChangeMailService changeMailService = RetrofitWrapper.getInstance().create(ChangeMailService.class);
-        Call<ChangeMailReturnData> call = changeMailService.getReturn(new ChangeMailPostData(newmail, ));
+        //Call<ChangeMailReturnData> call = changeMailService.getReturn(new ChangeMailPostData(newmail, ));
         call.enqueue(new Callback<ChangeMailReturnData>() {
             @Override
             public void onResponse(Call<ChangeMailReturnData> call, Response<ChangeMailReturnData> response) {
@@ -175,5 +175,5 @@ public class Information extends AppCompatActivity {
         });
 
     }
-
+*/
 }

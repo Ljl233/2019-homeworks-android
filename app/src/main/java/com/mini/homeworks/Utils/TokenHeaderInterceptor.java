@@ -16,7 +16,7 @@ import okhttp3.ResponseBody;
 import okio.Buffer;
 import okio.BufferedSource;
 
-
+/*
 public class TokenHeaderInterceptor implements Interceptor {
 
     @Override
@@ -105,3 +105,4 @@ public class TokenInterceptor implements Interceptor {
         return originalResponse;
     }
 }
+*/

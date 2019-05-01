@@ -9,4 +9,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="myassign_colorchange_dialog_title">自定义任务底色</string>
+    <string name="myassign_colorchange_dialog_cancel">取消</string>
+    <string name="myassign_colorchange_dialog_check">确认</string>
 </resources>

@@ -11,9 +11,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitWrapper {
 
 
-    OkHttpClient client = new OkHttpClient.Builder()
-            .addNetworkInterceptor(new TokenHeaderInterceptor())
-            .build();
+ //   OkHttpClient client = new OkHttpClient.Builder()
+   //         .addNetworkInterceptor(new TokenHeaderInterceptor())
+     //       .build();
 
 
     private Retrofit retrofit;
@@ -24,7 +24,7 @@ public class RetrofitWrapper {
                 .baseUrl(Constant.BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
+       //         .client(client)
                 .build();
     }
 

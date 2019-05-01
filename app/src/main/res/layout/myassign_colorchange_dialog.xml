@@ -1,53 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="213dp"
+    android:layout_height="190dp"
     android:orientation="vertical">
 
     <TextView
-        android:layout_marginTop="17dp"
-        android:layout_marginBottom="17dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="自定义任务底色"
-        android:textColor="#000000"
-        android:layout_gravity="center"
-        android:textSize="17sp"/>
-    <GridView
-        android:id="@+id/gv_colors"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:numColumns="auto_fit"
-        android:clipToPadding="false"
-        android:gravity="center"
-        android:horizontalSpacing="8dp"
-        android:orientation="vertical"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="8dp"/>
+        android:gravity="center_horizontal"
+        android:text="@string/myassign_colorchange_dialog_title"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow android:gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/iv_myassign_dialog_933da9"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="4dp"
+                android:src="@drawable/color_933da9"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/iv_myassign_dialog_3f51b5"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="4dp"
+                android:src="@drawable/color_3f51b5"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/iv_myassign_dialog_039be5"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="4dp"
+                android:src="@drawable/color_039be5"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/iv_myassign_dialog_f37047"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="4dp"
+                android:src="@drawable/color_f37047"
+                tools:ignore="ContentDescription" />
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/iv_myassign_dialog_4db6ac"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="4dp"
+                android:src="@drawable/color_4db6ac"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/iv_myassign_dialog_e59089"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="4dp"
+                android:src="@drawable/color_e59089"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/iv_myassign_dialog_db4437"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="4dp"
+                android:src="@drawable/color_db4437"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/iv_myassign_dialog_bcbcbc"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="4dp"
+                android:src="@drawable/color_bcbcbc"
+                tools:ignore="ContentDescription" />
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/iv_myassign_dialog_8490c8"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="4dp"
+                android:src="@drawable/color_8490c8"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/iv_myassign_dialog_f6bf26"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="4dp"
+                android:src="@drawable/color_f6bf26"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/iv_myassign_dialog_cd3278"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="4dp"
+                android:src="@drawable/color_cd3278"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/iv_myassign_dialog_4cb684"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="4dp"
+                android:src="@drawable/color_4cb684"
+                tools:ignore="ContentDescription" />
+        </TableRow>
+
+    </TableLayout>
+
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="17dp"
-        android:layout_marginBottom="8dp">
+        android:layout_marginTop="16dp">
+
         <TextView
-            android:id="@+id/tv_myassign_changecolor_check"
+            android:id="@+id/tv_myassign_dialog_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="确认"
-            android:layout_marginRight="21dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/myassign_colorchange_dialog_check"
             android:textColor="#4DB6AC"
-            android:layout_alignParentRight="true"
-            android:textSize="13sp"/>
+            android:textSize="12sp" />
+
         <TextView
-            android:id="@+id/tv_myassign_changecolor_cancel"
+            android:id="@+id/tv_myassign_dialog_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="取消"
-            android:layout_toLeftOf="@id/tv_myassign_changecolor_check"
-            android:layout_marginRight="33dp"
+            android:layout_marginEnd="32dp"
+            android:layout_toStartOf="@id/tv_myassign_dialog_check"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/myassign_colorchange_dialog_cancel"
             android:textColor="#9E9E9E"
-            android:textSize="13sp"/>
+            android:textSize="12sp" />
+
+
     </RelativeLayout>
+
+
 </LinearLayout>

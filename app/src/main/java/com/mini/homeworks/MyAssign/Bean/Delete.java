@@ -1,19 +1,22 @@
-package com.mini.homeworks.MyAssign;
+package com.mini.homeworks.MyAssign.Bean;
 
-public class AssignBean {
-    private int datatype;
+import org.litepal.LitePal;
+import org.litepal.crud.LitePalSupport;
+
+public class Delete extends LitePalSupport {
     private String siteId;
     private int status;
     private String assignName;
     private int beginTime;
     private int endTime;
-
-    public int getDatatype() {
-        return datatype;
+    private int color;
+    private String assignId;
+    public  void setColor(int color) {
+        this.color = color;
     }
 
-    public void setDatatype(int datatype) {
-        this.datatype = datatype;
+    public int getColor() {
+        return color;
     }
 
     public void setStatus(int status) {
@@ -55,4 +58,13 @@ public class AssignBean {
     public int getBeginTime() {
         return beginTime;
     }
+
+    public String getAssignId() {
+        return assignId;
+    }
+
+    public void setAssignId(String assignId) {
+        this.assignId = assignId;
+    }
+
 }
