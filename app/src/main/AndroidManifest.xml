@@ -13,9 +13,9 @@
         android:theme="@style/AppTheme"
         >
 
-        <activity android:name="$PersonalInformation.Information" />
+        <activity android:name=".PersonalInformation.Information" />
 
-        <activity android:name="$Login.LoginActivity"
+        <activity android:name=".Login.LoginActivity"
             android:theme="@style/AppThemeBase">
             <intent-filter>
                 <!--action android:name="android.intent.action.VIEW" /-->
@@ -25,25 +25,25 @@
         </activity>
 
         <activity
-            android:name="$AssignDetail.DetailActivity"
+            android:name=".AssignDetail.DetailActivity"
             android:label="任务详情" />
 
         <activity
-            android:name="$MainActivity.CourseAndTaskActivity"
+            android:name=".MainActivity.CourseAndTaskActivity"
             android:theme="@style/AppThemeBase">
         </activity>
 
         <activity android:name="$Search.SearchActivity" />
 
         <activity
-            android:name="$MyAssign.MyAssign"
+            android:name=".MyAssign.MyAssign"
             android:theme="@style/MyAssignStyle">
         </activity>
 
-        <activity android:name="$Notification.NotificationActivity"/>
+        <activity android:name=".Notification.NotificationActivity"/>
 
-        <activity android:name=".Search.SearchActivity" />
-        <activity android:name=".Notification.NotificationActivity" />
+
+
         <receiver android:name=".Notification.AlarmReceiver"
             android:exported="false">
             <intent-filter>

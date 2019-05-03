@@ -135,8 +135,8 @@ public class Information extends AppCompatActivity {
             }
         });
     }
-/*
-    private void request_init() {
+
+ /*   private void request_init() {
         InformationService informationService = RetrofitWrapper.getInstance().create(InformationService.class);
         Call<InformationBean> call = informationService.getInformationBean();
         call.enqueue(new Callback<InformationBean>() {
