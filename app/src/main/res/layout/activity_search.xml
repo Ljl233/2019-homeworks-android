@@ -13,13 +13,12 @@
         android:background="@color/colorPrimary"
         app:navigationIcon="@mipmap/back_arrow"
         app:title="搜索"
-        app:titleTextColor="@color/white"
-        />
+        app:titleTextColor="@color/white" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/ry_search"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>
