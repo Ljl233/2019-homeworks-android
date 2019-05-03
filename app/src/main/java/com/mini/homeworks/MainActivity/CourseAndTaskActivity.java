@@ -30,6 +30,7 @@ import com.mini.homeworks.Login.LoginActivity;
 import com.mini.homeworks.MessageNotification.MessageNotification;
 import com.mini.homeworks.MyAssign.MyAssign;
 import com.mini.homeworks.MyNotice.MyNotice;
+import com.mini.homeworks.Notification.NotificationActivity;
 import com.mini.homeworks.PersonalInformation.Information;
 import com.mini.homeworks.R;
 import com.mini.homeworks.Search.SearchActivity;
@@ -74,7 +75,7 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
                 break;
             }
             case R.id.ll_remind :{
-                Intent intent = new Intent(CourseAndTaskActivity.this, MessageNotification.class);
+                Intent intent = new Intent(CourseAndTaskActivity.this, NotificationActivity.class);
                 startActivity(intent);
                 break;
             }

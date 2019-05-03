@@ -172,6 +172,6 @@ public class Information extends AppCompatActivity {
 
             }
         });
-
-    }*/
+        */
 }
+
