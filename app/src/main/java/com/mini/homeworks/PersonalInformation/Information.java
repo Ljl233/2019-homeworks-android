@@ -69,8 +69,7 @@ public class Information extends AppCompatActivity {
         tb_information.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Information.this, CourseAndTaskActivity.class);
-                startActivity(intent);
+               finish();
             }
         });
     }
@@ -136,8 +135,8 @@ public class Information extends AppCompatActivity {
             }
         });
     }
-
- /*   private void request_init() {
+/*
+    private void request_init() {
         InformationService informationService = RetrofitWrapper.getInstance().create(InformationService.class);
         Call<InformationBean> call = informationService.getInformationBean();
         call.enqueue(new Callback<InformationBean>() {
@@ -158,10 +157,10 @@ public class Information extends AppCompatActivity {
             }
         });
     }
-*/
-  /*  private void request_changemail(String newmail){
+/*
+    private void request_changemail(String newmail){
         ChangeMailService changeMailService = RetrofitWrapper.getInstance().create(ChangeMailService.class);
-        //Call<ChangeMailReturnData> call = changeMailService.getReturn(new ChangeMailPostData(newmail, ));
+        Call<ChangeMailReturnData> call = changeMailService.getReturn(new ChangeMailPostData(newmail, ));
         call.enqueue(new Callback<ChangeMailReturnData>() {
             @Override
             public void onResponse(Call<ChangeMailReturnData> call, Response<ChangeMailReturnData> response) {
@@ -174,6 +173,5 @@ public class Information extends AppCompatActivity {
             }
         });
 
-    }
-*/
+    }*/
 }
