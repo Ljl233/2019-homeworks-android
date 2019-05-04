@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mini.homeworks">
-
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
@@ -10,15 +10,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme">
 
         <activity android:name=".PersonalInformation.Information" />
 
-        <activity android:name=".Login.LoginActivity"
+        <activity
+            android:name=".Login.LoginActivity"
             android:theme="@style/AppThemeBase">
             <intent-filter>
-                <!--action android:name="android.intent.action.VIEW" /-->
+                <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -30,24 +30,22 @@
 
         <activity
             android:name=".MainActivity.CourseAndTaskActivity"
-            android:theme="@style/AppThemeBase">
-        </activity>
+            android:theme="@style/AppThemeBase"></activity>
 
         <activity android:name="$Search.SearchActivity" />
 
         <activity
             android:name=".MyAssign.MyAssign"
-            android:theme="@style/MyAssignStyle">
-        </activity>
+            android:theme="@style/MyAssignStyle"></activity>
 
-        <activity android:name=".Notification.NotificationActivity"/>
-
+        <activity android:name=".Notification.NotificationActivity" />
 
 
-        <receiver android:name=".Notification.AlarmReceiver"
+        <receiver
+            android:name=".Notification.AlarmReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="${applicationId}.BROADCAST_ALARM"/>
+                <action android:name="${applicationId}.BROADCAST_ALARM" />
             </intent-filter>
         </receiver>
     </application>

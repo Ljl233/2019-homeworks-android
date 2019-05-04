@@ -30,6 +30,8 @@ public class LoginActivity extends AppCompatActivity {
     private TextView forget;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
+    private String userName;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean isRemember = sp.getBoolean("remember_password" , false);
+        boolean isRemember = sp.getBoolean("remember_password", false);
         if (isRemember) {
             String userName = sp.getString("userName", "");
             String password = sp.getString("password", "");
@@ -76,25 +78,29 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void request() {
-        CourseService courseService = RetrofitWrapper.getInstance().create(CourseService.class);
-        Call<CourseBean> call = courseService.getCourseBean(new LoginPostData(et_userName.getText().toString(), et_password.getText().toString()));
-        call.enqueue(new Callback<CourseBean>() {
-            @Override
-            public void onResponse(Call<CourseBean> call, Response<CourseBean> response) {
-                if (response.isSuccessful()) {
-                    SaveUserInfo();
-                    Intent intent = new Intent(LoginActivity.this, CourseAndTaskActivity.class);
-                    intent.putExtra("token",response.body().getToken());
-                    intent.putExtra("cookie",response.body().getCookie());
-                    startActivity(intent);
-                } else GetWrong();
-            }
-
-            @Override
-            public void onFailure(Call<CourseBean> call, Throwable t) {
-                GetWrong();
-            }
-        });
+        Intent intent = new Intent(LoginActivity.this, CourseAndTaskActivity.class);
+        startActivity(intent);
+//        CourseService courseService = RetrofitWrapper.getInstance().create(CourseService.class);
+//        userName = et_userName.getText().toString();
+//        password = et_password.getText().toString();
+//        Call<CourseBean> call = courseService.getCourseBean(new LoginPostData(userName, password));
+//        call.enqueue(new Callback<CourseBean>() {
+//            @Override
+//            public void onResponse(Call<CourseBean> call, Response<CourseBean> response) {
+//                if (response.isSuccessful()) {
+//                    SaveUserInfo();
+//                    Intent intent = new Intent(LoginActivity.this, CourseAndTaskActivity.class);
+//                    intent.putExtra("token", response.body().getToken());
+//                    intent.putExtra("cookie", response.body().getCookie());
+//                    startActivity(intent);
+//                } else GetWrong();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<CourseBean> call, Throwable t) {
+//                GetWrong();
+//            }
+//        });
     }
 
     public void SaveUserInfo() {
