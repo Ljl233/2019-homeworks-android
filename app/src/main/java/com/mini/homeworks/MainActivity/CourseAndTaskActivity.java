@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -146,6 +147,7 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
     }
 
     private void initNav() {
+        dl_navigation = findViewById(R.id.dl_navigation);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, dl_navigation, tb_head, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         dl_navigation.addDrawerListener(toggle);
         toggle.syncState();
@@ -348,7 +350,11 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
 
     private void request_course() {
         CoursesService coursesService = RetrofitWrapper.getInstance().create(CoursesService.class);
-        Call<CoursesBean> call = coursesService.getCoursesBean(getIntent().getStringExtra("cookie"), getIntent().getStringExtra("token"));
+        String cookie = getIntent().getStringExtra("cookie");
+        String token = getIntent().getStringExtra("token");
+        Log.e("zheshi COOKIE " ,cookie);
+        Log.e("zheshi TOKEN    ",token);
+        Call<CoursesBean> call = coursesService.getCoursesBean(cookie, token);
         call.enqueue(new Callback<CoursesBean>() {
             @Override
             public void onResponse(Call<CoursesBean> call, Response<CoursesBean> response) {

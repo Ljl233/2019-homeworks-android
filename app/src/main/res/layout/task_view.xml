@@ -6,60 +6,76 @@
 
     <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Spinner
-            android:id="@+id/spinner_collation"
-            android:spinnerMode="dropdown"
-            android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48px"
+        android:layout_marginLeft="48px"
+        android:layout_marginBottom="72px">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:dropDownSelector="@color/colorPrimaryDark"/>
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_all"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="全部"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:background="@color/colorPrimary"
-            android:gravity="center"/>
+            <Spinner
+                android:id="@+id/spinner_collation"
+                android:spinnerMode="dropdown"
+                android:layout_width="wrap_content"
+                android:layout_height="108px"
+                android:dropDownSelector="@color/colorPrimaryDark"/>
 
-        <Button
-            android:id="@+id/btn_processing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="进行中"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:background="@color/colorPrimary"
-            android:gravity="center"/>
+            <Button
+                android:layout_marginLeft="24px"
+                android:id="@+id/btn_all"
+                android:layout_width="168px"
+                android:layout_height="108px"
+                android:text="全部"
+                android:textColor="@color/white"
+                android:textSize="36px"
+                android:background="@color/colorPrimary"
+                android:gravity="center"/>
 
-        <Button
-            android:id="@+id/btn_completed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="已完成"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:background="@color/colorPrimary"
-            android:gravity="center"/>
+            <Button
+                android:layout_marginLeft="24px"
+                android:id="@+id/btn_processing"
+                android:layout_width="204px"
+                android:layout_height="108px"
+                android:text="进行中"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:background="@color/colorPrimary"
+                android:gravity="center"/>
 
-        <Button
-            android:id="@+id/btn_overdue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="已逾期"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:background="@color/colorPrimary"
-            android:gravity="center"/>
+            <Button
+                android:layout_marginLeft="24px"
+                android:id="@+id/btn_completed"
+                android:layout_width="204px"
+                android:layout_height="108px"
+                android:text="已完成"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:background="@color/colorPrimary"
+                android:gravity="center"/>
+
+            <Button
+                android:layout_marginLeft="24px"
+                android:id="@+id/btn_overdue"
+                android:layout_width="204px"
+                android:layout_height="108px"
+                android:text="已逾期"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:background="@color/colorPrimary"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
 
     </HorizontalScrollView>
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_task"
+        android:layout_marginLeft="48px"
+        android:layout_marginRight="48px"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
