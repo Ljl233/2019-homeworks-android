@@ -69,7 +69,8 @@ public class Information extends AppCompatActivity {
         tb_information.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               finish();
+                Intent intent = new Intent(Information.this, CourseAndTaskActivity.class);
+                startActivity(intent);
             }
         });
     }
