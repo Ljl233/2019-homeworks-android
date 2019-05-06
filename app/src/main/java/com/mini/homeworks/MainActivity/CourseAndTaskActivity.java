@@ -12,8 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,8 +25,6 @@ import android.widget.Toast;
 import com.mini.homeworks.AssignDetail.DetailActivity;
 import com.mini.homeworks.CourseAssign.AssignActivity;
 import com.mini.homeworks.FriendManagement.FriendManagement;
-import com.mini.homeworks.Login.LoginActivity;
-import com.mini.homeworks.MessageNotification.MessageNotification;
 import com.mini.homeworks.MyAssign.MyAssign;
 import com.mini.homeworks.MyNotice.MyNotice;
 import com.mini.homeworks.Notification.NotificationActivity;
@@ -59,6 +55,8 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
     List<CoursesBean.CourseListBean> courselist;
     List<TaskBean.AssignListBean> tasklist, tmptasklist;
     TaskBean.AssignListBean[] task;
+    private String cookie = getIntent().getStringExtra("cookie");
+    private String token = getIntent().getStringExtra("token");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,27 +70,33 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
         switch (v.getId()) {
             case R.id.ll_information :{
                 Intent intent = new Intent(CourseAndTaskActivity.this, Information.class);
+                intent.putExtra("cookie",cookie);
+                intent.putExtra("token",token);
                 startActivity(intent);
                 break;
             }
             case R.id.ll_remind :{
                 Intent intent = new Intent(CourseAndTaskActivity.this, NotificationActivity.class);
-                startActivity(intent);
+                intent.putExtra("cookie",cookie);
+                intent.putExtra("token",token);startActivity(intent);
                 break;
             }
             case R.id.ll_assignment :{
                 Intent intent = new Intent(CourseAndTaskActivity.this, MyAssign.class);
-                startActivity(intent);
+                intent.putExtra("cookie",cookie);
+                intent.putExtra("token",token);startActivity(intent);
                 break;
             }
             case R.id.ll_notice :{
                 Intent intent = new Intent(CourseAndTaskActivity.this, MyNotice.class);
-                startActivity(intent);
+                intent.putExtra("cookie",cookie);
+                intent.putExtra("token",token);startActivity(intent);
                 break;
             }
             case R.id.ll_friends :{
                 Intent intent = new Intent(CourseAndTaskActivity.this, FriendManagement.class);
-                startActivity(intent);
+                intent.putExtra("cookie",cookie);
+                intent.putExtra("token",token);startActivity(intent);
                 break;
             }
             case R.id.btn_all : {
@@ -192,6 +196,8 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 Intent intent = new Intent(CourseAndTaskActivity.this, SearchActivity.class);
+                intent.putExtra("cookie",cookie);
+                intent.putExtra("token",token);
                 startActivity(intent);
                 return true;
             }
@@ -218,6 +224,8 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
             public void onClick(int position) {
                 Intent intent = new Intent(CourseAndTaskActivity.this, AssignActivity.class);
                 intent.putExtra("siteId", CourseList.get(position - 1).getSiteId());
+                intent.putExtra("cookie",cookie);
+                intent.putExtra("token",token);
                 startActivity(intent);
             }
         });
@@ -266,6 +274,9 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
             public void onClick(int position) {
                 Intent intent = new Intent(CourseAndTaskActivity.this, DetailActivity.class);
                 intent.putExtra("siteId", tmptasklist.get(position - 1).getSiteId());
+                intent.putExtra("assignId",tmptasklist.get(position - 1 ).getAssignId());
+                intent.putExtra("cookie",cookie);
+                intent.putExtra("token",token);
                 startActivity(intent);
             }
         });
@@ -330,12 +341,13 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
 
     private void request_task() {
         TaskService taskService = RetrofitWrapper.getInstance().create(TaskService.class);
-        Call<TaskBean> call = taskService.getTaskBean(getIntent().getStringExtra("cookie"), getIntent().getStringExtra("token"));
+        Call<TaskBean> call = taskService.getTaskBean(cookie, token);
         call.enqueue(new Callback<TaskBean>() {
             @Override
             public void onResponse(Call<TaskBean> call, Response<TaskBean> response) {
                 if (response.isSuccessful()) {
                     tasklist = response.body().getAssignList();
+                    cookie = response.body().getCookie();
                     initTask(response.body().getTotal());
                 } else {
                     Toast.makeText(CourseAndTaskActivity.this, "请求失败，请重试", Toast.LENGTH_LONG).show();
@@ -350,16 +362,13 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
 
     private void request_course() {
         CoursesService coursesService = RetrofitWrapper.getInstance().create(CoursesService.class);
-        String cookie = getIntent().getStringExtra("cookie");
-        String token = getIntent().getStringExtra("token");
-        Log.e("zheshi COOKIE " ,cookie);
-        Log.e("zheshi TOKEN    ",token);
         Call<CoursesBean> call = coursesService.getCoursesBean(cookie, token);
         call.enqueue(new Callback<CoursesBean>() {
             @Override
             public void onResponse(Call<CoursesBean> call, Response<CoursesBean> response) {
                 if (response.isSuccessful()) {
                     courselist = response.body().getCourseList();
+                    cookie = response.body().getCookie();
                     initCourse(response.body().getTotal());
                 } else {
                     Toast.makeText(CourseAndTaskActivity.this, "请求失败，请重试", Toast.LENGTH_LONG).show();

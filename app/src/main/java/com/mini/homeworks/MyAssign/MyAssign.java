@@ -48,6 +48,8 @@ public class MyAssign extends AppCompatActivity {
     private List<Normal> normal;
     private AssignAdapter courseAdapter;
     private List<Assignment> assignlist = new ArrayList<>();
+    private String cookie = getIntent().getStringExtra("cookie");
+    private String token = getIntent().getStringExtra("token");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,7 +175,7 @@ public class MyAssign extends AppCompatActivity {
 
     private void request_task() {
         TaskService taskService = RetrofitWrapper.getInstance().create(TaskService.class);
-        Call<TaskBean> call = taskService.getTaskBean(getIntent().getStringExtra("cookie"), getIntent().getStringExtra("token"));
+        Call<TaskBean> call = taskService.getTaskBean(cookie,token);
         call.enqueue(new Callback<TaskBean>() {
             @Override
             public void onResponse(Call<TaskBean> call, Response<TaskBean> response) {

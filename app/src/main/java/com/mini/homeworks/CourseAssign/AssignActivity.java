@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.mini.homeworks.AssignDetail.DetailActivity;
 import com.mini.homeworks.Login.CourseBean;
 import com.mini.homeworks.MainActivity.CourseAndTaskActivity;
 import com.mini.homeworks.R;
@@ -26,6 +27,9 @@ public class AssignActivity extends AppCompatActivity {
     private List<TasksBean.DataBean> mAssignList = new ArrayList<>();
     private RecyclerView recyclerView;
     private AssignAdapter assignAdapter;
+    String cookie = getIntent().getStringExtra("cookie");
+    String token = getIntent().getStringExtra("token");
+    String siteId = getIntent().getStringExtra("siteId");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +44,9 @@ public class AssignActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent(AssignActivity.this, CourseAndTaskActivity.class);
-                startActivity(intent);
+                finish();
         }
         return super.onOptionsItemSelected(item);
-
     }
 
     private void init() {
@@ -64,7 +66,12 @@ public class AssignActivity extends AppCompatActivity {
         assignAdapter.setOnItemClickListener(new AssignAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
+                Intent intent = new Intent(AssignActivity.this, DetailActivity.class);
+                intent.putExtra("siteId",siteId);
+                intent.putExtra("assignId",mAssignList.get(position).getAssignId());
+                intent.putExtra("cookie",cookie);
+                intent.putExtra("token",token);
+                startActivity(intent);
             }
         });
     }
@@ -72,13 +79,13 @@ public class AssignActivity extends AppCompatActivity {
 
     private void request() {
         AssignListService assignListService = RetrofitWrapper.getInstance().create(AssignListService.class);
-        String siteId = getIntent().getStringExtra("siteId");
-        Call<TasksBean> call = assignListService.getTasksBean(siteId, new CourseBean().getCookie(), new CourseBean().getToken());
+        Call<TasksBean> call = assignListService.getTasksBean(siteId, cookie, token);
         call.enqueue(new Callback<TasksBean>() {
             @Override
             public void onResponse(Call<TasksBean> call, Response<TasksBean> response) {
                 if (response.isSuccessful()) {
                     mAssignList.add((TasksBean.DataBean) response.body().getData());
+                    cookie = response.body().getCookie();
                 }
             }
 

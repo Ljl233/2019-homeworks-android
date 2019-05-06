@@ -1,6 +1,5 @@
 package com.mini.homeworks.Login;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -79,8 +78,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void request() {
-        Intent intent = new Intent(LoginActivity.this, CourseAndTaskActivity.class);
-        startActivity(intent);
         CourseService courseService = RetrofitWrapper.getInstance().create(CourseService.class);
         userName = et_userName.getText().toString();
         password = et_password.getText().toString();
@@ -91,15 +88,18 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     SaveUserInfo();
                     Intent intent = new Intent(LoginActivity.this, CourseAndTaskActivity.class);
-                    Log.e("denglu COOKIE",response.body().getCookie());
                     intent.putExtra("token", response.body().getToken());
                     intent.putExtra("cookie", response.body().getCookie());
                     startActivity(intent);
-                } else GetWrong();
+                } else {
+                    Log.e("not     ","successful");
+                    GetWrong();
+                }
             }
 
             @Override
             public void onFailure(Call<CourseBean> call, Throwable t) {
+                Log.e("                  mmmmmmmmmmmmmmm","           iiiiiiiiiiiiiiiiiiiiiii");
                 GetWrong();
             }
         });
