@@ -1,6 +1,5 @@
 package com.mini.homeworks.Login;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -79,30 +78,31 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void request() {
-        Intent intent = new Intent(LoginActivity.this, CourseAndTaskActivity.class);
-        startActivity(intent);
-//        CourseService courseService = RetrofitWrapper.getInstance().create(CourseService.class);
-//        userName = et_userName.getText().toString();
-//        password = et_password.getText().toString();
-//        Call<CourseBean> call = courseService.getCourseBean(new LoginPostData(userName, password));
+        CourseService courseService = RetrofitWrapper.getInstance().create(CourseService.class);
+        userName = et_userName.getText().toString();
+        password = et_password.getText().toString();
+        Call<CourseBean> call = courseService.getCourseBean(new LoginPostData(userName, password));
+        call.enqueue(new Callback<CourseBean>() {
+            @Override
+            public void onResponse(Call<CourseBean> call, Response<CourseBean> response) {
+                if (response.isSuccessful()) {
+                    SaveUserInfo();
+                    Intent intent = new Intent(LoginActivity.this, CourseAndTaskActivity.class);
+                    intent.putExtra("token", response.body().getToken());
+                    intent.putExtra("cookie", response.body().getCookie());
+                    startActivity(intent);
+                } else {
+                    Log.e("not     ","successful");
+                    GetWrong();
+                }
+            }
 
-//        call.enqueue(new Callback<CourseBean>() {
-//            @Override
-//            public void onResponse(Call<CourseBean> call, Response<CourseBean> response) {
-//                if (response.isSuccessful()) {
-//                    SaveUserInfo();
-//                    Intent intent = new Intent(LoginActivity.this, CourseAndTaskActivity.class);
-//                    intent.putExtra("token", response.body().getToken());
-//                    intent.putExtra("cookie", response.body().getCookie());
-//                    startActivity(intent);
-//                } else GetWrong();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<CourseBean> call, Throwable t) {
-//                GetWrong();
-//            }
-//        });
+            @Override
+            public void onFailure(Call<CourseBean> call, Throwable t) {
+                Log.e("                  mmmmmmmmmmmmmmm","           iiiiiiiiiiiiiiiiiiiiiii");
+                GetWrong();
+            }
+        });
     }
 
     public void SaveUserInfo() {

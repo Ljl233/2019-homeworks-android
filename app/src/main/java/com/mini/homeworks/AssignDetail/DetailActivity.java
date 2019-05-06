@@ -27,7 +27,11 @@ public class DetailActivity extends AppCompatActivity {
     TextView tv_begin2, tv_ddl2, tv_state, tv_content, tv_pointNum, tv_studentNum, tv_submitContent,
             tv_feedback, tv_assignAttachmentNum, tv_assignAttachment_name, tv_assignName2,tv_submitAttachmentNum;
 
-    String siteId, assignId, cookie, token;
+    String cookie = getIntent().getStringExtra("cookie");
+    String token = getIntent().getStringExtra("token");
+    String siteId = getIntent().getStringExtra("siteId");
+    String assignId = getIntent().getStringExtra("assignId");
+
     ListView listView;
 
     DetailAdapter detailAdapter;
@@ -68,8 +72,7 @@ public class DetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent(DetailActivity.this, AssignActivity.class);
-                startActivity(intent);
+                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -84,7 +87,6 @@ public class DetailActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     DetailBean detail = response.body();
                     initDetail(detail);
-
                 } else {
                     Toast.makeText(DetailActivity.this, "请求失败，请重试", Toast.LENGTH_LONG).show();
                 }

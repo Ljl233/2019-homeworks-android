@@ -35,7 +35,7 @@ public class SearchActivity extends AppCompatActivity {
     Toolbar toolbar;
     SearchView mSearchView;
     SearchView.SearchAutoComplete mSearchAutoComplete;
-    String cookie, token;
+    String cookie = getIntent().getStringExtra("cookie"), token = getIntent().getStringExtra("token");
     RecyclerView recyclerView;
 
     Context context;

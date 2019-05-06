@@ -35,9 +35,13 @@ public class Information extends AppCompatActivity {
 
     private Toolbar tb_information;
     private EditText et_mailbox;
-    private Button btn_changemail;
+    private Button btn_logoff;
     private ImageView iv_clearmailbox;
-    private  TextView tv_name, tv_num;
+    private TextView tv_name, tv_num;
+    private String token = getIntent().getStringExtra("token");
+    private String cookie = getIntent().getStringExtra("cookie");
+    private String verifyCodeToken;
+    private String newMail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,36 +53,11 @@ public class Information extends AppCompatActivity {
     private void initView() {
         tb_information = findViewById(R.id.tb_information);
         et_mailbox = findViewById(R.id.et_mailbox);
-        btn_changemail = findViewById(R.id.btn_changemail);
-        iv_clearmailbox =findViewById(R.id.iv_clearmailbox);
+        btn_logoff = findViewById(R.id.btn_logoff);
+        iv_clearmailbox = findViewById(R.id.iv_clearmailbox);
         tv_name = findViewById(R.id.tv_name);
         tv_num = findViewById(R.id.tv_num);
-        initToolbar();
-        //request_init();
-        setmailbox();
-
-
-    }
-
-    private void initToolbar() {
-        setSupportActionBar(tb_information);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        tb_information.setNavigationIcon(R.drawable.back_arrow);
-        tb_information.setTitle("个人信息");
-        tb_information.setTitleTextColor(Color.rgb(255,255,255));
-        tb_information.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Information.this, CourseAndTaskActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-
-    private void setmailbox() {
-
-        btn_changemail.setOnClickListener(new View.OnClickListener() {
+        btn_logoff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder Logoff = new AlertDialog.Builder(Information.this);
@@ -98,10 +77,31 @@ public class Information extends AppCompatActivity {
             }
         });
 
+        initToolbar();
+        request_init();
+        setmailbox();
+
+
+    }
+
+    private void initToolbar() {
+        setSupportActionBar(tb_information);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        tb_information.setNavigationIcon(R.drawable.back_arrow);
+        tb_information.setTitle("个人信息");
+        tb_information.setTitleTextColor(Color.rgb(255, 255, 255));
+        tb_information.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+
+    private void setmailbox() {
         et_mailbox.setClickable(true);
-
         iv_clearmailbox.setVisibility(View.GONE);
-
         et_mailbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,9 +118,7 @@ public class Information extends AppCompatActivity {
             }
         });
 
-
         et_mailbox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 //当actionId == XX_SEND 或者 XX_DONE时都触发
@@ -129,17 +127,51 @@ public class Information extends AppCompatActivity {
                 if (actionId == EditorInfo.IME_ACTION_SEND
                         || actionId == EditorInfo.IME_ACTION_DONE
                         || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
-                    String newMail = et_mailbox.getText().toString();
-                 //   request_changemail(newMail);
+                    newMail = et_mailbox.getText().toString();
+                    request_sendVerifyCode();
                 }
                 return false;
             }
         });
     }
 
- /*   private void request_init() {
+    private void showDialog_verify ( ){
+        final EditText et = new EditText(Information.this);
+        new AlertDialog.Builder(Information.this).setTitle("VerifyCode")
+                .setView(et)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String input = et.getText().toString();
+                        if (input.equals("")) {
+                            Toast.makeText(getApplicationContext(), "内容不能为空！" + input, Toast.LENGTH_LONG).show();
+                        }
+                        else
+                            request_changemail(newMail,input);
+                    }
+                })
+                .show();
+    }
+
+    private void request_sendVerifyCode( ) {
+        SendVerifyCodeService sendVerifyCodeService = RetrofitWrapper.getInstance().create(SendVerifyCodeService.class);
+        Call<SendVerifyCodeBean> call = sendVerifyCodeService.Send(token,newMail);
+        call.enqueue(new Callback<SendVerifyCodeBean>() {
+            @Override
+            public void onResponse(Call<SendVerifyCodeBean> call, Response<SendVerifyCodeBean> response) {
+                verifyCodeToken = response.body().getVerifyCodeToken();
+                showDialog_verify();
+            }
+
+            @Override
+            public void onFailure(Call<SendVerifyCodeBean> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void request_init() {
         InformationService informationService = RetrofitWrapper.getInstance().create(InformationService.class);
-        Call<InformationBean> call = informationService.getInformationBean();
+        Call<InformationBean> call = informationService.getInformationBean(token);
         call.enqueue(new Callback<InformationBean>() {
             @Override
             public void onResponse(Call<InformationBean> call, Response<InformationBean> response) {
@@ -158,21 +190,27 @@ public class Information extends AppCompatActivity {
             }
         });
     }
-/*
-    private void request_changemail(String newmail){
+
+    private void request_changemail(final String newMail , String verifyCode) {
         ChangeMailService changeMailService = RetrofitWrapper.getInstance().create(ChangeMailService.class);
-        Call<ChangeMailReturnData> call = changeMailService.getReturn(new ChangeMailPostData(newmail, ));
+        Call<ChangeMailReturnData> call = changeMailService.getReturn(token,verifyCodeToken,new ChangeMailPostData(newMail,verifyCode));
         call.enqueue(new Callback<ChangeMailReturnData>() {
             @Override
             public void onResponse(Call<ChangeMailReturnData> call, Response<ChangeMailReturnData> response) {
-
+                if ( response.isSuccessful() ){
+                    Toast.makeText(Information.this, "修改成功", Toast.LENGTH_LONG).show();
+                    et_mailbox.setText(newMail);
+                } else {
+                    Toast.makeText(Information.this, "请重试", Toast.LENGTH_LONG).show();
+                    showDialog_verify();
+                }
             }
-
             @Override
             public void onFailure(Call<ChangeMailReturnData> call, Throwable t) {
-
+                Toast.makeText(Information.this, "请重试", Toast.LENGTH_LONG).show();
+                showDialog_verify();
             }
         });
-        */
+    }
 }
 
