@@ -88,18 +88,19 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     SaveUserInfo();
                     Intent intent = new Intent(LoginActivity.this, CourseAndTaskActivity.class);
+                    assert response.body() != null;
                     intent.putExtra("token", response.body().getToken());
                     intent.putExtra("cookie", response.body().getCookie());
                     startActivity(intent);
                 } else {
-                    Log.e("not     ","successful");
+                    Log.e("not     ", "successful");
                     GetWrong();
                 }
             }
 
             @Override
             public void onFailure(Call<CourseBean> call, Throwable t) {
-                Log.e("                  mmmmmmmmmmmmmmm","           iiiiiiiiiiiiiiiiiiiiiii");
+                Log.e("                  mmmmmmmmmmmmmmm", "           iiiiiiiiiiiiiiiiiiiiiii");
                 GetWrong();
             }
         });
@@ -110,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
         if (remember.isChecked()) {
             String userName = et_userName.getText().toString();
             String password = et_password.getText().toString();
-            editor.putBoolean("remember_password",true);
+            editor.putBoolean("remember_password", true);
             editor.putString("userName", userName);
             editor.putString("password", password);
         } else {

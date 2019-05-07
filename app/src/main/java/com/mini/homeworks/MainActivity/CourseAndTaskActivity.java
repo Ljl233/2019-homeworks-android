@@ -1,5 +1,6 @@
 package com.mini.homeworks.MainActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -55,95 +57,104 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
     List<CoursesBean.CourseListBean> courselist;
     List<TaskBean.AssignListBean> tasklist, tmptasklist;
     TaskBean.AssignListBean[] task;
-    private String cookie = getIntent().getStringExtra("cookie");
-    private String token = getIntent().getStringExtra("token");
+    private String cookie;
+    private String token;
+    public Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_and_task);
+
+        cookie = getIntent().getStringExtra("cookie");
+        token = getIntent().getStringExtra("token");
+        context = this;
         initView();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ll_information :{
+            case R.id.ll_information: {
                 Intent intent = new Intent(CourseAndTaskActivity.this, Information.class);
-                intent.putExtra("cookie",cookie);
-                intent.putExtra("token",token);
+                intent.putExtra("cookie", cookie);
+                intent.putExtra("token", token);
                 startActivity(intent);
                 break;
             }
-            case R.id.ll_remind :{
+            case R.id.ll_remind: {
                 Intent intent = new Intent(CourseAndTaskActivity.this, NotificationActivity.class);
-                intent.putExtra("cookie",cookie);
-                intent.putExtra("token",token);startActivity(intent);
+                intent.putExtra("cookie", cookie);
+                intent.putExtra("token", token);
+                startActivity(intent);
                 break;
             }
-            case R.id.ll_assignment :{
+            case R.id.ll_assignment: {
                 Intent intent = new Intent(CourseAndTaskActivity.this, MyAssign.class);
-                intent.putExtra("cookie",cookie);
-                intent.putExtra("token",token);startActivity(intent);
+                intent.putExtra("cookie", cookie);
+                intent.putExtra("token", token);
+                startActivity(intent);
                 break;
             }
-            case R.id.ll_notice :{
+            case R.id.ll_notice: {
                 Intent intent = new Intent(CourseAndTaskActivity.this, MyNotice.class);
-                intent.putExtra("cookie",cookie);
-                intent.putExtra("token",token);startActivity(intent);
+                intent.putExtra("cookie", cookie);
+                intent.putExtra("token", token);
+                startActivity(intent);
                 break;
             }
-            case R.id.ll_friends :{
+            case R.id.ll_friends: {
                 Intent intent = new Intent(CourseAndTaskActivity.this, FriendManagement.class);
-                intent.putExtra("cookie",cookie);
-                intent.putExtra("token",token);startActivity(intent);
+                intent.putExtra("cookie", cookie);
+                intent.putExtra("token", token);
+                startActivity(intent);
                 break;
             }
-            case R.id.btn_all : {
-                btn_all.setTextColor(Color.argb((float) 1,255,255,255));
-                btn_all.setBackgroundColor(Color.argb((float) 1,77, 182, 172));
-                btn_overdue.setTextColor(Color.argb((float) 0.26,0,0,0));
-                btn_overdue.setBackgroundColor(Color.argb((float) 0.12,0,0,0));
-                btn_processing.setTextColor(Color.argb((float) 0.26,0,0,0));
-                btn_processing.setBackgroundColor(Color.argb((float) 0.12,0,0,0));
-                btn_completed.setTextColor(Color.argb((float) 0.26,0,0,0));
-                btn_completed.setBackgroundColor(Color.argb((float) 0.12,0,0,0));
+            case R.id.btn_all: {
+                btn_all.setTextColor(Color.argb((float) 1, 255, 255, 255));
+                btn_all.setBackgroundColor(Color.argb((float) 1, 77, 182, 172));
+                btn_overdue.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
+                btn_overdue.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
+                btn_processing.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
+                btn_processing.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
+                btn_completed.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
+                btn_completed.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
                 tmptasklist = tasklist;
                 break;
             }
-            case R.id.btn_processing : {
-                btn_processing.setTextColor(Color.argb((float) 1,255,255,255));
-                btn_processing.setBackgroundColor(Color.argb((float) 1,77, 182, 172));
-                btn_overdue.setTextColor(Color.argb((float) 0.26,0,0,0));
-                btn_overdue.setBackgroundColor(Color.argb((float) 0.12,0,0,0));
-                btn_all.setTextColor(Color.argb((float) 0.26,0,0,0));
-                btn_all.setBackgroundColor(Color.argb((float) 0.12,0,0,0));
-                btn_completed.setTextColor(Color.argb((float) 0.26,0,0,0));
-                btn_completed.setBackgroundColor(Color.argb((float) 0.12,0,0,0));
+            case R.id.btn_processing: {
+                btn_processing.setTextColor(Color.argb((float) 1, 255, 255, 255));
+                btn_processing.setBackgroundColor(Color.argb((float) 1, 77, 182, 172));
+                btn_overdue.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
+                btn_overdue.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
+                btn_all.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
+                btn_all.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
+                btn_completed.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
+                btn_completed.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
                 selectprocessing();
                 break;
             }
-            case R.id.btn_completed : {
-                btn_completed.setTextColor(Color.argb((float) 1,255,255,255));
-                btn_completed.setBackgroundColor(Color.argb((float) 1,77, 182, 172));
-                btn_overdue.setTextColor(Color.argb((float) 0.26,0,0,0));
-                btn_overdue.setBackgroundColor(Color.argb((float) 0.12,0,0,0));
-                btn_processing.setTextColor(Color.argb((float) 0.26,0,0,0));
-                btn_processing.setBackgroundColor(Color.argb((float) 0.12,0,0,0));
-                btn_all.setTextColor(Color.argb((float) 0.26,0,0,0));
-                btn_all.setBackgroundColor(Color.argb((float) 0.12,0,0,0));
+            case R.id.btn_completed: {
+                btn_completed.setTextColor(Color.argb((float) 1, 255, 255, 255));
+                btn_completed.setBackgroundColor(Color.argb((float) 1, 77, 182, 172));
+                btn_overdue.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
+                btn_overdue.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
+                btn_processing.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
+                btn_processing.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
+                btn_all.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
+                btn_all.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
                 selectcompeleted();
                 break;
             }
-            case R.id.btn_overdue : {
-                btn_overdue.setTextColor(Color.argb((float) 1,255,255,255));
-                btn_overdue.setBackgroundColor(Color.argb((float) 1,77, 182, 172));
-                btn_all.setTextColor(Color.argb((float) 0.26,0,0,0));
-                btn_all.setBackgroundColor(Color.argb((float) 0.12,0,0,0));
-                btn_processing.setTextColor(Color.argb((float) 0.26,0,0,0));
-                btn_processing.setBackgroundColor(Color.argb((float) 0.12,0,0,0));
-                btn_completed.setTextColor(Color.argb((float) 0.26,0,0,0));
-                btn_completed.setBackgroundColor(Color.argb((float) 0.12,0,0,0));
+            case R.id.btn_overdue: {
+                btn_overdue.setTextColor(Color.argb((float) 1, 255, 255, 255));
+                btn_overdue.setBackgroundColor(Color.argb((float) 1, 77, 182, 172));
+                btn_all.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
+                btn_all.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
+                btn_processing.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
+                btn_processing.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
+                btn_completed.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
+                btn_completed.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
                 selectoverdue();
                 break;
             }
@@ -173,14 +184,16 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
 
         vp_CourseAndTask = findViewById(R.id.vp_CourseAndTask);
         tl_CourseAndTask = findViewById(R.id.tl_CourseAndTask);
-        rv_course = findViewById(R.id.rv_course);
+
+        Log.d("/////？/////////", "rv_course"+rv_course);
         rv_task = findViewById(R.id.rv_task);
 
         tl_CourseAndTask.addTab(tl_CourseAndTask.newTab().setText("课堂列表"));
         tl_CourseAndTask.addTab(tl_CourseAndTask.newTab().setText("任务列表"));
         tl_CourseAndTask.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        VPAdapter viewPagerAdapter = new VPAdapter(getSupportFragmentManager(),tl_CourseAndTask.getTabCount());
+        VPAdapter viewPagerAdapter = new VPAdapter(getSupportFragmentManager(), tl_CourseAndTask.getTabCount());
+
         vp_CourseAndTask.setAdapter(viewPagerAdapter);
         tl_CourseAndTask.setupWithViewPager(vp_CourseAndTask);//关联ViewPager
 
@@ -196,41 +209,13 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 Intent intent = new Intent(CourseAndTaskActivity.this, SearchActivity.class);
-                intent.putExtra("cookie",cookie);
-                intent.putExtra("token",token);
+                intent.putExtra("cookie", cookie);
+                intent.putExtra("token", token);
                 startActivity(intent);
                 return true;
             }
         });
     }
-
-    private void initCourse(int total) {
-        int[] images = {R.drawable.books, R.drawable.caculator, R.drawable.glasses, R.drawable.notebook, R.drawable.pen};
-        int t = 0;
-        int i = 0;
-        while (i < total) {
-            CourseList.add(new Course(courselist.get(i).getCourseName(), images[t], courselist.get(i).getSiteId()));
-            i++;
-            t++;
-            if (t == 5) t = 0;
-        }
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        rv_course.setLayoutManager(layoutManager);
-        CourseAdapter courseAdapter = new CourseAdapter(CourseList);
-        rv_course.setAdapter(courseAdapter);
-
-        courseAdapter.setOnRecyclerViewItemClickListener(new CourseAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(int position) {
-                Intent intent = new Intent(CourseAndTaskActivity.this, AssignActivity.class);
-                intent.putExtra("siteId", CourseList.get(position - 1).getSiteId());
-                intent.putExtra("cookie",cookie);
-                intent.putExtra("token",token);
-                startActivity(intent);
-            }
-        });
-    }
-
 
     private void initTask(int total) {
         btn_overdue = findViewById(R.id.btn_overdue);
@@ -257,6 +242,7 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
                 else
                     endorder();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Another interface callback
@@ -274,18 +260,19 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
             public void onClick(int position) {
                 Intent intent = new Intent(CourseAndTaskActivity.this, DetailActivity.class);
                 intent.putExtra("siteId", tmptasklist.get(position - 1).getSiteId());
-                intent.putExtra("assignId",tmptasklist.get(position - 1 ).getAssignId());
-                intent.putExtra("cookie",cookie);
-                intent.putExtra("token",token);
+                intent.putExtra("assignId", tmptasklist.get(position - 1).getAssignId());
+                intent.putExtra("cookie", cookie);
+                intent.putExtra("token", token);
                 startActivity(intent);
             }
         });
 
     }
+
     private void beginorder() {
-        for (int i = 0 ; i < tmptasklist.size() ; i++ ) {
-            for (int j = i ; j < tmptasklist.size() ; j++ ) {
-                if ( task[i].getBeginTime() < task[j].getBeginTime() ) {
+        for (int i = 0; i < tmptasklist.size(); i++) {
+            for (int j = i; j < tmptasklist.size(); j++) {
+                if (task[i].getBeginTime() < task[j].getBeginTime()) {
                     TaskBean.AssignListBean t = task[i];
                     task[i] = task[j];
                     task[j] = t;
@@ -293,10 +280,11 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
             }
         }
     }
-    private void endorder () {
-        for (int i = 0 ; i < tmptasklist.size() ; i++ ) {
-            for (int j = i ; j < tmptasklist.size() ; j++ ) {
-                if ( task[i].getEndTime() < task[j].getEndTime() ) {
+
+    private void endorder() {
+        for (int i = 0; i < tmptasklist.size(); i++) {
+            for (int j = i; j < tmptasklist.size(); j++) {
+                if (task[i].getEndTime() < task[j].getEndTime()) {
                     TaskBean.AssignListBean t = task[i];
                     task[i] = task[j];
                     task[j] = t;
@@ -309,10 +297,10 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
         tmptasklist = tasklist;
         int l = tasklist.size();
         long now = Instant.now().getEpochSecond();
-        for (int i = 0 ; i < l ; i++ ) {
-            if ( tmptasklist.get(i).getEndTime() <= now ||
+        for (int i = 0; i < l; i++) {
+            if (tmptasklist.get(i).getEndTime() <= now ||
                     tmptasklist.get(i).getBeginTime() >= now ||
-                    ( tmptasklist.get(i).getStatus() != 0 && tmptasklist.get(i).getStatus() != 2 ) )
+                    (tmptasklist.get(i).getStatus() != 0 && tmptasklist.get(i).getStatus() != 2))
                 tmptasklist.remove(i);
         }
     }
@@ -321,9 +309,9 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
         tmptasklist = tasklist;
         int l = tasklist.size();
         long now = Instant.now().getEpochSecond();
-        for (int i = 0 ; i < l ; i++ ) {
-            if ( tmptasklist.get(i).getBeginTime() >= now ||
-                    (tmptasklist.get(i).getStatus() != 1 && tmptasklist.get(i).getStatus() != 3 ) )
+        for (int i = 0; i < l; i++) {
+            if (tmptasklist.get(i).getBeginTime() >= now ||
+                    (tmptasklist.get(i).getStatus() != 1 && tmptasklist.get(i).getStatus() != 3))
                 tmptasklist.remove(i);
         }
     }
@@ -332,8 +320,8 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
         tmptasklist = tasklist;
         int l = tasklist.size();
         long now = Instant.now().getEpochSecond();
-        for (int i = 0 ; i < l ; i++ ) {
-            if ( tmptasklist.get(i).getEndTime() >= now && tmptasklist.get(i).getBeginTime() < now )
+        for (int i = 0; i < l; i++) {
+            if (tmptasklist.get(i).getEndTime() >= now && tmptasklist.get(i).getBeginTime() < now)
                 tmptasklist.remove(i);
         }
     }
@@ -367,8 +355,10 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
             @Override
             public void onResponse(Call<CoursesBean> call, Response<CoursesBean> response) {
                 if (response.isSuccessful()) {
+                    assert response.body() != null;
                     courselist = response.body().getCourseList();
                     cookie = response.body().getCookie();
+                    Log.d("???????????????????????????????? ", String.valueOf(response.body().getTotal()));
                     initCourse(response.body().getTotal());
                 } else {
                     Toast.makeText(CourseAndTaskActivity.this, "请求失败，请重试", Toast.LENGTH_LONG).show();
@@ -381,6 +371,41 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
             }
         });
     }
+
+    private void initCourse(int total) {
+        rv_course = findViewById(R.id.rv_course);
+        Log.d("//////////////", "rv_course"+rv_course);
+
+        int[] images = {R.drawable.books, R.drawable.caculator, R.drawable.glasses, R.drawable.notebook, R.drawable.pen};
+        int t = 0;
+        int i = 0;
+        while (i < total) {
+            CourseList.add(new Course(courselist.get(i).getCourseName(), images[t], courselist.get(i).getSiteId()));
+            i++;
+            t++;
+            if (t == 5) t = 0;
+        }
+
+        Log.d("?????????????????????????????????????????????", String.valueOf(context));
+        Log.d("//////////////", "rv_course"+rv_course);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        rv_course.setLayoutManager(layoutManager);
+        CourseAdapter courseAdapter = new CourseAdapter(CourseList);
+        rv_course.setAdapter(courseAdapter);
+
+        courseAdapter.setOnRecyclerViewItemClickListener(new CourseAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                Intent intent = new Intent(CourseAndTaskActivity.this, AssignActivity.class);
+                intent.putExtra("siteId", CourseList.get(position - 1).getSiteId());
+                intent.putExtra("cookie", cookie);
+                intent.putExtra("token", token);
+                startActivity(intent);
+            }
+        });
+    }
+
+
 
     private void initView() {
         initNav();

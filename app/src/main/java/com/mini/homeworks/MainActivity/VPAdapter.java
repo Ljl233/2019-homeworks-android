@@ -5,23 +5,29 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class VPAdapter extends FragmentStatePagerAdapter {
-    int nNumOfTabs;
-    public VPAdapter(FragmentManager fm,int nNumOfTabs) {
+    private int nNumOfTabs;
+    private CourseFragment tab1 = null;
+    private TaskFragment tab2 = null;
+
+    public VPAdapter(FragmentManager fm, int nNumOfTabs) {
         super(fm);
-        this.nNumOfTabs=nNumOfTabs;
+        tab1 = new CourseFragment();
+        tab2 = new TaskFragment();
+        this.nNumOfTabs = nNumOfTabs;
     }
+
     @Override
     public Fragment getItem(int position) {
-        switch(position)
-        {
+        Fragment fragment = null;
+        switch (position) {
             case 0:
-                CourseFragment tab1 =new CourseFragment();
-                return tab1;
+                fragment = tab1;
+                break;
             case 1:
-                TaskFragment tab2 = new TaskFragment();
-                return tab2;
+                fragment = tab2;
+                break;
         }
-        return null;
+        return fragment;
     }
 
     @Override
