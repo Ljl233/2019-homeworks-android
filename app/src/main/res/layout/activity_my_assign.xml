@@ -11,18 +11,19 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#4DB6AC"
+        app:collapseIcon="@mipmap/close_icon"
         app:elevation="10dp"
         app:navigationIcon="@mipmap/back_arrow"
         app:title="我的任务"
-        app:titleTextColor="@color/white"
-        app:collapseIcon="@mipmap/close_icon"/>
+        app:titleTextColor="@color/white" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_myassign"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-
+        android:layout_width="374.86dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18.28dp"
+        android:layout_marginTop="18.28dp"
+        android:layout_marginEnd="18.28dp" />
 
 
 </LinearLayout>

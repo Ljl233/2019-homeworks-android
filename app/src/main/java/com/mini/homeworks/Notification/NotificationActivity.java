@@ -20,6 +20,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -146,6 +147,9 @@ public class NotificationActivity extends AppCompatActivity {
 
     //初始化控件
     public void initView() {
+        Toolbar toolbar_notification = findViewById(R.id.toolbar_notification);
+        toolbar_notification.setTitle("消息提醒");
+        setSupportActionBar(toolbar_notification);
         ll_add = findViewById(R.id.ll_add);
 
 

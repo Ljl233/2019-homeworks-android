@@ -201,7 +201,6 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
 
     private void initToolbar() {
         tb_head = findViewById(R.id.tb_head);
-        setSupportActionBar(tb_head);
         tb_head.setNavigationIcon(R.mipmap.menu_icon);
         tb_head.setTitle("HomeWorks");
         tb_head.inflateMenu(R.menu.search);
@@ -215,6 +214,7 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
                 return true;
             }
         });
+        setSupportActionBar(tb_head);
     }
 
     private void initTask(int total) {

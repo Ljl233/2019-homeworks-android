@@ -12,26 +12,34 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_weight="3"
-
         android:background="@drawable/rounded_rectangle_039be5"
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="vertical"
-            tools:ignore="UseCompoundDrawables">
+            android:layout_marginTop="18.2875dp"
+            android:layout_marginStart="18.2875dp"
+            android:layout_width="77.7143dp"
+            android:layout_height="27.4286dp"
+            android:background="@drawable/oval"
+            android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/oval" />
+                android:id="@+id/iv_courseassign_stutas"
+                android:layout_width="11.4286dp"
+                android:layout_height="11.4286dp"
+                android:layout_marginStart="10.2857dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp" />
 
             <TextView
+                android:id="@+id/tv_courseassign_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="已完成" />
+                android:layout_gravity="center"
+                android:layout_marginStart="5.7143dp"
+                android:layout_margin="9.1429dp"
+                android:textColor="@color/white"
+                android:textSize="36px" />
 
         </LinearLayout>
 
@@ -39,10 +47,12 @@
             android:id="@+id/tv_assignName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginTop="18.2875dp"
+            android:layout_marginStart="18.2875dp"
             android:text="@string/tv_assignName"
             android:textColor="#ffffff"
-            android:textSize="20sp" />
+            android:layout_marginBottom="28.5714dp"
+            android:textSize="48px" />
     </LinearLayout>
 
     <LinearLayout
@@ -50,6 +60,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
+        android:paddingEnd="9.1429dp"
+        android:paddingLeft="18.2875dp"
         android:orientation="horizontal">
 
         <TextView
@@ -59,7 +71,7 @@
             android:layout_gravity="left"
             android:layout_weight="1"
             android:text="@string/begin"
-            android:textSize="24sp" />
+            android:textSize="36px" />
 
         <TextView
             android:id="@+id/tv_ddl"
@@ -68,7 +80,7 @@
             android:layout_weight="1"
             android:gravity="right"
             android:text="@string/ddl"
-            android:textSize="24sp" />
+            android:textSize="36px" />
 
     </LinearLayout>
 </LinearLayout>

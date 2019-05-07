@@ -1,15 +1,16 @@
-<LinearLayout xmlns:android= "http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_task_view"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:orientation="vertical">
 
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48px"
         android:layout_marginLeft="48px"
+        android:layout_marginTop="48px"
         android:layout_marginBottom="72px">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -17,54 +18,54 @@
 
             <Spinner
                 android:id="@+id/spinner_collation"
-                android:spinnerMode="dropdown"
                 android:layout_width="wrap_content"
                 android:layout_height="108px"
-                android:dropDownSelector="@color/colorPrimaryDark"/>
+                android:dropDownSelector="@color/colorPrimaryDark"
+                android:spinnerMode="dropdown" />
 
             <Button
-                android:layout_marginLeft="24px"
                 android:id="@+id/btn_all"
                 android:layout_width="168px"
                 android:layout_height="108px"
+                android:layout_marginLeft="24px"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
                 android:text="全部"
                 android:textColor="@color/white"
-                android:textSize="36px"
-                android:background="@color/colorPrimary"
-                android:gravity="center"/>
+                android:textSize="36px" />
 
             <Button
-                android:layout_marginLeft="24px"
                 android:id="@+id/btn_processing"
                 android:layout_width="204px"
                 android:layout_height="108px"
+                android:layout_marginLeft="24px"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
                 android:text="进行中"
                 android:textColor="@color/white"
-                android:textSize="14sp"
-                android:background="@color/colorPrimary"
-                android:gravity="center"/>
+                android:textSize="14sp" />
 
             <Button
-                android:layout_marginLeft="24px"
                 android:id="@+id/btn_completed"
                 android:layout_width="204px"
                 android:layout_height="108px"
+                android:layout_marginLeft="24px"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
                 android:text="已完成"
                 android:textColor="@color/white"
-                android:textSize="14sp"
-                android:background="@color/colorPrimary"
-                android:gravity="center"/>
+                android:textSize="14sp" />
 
             <Button
-                android:layout_marginLeft="24px"
                 android:id="@+id/btn_overdue"
                 android:layout_width="204px"
                 android:layout_height="108px"
+                android:layout_marginLeft="24px"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
                 android:text="已逾期"
                 android:textColor="@color/white"
-                android:textSize="14sp"
-                android:background="@color/colorPrimary"
-                android:gravity="center"/>
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -74,10 +75,9 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_task"
-        android:layout_marginLeft="48px"
-        android:layout_marginRight="48px"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:layout_marginLeft="48px"
+        android:layout_marginRight="48px"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

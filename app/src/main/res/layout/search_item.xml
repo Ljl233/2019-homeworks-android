@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="402.2857dp"
+    android:layout_height="59.4286dp"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/search_course_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="59.4286dp"
+        android:layout_marginTop="11.0476dp"
         android:text="科目名"
         android:textColor="#000000"
-        android:textSize="24sp"
+        android:textSize="36px"
 
         />
 
@@ -20,10 +20,10 @@
         android:id="@+id/search_task_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="59.4286dp"
+        android:layout_marginTop="4.5714dp"
         android:text="作业名"
-        android:textSize="24sp"
+        android:textSize="36px"
         />
 
 </LinearLayout>

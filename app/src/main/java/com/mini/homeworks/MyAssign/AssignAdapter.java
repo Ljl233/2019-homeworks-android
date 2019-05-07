@@ -75,8 +75,8 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
         final Assignment dataBean = data.get(position);
         String begintime = GetDate.TimeStampToDate(""+dataBean.getBeginTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
         String endtime = GetDate.TimeStampToDate(""+dataBean.getEndTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
-        holder.tv_begintime.setText(begintime+" "+GetDate.DateToWeek(begintime));
-        holder.tv_endtime.setText(endtime+" "+GetDate.DateToWeek(endtime));
+        holder.tv_begintime.setText("开始时间："+begintime+" "+GetDate.DateToWeek(begintime));
+        holder.tv_endtime.setText("截止时间："+endtime+" "+GetDate.DateToWeek(endtime));
         holder.tv_assignName.setText(dataBean.getAssignName());
         holder.ll_myassign_item_in.setBackgroundResource(color_back.get(dataBean.getColor()));
         if(dataBean.getType() == 1) {
@@ -118,13 +118,19 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
             public void onOperationListener(int type, int color) {
                 switch (type) {
                     case 0 : { // 0：顶置变色（color = 变化的颜色，若无变化color = -1）
-                        if( color != -1 )
+                        if( color != -1 ) {
+                            holder.tv_endtime.setTextColor(color);
+                            holder.tv_begintime.setTextColor(color);
                             holder.ll_myassign_item_in.setBackgroundResource(color_back.get(color));
+                        }
                         break;
                     }
                     case 1 : { // 1：普通变色（color = 变化的颜色，若无变化color = -1）
-                        if( color != -1 )
+                        if( color != -1 ) {
+                            holder.tv_endtime.setTextColor(color);
+                            holder.tv_begintime.setTextColor(color);
                             holder.ll_myassign_item_in.setBackgroundResource(color_back.get(color));
+                        }
                         break;
                     }
                     case 2 : { // 2：删除顶置（color = -1）

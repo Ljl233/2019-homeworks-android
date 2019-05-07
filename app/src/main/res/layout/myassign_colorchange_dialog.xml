@@ -2,53 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="213dp"
-    android:layout_height="190dp"
+    android:layout_width="237.7134dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="18.2875dp"
         android:gravity="center_horizontal"
         android:text="@string/myassign_colorchange_dialog_title"
         android:textColor="#000000"
-        android:textSize="16sp" />
+        android:textSize="48px" />
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18.2875dp">
 
         <TableRow android:gravity="center_horizontal">
 
             <ImageView
                 android:id="@+id/iv_myassign_dialog_933da9"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="4dp"
+                android:layout_width="34.2857dp"
+                android:layout_height="34.2857dp"
+                android:layout_margin="4.5714dp"
                 android:src="@drawable/color_933da9"
                 tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/iv_myassign_dialog_3f51b5"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="4dp"
+                android:layout_width="34.2857dp"
+                android:layout_height="34.2857dp"
+                android:layout_margin="4.5714dp"
                 android:src="@drawable/color_3f51b5"
                 tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/iv_myassign_dialog_039be5"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="4dp"
+                android:layout_width="34.2857dp"
+                android:layout_height="34.2857dp"
+                android:layout_margin="4.5714dp"
                 android:src="@drawable/color_039be5"
                 tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/iv_myassign_dialog_f37047"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="4dp"
+                android:layout_width="34.2857dp"
+                android:layout_height="34.2857dp"
+                android:layout_margin="4.5714dp"
                 android:src="@drawable/color_f37047"
                 tools:ignore="ContentDescription" />
         </TableRow>
@@ -57,33 +59,33 @@
 
             <ImageView
                 android:id="@+id/iv_myassign_dialog_4db6ac"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="4dp"
+                android:layout_width="34.2857dp"
+                android:layout_height="34.2857dp"
+                android:layout_margin="4.5714dp"
                 android:src="@drawable/color_4db6ac"
                 tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/iv_myassign_dialog_e59089"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="4dp"
+                android:layout_width="34.2857dp"
+                android:layout_height="34.2857dp"
+                android:layout_margin="4.5714dp"
                 android:src="@drawable/color_e59089"
                 tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/iv_myassign_dialog_db4437"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="4dp"
+                android:layout_width="34.2857dp"
+                android:layout_height="34.2857dp"
+                android:layout_margin="4.5714dp"
                 android:src="@drawable/color_db4437"
                 tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/iv_myassign_dialog_bcbcbc"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="4dp"
+                android:layout_width="34.2857dp"
+                android:layout_height="34.2857dp"
+                android:layout_margin="4.5714dp"
                 android:src="@drawable/color_bcbcbc"
                 tools:ignore="ContentDescription" />
         </TableRow>
@@ -92,33 +94,33 @@
 
             <ImageView
                 android:id="@+id/iv_myassign_dialog_8490c8"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="4dp"
+                android:layout_width="34.2857dp"
+                android:layout_height="34.2857dp"
+                android:layout_margin="4.5714dp"
                 android:src="@drawable/color_8490c8"
                 tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/iv_myassign_dialog_f6bf26"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="4dp"
+                android:layout_width="34.2857dp"
+                android:layout_height="34.2857dp"
+                android:layout_margin="4.5714dp"
                 android:src="@drawable/color_f6bf26"
                 tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/iv_myassign_dialog_cd3278"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="4dp"
+                android:layout_width="34.2857dp"
+                android:layout_height="34.2857dp"
+                android:layout_margin="4.5714dp"
                 android:src="@drawable/color_cd3278"
                 tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/iv_myassign_dialog_4cb684"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="4dp"
+                android:layout_width="34.2857dp"
+                android:layout_height="34.2857dp"
+                android:layout_margin="4.5714dp"
                 android:src="@drawable/color_4cb684"
                 tools:ignore="ContentDescription" />
         </TableRow>
@@ -128,32 +130,31 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="13.7143dp"
+        android:layout_marginBottom="9.1429dp">
 
         <TextView
             android:id="@+id/tv_myassign_dialog_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="8dp"
             android:clickable="true"
             android:focusable="true"
             android:text="@string/myassign_colorchange_dialog_check"
             android:textColor="#4DB6AC"
-            android:textSize="12sp" />
+            android:textSize="36px" />
 
         <TextView
             android:id="@+id/tv_myassign_dialog_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="36.5714dp"
             android:layout_toStartOf="@id/tv_myassign_dialog_check"
             android:clickable="true"
             android:focusable="true"
             android:text="@string/myassign_colorchange_dialog_cancel"
             android:textColor="#9E9E9E"
-            android:textSize="12sp" />
+            android:textSize="36px" />
 
 
     </RelativeLayout>

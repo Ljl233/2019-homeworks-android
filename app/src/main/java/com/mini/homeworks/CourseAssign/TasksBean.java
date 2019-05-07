@@ -64,21 +64,21 @@ public class TasksBean {
          * status : Int
          * assignName : Int
          * beginTime : Int
-         * endTime : String
+         * endTime : Int
          * assignId : String
          */
 
-        private String status;
+        private int status;
         private String assignName;
-        private String beginTime;
-        private String endTime;
+        private int beginTime;
+        private int endTime;
         private String assignId;
 
-        public String getStatus() {
+        public int getStatus() {
             return status;
         }
 
-        public void setStatus(String status) {
+        public void setStatus(int status) {
             this.status = status;
         }
 
@@ -90,19 +90,19 @@ public class TasksBean {
             this.assignName = assignName;
         }
 
-        public String getBeginTime() {
+        public int getBeginTime() {
             return beginTime;
         }
 
-        public void setBeginTime(String beginTime) {
+        public void setBeginTime(int beginTime) {
             this.beginTime = beginTime;
         }
 
-        public String getEndTime() {
+        public int getEndTime() {
             return endTime;
         }
 
-        public void setEndTime(String endTime) {
+        public void setEndTime(int endTime) {
             this.endTime = endTime;
         }
 
