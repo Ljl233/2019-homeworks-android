@@ -27,10 +27,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView tv_begin2, tv_ddl2, tv_state, tv_content, tv_pointNum, tv_studentNum, tv_submitContent,
             tv_feedback, tv_assignAttachmentNum, tv_assignAttachment_name, tv_assignName2,tv_submitAttachmentNum;
 
-    String cookie = getIntent().getStringExtra("cookie");
-    String token = getIntent().getStringExtra("token");
-    String siteId = getIntent().getStringExtra("siteId");
-    String assignId = getIntent().getStringExtra("assignId");
+    String cookie, token, siteId, assignId;
 
     ListView listView;
 
@@ -39,7 +36,10 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
+        cookie = getIntent().getStringExtra("cookie");
+        token = getIntent().getStringExtra("token");
+        siteId = getIntent().getStringExtra("siteId");
+        assignId = getIntent().getStringExtra("assignId");
         initView();
     }
 

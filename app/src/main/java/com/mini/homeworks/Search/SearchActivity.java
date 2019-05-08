@@ -35,7 +35,7 @@ public class SearchActivity extends AppCompatActivity {
     Toolbar toolbar;
     SearchView mSearchView;
     SearchView.SearchAutoComplete mSearchAutoComplete;
-    String cookie = getIntent().getStringExtra("cookie"), token = getIntent().getStringExtra("token");
+    String cookie, token;
     RecyclerView recyclerView;
 
     Context context;
@@ -52,6 +52,9 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_search);
+        cookie = getIntent().getStringExtra("cookie");
+        token = getIntent().getStringExtra("token");
+
         //实例化toolbar
         toolbar = findViewById(R.id.toolbar_search);
         recyclerView = findViewById(R.id.ry_search);
