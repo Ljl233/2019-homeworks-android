@@ -14,7 +14,7 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
-        android:layout_width="912px"
+        android:layout_width="347.4286dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true">
@@ -26,8 +26,8 @@
 
             <ImageView
                 android:id="@+id/nav_background"
-                android:layout_width="912px"
-                android:layout_height="456px"
+                android:layout_width="match_parent"
+                android:layout_height="173.7143dp"
                 android:src="@drawable/nav_background" />
 
             <TextView
@@ -38,7 +38,7 @@
                 android:gravity="center_horizontal"
                 android:text="张全蛋"
                 android:textColor="@color/colorPrimary"
-                android:textSize="48px" />
+                android:textSize="18.2857sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -47,30 +47,30 @@
                 android:gravity="center_horizontal"
                 android:text="2018233333"
                 android:textColor="@color/colorPrimary"
-                android:textSize="48px" />
+                android:textSize="18.2857sp" />
 
             <LinearLayout
                 android:id="@+id/ll_information"
                 android:layout_width="match_parent"
-                android:layout_height="168px"
+                android:layout_height="64dp"
                 android:layout_below="@id/nav_background"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="65px"
-                    android:layout_height="65px"
+                    android:layout_width="24.7619dp"
+                    android:layout_height="24.7619dp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="19.4286dp"
                     android:src="@drawable/nav_information" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginStart="37.7142dp"
                     android:text="个人信息"
                     android:textColor="#000000"
-                    android:textSize="48px" />
+                    android:textSize="18.2857sp" />
             </LinearLayout>
 
             <View
@@ -82,25 +82,25 @@
             <LinearLayout
                 android:id="@+id/ll_remind"
                 android:layout_width="match_parent"
-                android:layout_height="168px"
+                android:layout_height="64dp"
                 android:layout_below="@id/ll_information"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="65px"
-                    android:layout_height="65px"
+                    android:layout_width="24.7619dp"
+                    android:layout_height="24.7619dp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="19.4286dp"
                     android:src="@drawable/nav_remind" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginStart="37.7142dp"
                     android:text="消息提醒"
                     android:textColor="#000000"
-                    android:textSize="48px" />
+                    android:textSize="18.2857sp" />
             </LinearLayout>
 
             <View
@@ -112,25 +112,25 @@
             <LinearLayout
                 android:id="@+id/ll_assignment"
                 android:layout_width="match_parent"
-                android:layout_height="168px"
+                android:layout_height="64dp"
                 android:layout_below="@id/ll_remind"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="65px"
-                    android:layout_height="65px"
+                    android:layout_width="24.7619dp"
+                    android:layout_height="24.7619dp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="19.4286dp"
                     android:src="@drawable/nav_assignment" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginStart="37.7142dp"
                     android:text="我的任务"
                     android:textColor="#000000"
-                    android:textSize="48px" />
+                    android:textSize="18.2857sp" />
             </LinearLayout>
 
             <View
@@ -142,25 +142,25 @@
             <LinearLayout
                 android:id="@+id/ll_notice"
                 android:layout_width="match_parent"
-                android:layout_height="168px"
+                android:layout_height="64dp"
                 android:layout_below="@id/ll_assignment"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="65px"
-                    android:layout_height="65px"
+                    android:layout_width="24.7619dp"
+                    android:layout_height="24.7619dp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="19.4286dp"
                     android:src="@drawable/nav_notice" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginStart="37.7142dp"
                     android:text="我的通知"
                     android:textColor="#000000"
-                    android:textSize="48px" />
+                    android:textSize="18.2857sp" />
             </LinearLayout>
 
             <View
@@ -172,25 +172,25 @@
             <LinearLayout
                 android:id="@+id/ll_friends"
                 android:layout_width="match_parent"
-                android:layout_height="168px"
+                android:layout_height="64dp"
                 android:layout_below="@id/ll_notice"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="65px"
-                    android:layout_height="65px"
+                    android:layout_width="24.7619dp"
+                    android:layout_height="24.7619dp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="19.4286dp"
                     android:src="@drawable/nav_friends" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginStart="37.7142dp"
                     android:text="好友管理"
                     android:textColor="#000000"
-                    android:textSize="48px" />
+                    android:textSize="18.2857sp" />
             </LinearLayout>
 
             <View
@@ -200,13 +200,12 @@
                 android:background="#C0C0C0" />
 
             <ImageView
-                android:layout_width="130dp"
-                android:layout_height="120dp"
+                android:layout_width="146.6667dp"
+                android:layout_height="106.6667dp"
                 android:layout_below="@id/ll_friends"
-                android:layout_marginStart="48px"
-                android:layout_marginLeft="48px"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginStart="12.2875dp"
+                android:layout_marginTop="43.0476dp"
+                android:layout_marginBottom="27.4286dp"
                 android:src="@drawable/nav_pic" />
 
         </RelativeLayout>

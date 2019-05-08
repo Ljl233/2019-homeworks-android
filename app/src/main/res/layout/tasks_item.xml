@@ -16,10 +16,10 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_marginTop="18.2875dp"
-            android:layout_marginStart="18.2875dp"
             android:layout_width="77.7143dp"
             android:layout_height="27.4286dp"
+            android:layout_marginStart="18.2875dp"
+            android:layout_marginTop="18.2875dp"
             android:background="@drawable/oval"
             android:orientation="horizontal">
 
@@ -36,8 +36,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="5.7143dp"
                 android:layout_margin="9.1429dp"
+                android:layout_marginStart="5.7143dp"
                 android:textColor="@color/white"
                 android:textSize="36px" />
 
@@ -47,40 +47,39 @@
             android:id="@+id/tv_assignName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18.2875dp"
             android:layout_marginStart="18.2875dp"
+            android:layout_marginTop="18.2875dp"
+            android:layout_marginBottom="28.5714dp"
             android:text="@string/tv_assignName"
             android:textColor="#ffffff"
-            android:layout_marginBottom="28.5714dp"
             android:textSize="48px" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:gravity="center"
-        android:paddingEnd="9.1429dp"
-        android:paddingLeft="18.2875dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingStart="18.2875dp"
+        android:paddingEnd="9.1429dp">
 
         <TextView
             android:id="@+id/tv_begin"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:layout_weight="1"
             android:text="@string/begin"
-            android:textSize="36px" />
+            android:textSize="13.7143sp" />
 
         <TextView
             android:id="@+id/tv_ddl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="right"
+            android:gravity="end"
             android:text="@string/ddl"
-            android:textSize="36px" />
+            android:textSize="13.7143sp" />
 
     </LinearLayout>
 </LinearLayout>

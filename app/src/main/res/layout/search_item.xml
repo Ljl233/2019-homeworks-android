@@ -11,10 +11,9 @@
         android:layout_marginStart="59.4286dp"
         android:layout_marginTop="11.0476dp"
         android:text="科目名"
-        android:textColor="#000000"
-        android:textSize="36px"
 
-        />
+        android:textColor="#000000"
+        android:textSize="13.7143sp" />
 
     <TextView
         android:id="@+id/search_task_name"
@@ -23,7 +22,6 @@
         android:layout_marginStart="59.4286dp"
         android:layout_marginTop="4.5714dp"
         android:text="作业名"
-        android:textSize="36px"
-        />
+        android:textSize="13.7143sp" />
 
 </LinearLayout>

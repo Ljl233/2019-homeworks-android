@@ -13,36 +13,36 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:navigationIcon="@drawable/back_arrow"/>
+        app:navigationIcon="@drawable/back_arrow"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9.14dp"
         android:layout_marginStart="27.42dp"
+        android:layout_marginTop="9.1429dp"
         android:text="提醒权限"
         android:textColor="#737373"
-        android:textSize="36px" />
+        android:textSize="13.7143sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="54.85dp"
-        android:layout_marginLeft="9.14dp"
-        android:layout_marginTop="9.14dp"
-        android:layout_marginRight="9.14dp"
+        android:layout_height="54.8571dp"
+        android:layout_marginStart="9.1429dp"
+        android:layout_marginTop="9.1429dp"
+        android:layout_marginEnd="9.1429dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="290dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18.28dp"
-            android:layout_marginTop="18.28dp"
-            android:layout_marginBottom="18.28dp"
+            android:layout_marginStart="18.2875dp"
+            android:layout_marginTop="18.2875dp"
+            android:layout_marginBottom="18.2875dp"
             android:text="允许弹窗提醒"
             android:textColor="#000000"
-            android:textSize="42px" />
+            android:textSize="16sp" />
 
         <com.kyleduo.switchbutton.SwitchButton
             android:id="@+id/switch_allow"
@@ -57,15 +57,15 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="9.14dp"
-        android:layout_marginRight="9.14dp"
+        android:layout_marginStart="9.1429dp"
+        android:layout_marginEnd="9.1429dp"
         android:background="#1f000000" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="54.85dp"
-        android:layout_marginLeft="9.14dp"
-        android:layout_marginRight="9.14dp"
+        android:layout_height="54.8571dp"
+        android:layout_marginStart="9.1429dp"
+        android:layout_marginEnd="9.1429dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
@@ -77,7 +77,7 @@
             android:layout_marginBottom="18.28dp"
             android:text="允许邮件提醒"
             android:textColor="#000000"
-            android:textSize="42px" />
+            android:textSize="16sp" />
 
         <com.kyleduo.switchbutton.SwitchButton
             android:id="@+id/switch_allow_mail"
@@ -93,30 +93,30 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9.14dp"
-        android:layout_marginStart="27.42dp"
+        android:layout_marginStart="27.4286dp"
+        android:layout_marginTop="9.1429dp"
         android:text="提醒时间"
         android:textColor="#737373"
-        android:textSize="36px" />
+        android:textSize="13.7143sp" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="54.85dp"
-        android:layout_marginLeft="9.14dp"
-        android:layout_marginRight="9.14dp"
+        android:layout_height="54.8571dp"
+        android:layout_marginStart="9.1429dp"
+        android:layout_marginEnd="9.1429dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18.28dp"
-            android:layout_marginTop="18.28dp"
-            android:layout_marginBottom="18.28dp"
+            android:layout_marginStart="18.2875dp"
+            android:layout_marginTop="17.1429dp"
+            android:layout_marginBottom="18.2875dp"
             android:text="1、据截止时间2天0时"
             android:textColor="#000000"
-            android:textSize="42px" />
+            android:textSize="16sp" />
 
 
     </LinearLayout>
@@ -125,64 +125,63 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="9.14dp"
-        android:layout_marginRight="9.14dp"
+        android:layout_marginStart="9.1429dp"
+        android:layout_marginEnd="9.1429dp"
         android:background="#1f000000" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="54.85dp"
-        android:layout_marginLeft="9.14dp"
-        android:layout_marginRight="9.14dp"
+        android:layout_height="54.8571dp"
+        android:layout_marginStart="9.1429dp"
+        android:layout_marginEnd="9.1429dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18.28dp"
-            android:layout_marginTop="18.28dp"
-            android:layout_marginBottom="18.28dp"
+            android:layout_marginStart="18.2875dp"
+            android:layout_marginTop="17.1429dp"
+            android:layout_marginBottom="18.2875dp"
             android:text="2、据截止时间1天0时"
             android:textColor="#000000"
-            android:textSize="42px" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="9.14dp"
-        android:layout_marginRight="9.14dp"
+        android:layout_marginStart="9.1429dp"
+        android:layout_marginEnd="9.1429dp"
         android:background="#1f000000" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="54.85dp"
-        android:layout_marginLeft="9.14dp"
-        android:layout_marginRight="9.14dp"
+        android:layout_height="54.8571dp"
+        android:layout_marginStart="9.1429dp"
+        android:layout_marginEnd="9.1429dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18.28dp"
-            android:layout_marginTop="18.28dp"
-            android:layout_marginBottom="18.28dp"
+            android:layout_marginStart="18.2875dp"
+            android:layout_marginTop="17.1429dp"
+            android:layout_marginBottom="18.2875dp"
             android:text="3、据截止时间0天8时"
             android:textColor="#000000"
-            android:textSize="42px" />
+            android:textSize="16sp" />
 
     </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_notification"
-        android:layout_marginStart="18.28dp"
-        android:layout_marginEnd="18.28dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18.2875dp"
+        android:layout_marginEnd="18.2875dp" />
 
     <LinearLayout
         android:id="@+id/ll_add"
@@ -193,15 +192,15 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="21.63dp"
-            android:layout_height="21.63dp"
+            android:layout_width="21.7143dp"
+            android:layout_height="21.7143dp"
             android:src="@drawable/add_icon" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="添加时间节点"
-            android:textSize="36px" />
+            android:textSize="13.7143sp" />
     </LinearLayout>
 
 </LinearLayout>

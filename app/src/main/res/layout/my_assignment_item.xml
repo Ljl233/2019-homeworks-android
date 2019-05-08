@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/iv_myassign_promotion"
-            android:layout_width="26.88dp"
-            android:layout_height="26.88dp"
+            android:layout_width="27.4286dp"
+            android:layout_height="27.4286dp"
             android:src="@drawable/promotion" />
 
         <RelativeLayout
@@ -46,10 +46,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="5.7143dp"
                     android:layout_margin="9.1429dp"
+                    android:layout_marginStart="5.7143dp"
                     android:textColor="@color/white"
-                    android:textSize="36px" />
+                    android:textSize="13.7143sp" />
 
             </LinearLayout>
 
@@ -73,7 +73,7 @@
             android:layout_marginBottom="28.5714dp"
             android:text="我是个栗子。。。"
             android:textColor="#ffffff"
-            android:textSize="48px" />
+            android:textSize="18.2875sp" />
 
     </LinearLayout>
 
@@ -85,22 +85,22 @@
         android:layout_marginEnd="9.1429dp"
         android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/tv_myassign_begintime"
-                android:layout_height="wrap_content"
-                android:text="开始时间："
-                android:textColor="#039BE5"
-                android:textSize="36px" />
+        <TextView
+            android:id="@+id/tv_myassign_begintime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始时间："
+            android:textColor="#039BE5"
+            android:textSize="13.7143sp" />
 
-            <TextView
-                android:id="@+id/tv_myassign_endtime"
-                android:layout_width="wrap_content"
-                android:layout_marginStart="22.8571dp"
-                android:layout_height="wrap_content"
-                android:text="截止时间："
-                android:textColor="#039BE5"
-                android:textSize="36px" />
+        <TextView
+            android:id="@+id/tv_myassign_endtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22.8571dp"
+            android:text="截止时间："
+            android:textColor="#039BE5"
+            android:textSize="13.7143sp" />
     </LinearLayout>
 
 </LinearLayout>

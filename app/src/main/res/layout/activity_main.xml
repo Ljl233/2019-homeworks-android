@@ -9,46 +9,46 @@
     <ImageView
         android:id="@+id/home"
         android:layout_width="wrap_content"
-        android:layout_height="116.7dp"
+        android:layout_height="127.619dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="93.3dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="93.3dp"
+        android:layout_marginStart="106.6667dp"
+        android:layout_marginTop="45.7143dp"
+        android:layout_marginEnd="106.6667dp"
         android:src="@drawable/home_page" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:gravity="center"
-        android:text="HomeWorks"
+        android:text="@string/app_name"
         android:textColor="#ff4db6ac"
-        android:textSize="60px" />
+        android:textSize="22.8571sp" />
 
     <LinearLayout
         android:id="@+id/account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginStart="36.5714dp"
+        android:layout_marginEnd="36.5174dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="bottom"
             android:layout_weight="1"
             android:text="学号"
             android:textColor="#ff000000"
-            android:textSize="48px" />
+            android:textSize="18.2875sp" />
 
         <EditText
             android:id="@+id/et_userName"
             android:layout_width="0dp"
-            android:layout_height="47dp"
+            android:layout_height="53.7143dp"
             android:layout_gravity="bottom"
             android:layout_weight="20"
-            android:textSize="48px" />
+            android:textSize="18.2875sp" />
 
     </LinearLayout>
 
@@ -56,53 +56,53 @@
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginStart="36.5714dp"
+        android:layout_marginEnd="36.5714dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="bottom"
             android:layout_weight="1"
             android:text="密码"
             android:textColor="#ff000000"
-            android:textSize="48px" />
+            android:textSize="18.2875sp" />
 
         <EditText
             android:id="@+id/et_password"
             android:layout_width="0dp"
-            android:layout_height="47dp"
+            android:layout_height="53.7143dp"
             android:layout_gravity="bottom"
             android:layout_weight="20"
             android:inputType="textPassword"
-            android:textSize="48px" />
+            android:textSize="18.2875sp" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_signin"
-        android:layout_width="296dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_width="338.2875dp"
+        android:layout_height="36.5714dp"
+        android:layout_marginStart="36.5714dp"
+        android:layout_marginEnd="36.5714dp"
         android:background="@color/colormain"
         android:text="@string/login"
         android:textColor="#ffffffff"
-        android:textSize="48px" />
+        android:textSize="18.2875sp" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="18.2875dp"
         android:orientation="horizontal">
 
         <CheckBox
             android:id="@+id/remember"
-            android:layout_width="163dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="36.5714dp"
             android:text="@string/remember"
             android:textColor="#ff4db6ac" />
 
@@ -112,12 +112,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="31.7dp"
+            android:layout_marginEnd="36.1905dp"
             android:clickable="true"
 
             android:text="@string/forget"
             android:textColor="#ff4db6ac"
-            android:textSize="36px" />
+            android:textSize="13.7143sp" />
     </RelativeLayout>
 
 </LinearLayout>

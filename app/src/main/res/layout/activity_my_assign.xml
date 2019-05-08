@@ -19,11 +19,11 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_myassign"
-        android:layout_width="374.86dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18.28dp"
-        android:layout_marginTop="18.28dp"
-        android:layout_marginEnd="18.28dp" />
+        android:layout_marginStart="18.2875dp"
+        android:layout_marginTop="18.2875dp"
+        android:layout_marginEnd="18.2875dp" />
 
 
 </LinearLayout>

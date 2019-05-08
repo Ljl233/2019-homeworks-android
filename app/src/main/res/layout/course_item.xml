@@ -20,7 +20,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="38.095dp"
             android:textColor="#000000"
-            android:textSize="48px" />
+            android:textSize="18.2875sp" />
 
     </LinearLayout>
 

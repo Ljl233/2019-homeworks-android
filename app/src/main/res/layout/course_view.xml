@@ -9,6 +9,6 @@
         android:id="@+id/rv_course"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="21.3dp" />
+        android:layout_marginStart="18.2875dp" />
 
 </LinearLayout>

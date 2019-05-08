@@ -11,67 +11,71 @@
 
     <TextView
         android:id="@+id/notification_num"
-        android:layout_weight="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18.28dp"
         android:layout_marginTop="18.28dp"
         android:layout_marginBottom="18.28dp"
+        android:layout_weight="0"
         android:text="3"
         android:textColor="#000000"
-        android:textSize="42px" />
+        android:textSize="16sp" />
 
     <TextView
-        android:layout_weight="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_weight="0"
         android:text="、据截止时间"
         android:textColor="#000000"
-        android:textSize="42px" />
+        android:textSize="16sp" />
+
     <TextView
         android:id="@+id/notification_day"
-        android:layout_weight="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_weight="0"
         android:text="0"
         android:textColor="#000000"
-        android:textSize="42px"/>
+        android:textSize="16sp" />
+
     <TextView
-        android:layout_weight="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_weight="0"
         android:text="天"
         android:textColor="#000000"
-        android:textSize="42px"/>
+        android:textSize="16sp" />
+
     <TextView
         android:id="@+id/notification_hour"
-        android:layout_weight="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_weight="0"
         android:text="3"
         android:textColor="#000000"
-        android:textSize="42px"/>
+        android:textSize="16sp" />
+
     <TextView
-        android:layout_weight="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_weight="0"
         android:text="时"
         android:textColor="#000000"
-        android:textSize="42px"/>
+        android:textSize="16sp" />
 
     <com.kyleduo.switchbutton.SwitchButton
         android:id="@+id/switch_time"
-        android:layout_weight="1"
         style="@style/SwitchButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="150dp"
+        android:layout_weight="1"
         tools:ignore="RtlHardcoded" />
 
 </LinearLayout>

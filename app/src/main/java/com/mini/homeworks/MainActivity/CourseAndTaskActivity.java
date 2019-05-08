@@ -403,8 +403,6 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
         });
     }
 
-
-
     private void initView() {
         initToolbar();
         initNav();
