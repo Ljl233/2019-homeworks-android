@@ -406,11 +406,11 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
 
 
     private void initView() {
+        initToolbar();
         initNav();
         initVP();
-        initToolbar();
-        request_course();
         request_task();
+        request_course();
     }
 
     @Override

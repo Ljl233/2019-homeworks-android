@@ -38,8 +38,8 @@ public class Information extends AppCompatActivity {
     private Button btn_logoff;
     private ImageView iv_clearmailbox;
     private TextView tv_name, tv_num;
-    private String token = getIntent().getStringExtra("token");
-    private String cookie = getIntent().getStringExtra("cookie");
+    private String token;
+    private String cookie;
     private String verifyCodeToken;
     private String newMail;
 
@@ -47,6 +47,8 @@ public class Information extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
+        token = getIntent().getStringExtra("token");
+        cookie = getIntent().getStringExtra("cookie");
         initView();
     }
 

@@ -56,7 +56,7 @@ public class NotificationActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private SwitchButton switchButton_allow;
     private SwitchButton switchButton_mail;
-    public String token = getIntent().getStringExtra("token"), cookie = getIntent().getStringExtra("cookie");
+    public String token, cookie;
     public NotificationAdapter adapter;
     final NotificationService notificationService = RetrofitWrapper.getInstance().create(NotificationService.class);
     public static final int NOTIFICATION_ID = 1;
@@ -66,6 +66,9 @@ public class NotificationActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
+        token = getIntent().getStringExtra("token");
+        cookie = getIntent().getStringExtra("cookie");
+
         //初始化控件
         initView();
         //设置监听事件
