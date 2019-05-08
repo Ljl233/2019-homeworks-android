@@ -38,6 +38,9 @@
             android:name=".MyAssign.MyAssign"
             android:theme="@style/MyAssignStyle"></activity>
 
+        <activity android:name=".CourseAssign.AssignActivity"
+            android:theme="@style/AppThemeBase"/>
+
         <activity android:name=".Notification.NotificationActivity" />
 
 

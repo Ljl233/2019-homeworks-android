@@ -27,14 +27,19 @@ public class AssignActivity extends AppCompatActivity {
     private List<TasksBean.DataBean> mAssignList = new ArrayList<>();
     private RecyclerView recyclerView;
     private AssignAdapter assignAdapter;
-    String cookie = getIntent().getStringExtra("cookie");
-    String token = getIntent().getStringExtra("token");
-    String siteId = getIntent().getStringExtra("siteId");
+    Intent i;
+    String cookie;
+    String token;
+    String siteId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tasks_main);
+        i = this.getIntent();
+        cookie = i.getStringExtra("cookie");
+        token = i.getStringExtra("token");
+        siteId = i.getStringExtra("siteId");
 
         init();
 
@@ -54,8 +59,8 @@ public class AssignActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.task_recycle_view);
 
         setSupportActionBar(toolbar);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+//        getActionBar().setDisplayHomeAsUpEnabled(true);
+//        getActionBar().setHomeButtonEnabled(true);
 
         request();
 
@@ -84,7 +89,7 @@ public class AssignActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<TasksBean> call, Response<TasksBean> response) {
                 if (response.isSuccessful()) {
-                    mAssignList.add((TasksBean.DataBean) response.body().getData());
+                    mAssignList=response.body().getData();
                     cookie = response.body().getCookie();
                 }
             }

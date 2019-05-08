@@ -185,9 +185,6 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
         vp_CourseAndTask = findViewById(R.id.vp_CourseAndTask);
         tl_CourseAndTask = findViewById(R.id.tl_CourseAndTask);
 
-        Log.d("/////？/////////", "rv_course"+rv_course);
-        rv_task = findViewById(R.id.rv_task);
-
         tl_CourseAndTask.addTab(tl_CourseAndTask.newTab().setText("课堂列表"));
         tl_CourseAndTask.addTab(tl_CourseAndTask.newTab().setText("任务列表"));
         tl_CourseAndTask.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -218,6 +215,7 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
     }
 
     private void initTask(int total) {
+        rv_task = findViewById(R.id.rv_task);
         btn_overdue = findViewById(R.id.btn_overdue);
         btn_processing = findViewById(R.id.btn_processing);
         btn_all = findViewById(R.id.btn_all);
@@ -397,7 +395,7 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(CourseAndTaskActivity.this, AssignActivity.class);
-                intent.putExtra("siteId", CourseList.get(position - 1).getSiteId());
+                intent.putExtra("siteId", CourseList.get(position).getSiteId());
                 intent.putExtra("cookie", cookie);
                 intent.putExtra("token", token);
                 startActivity(intent);
