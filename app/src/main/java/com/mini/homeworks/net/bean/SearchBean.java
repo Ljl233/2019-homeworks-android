@@ -15,7 +15,7 @@ public class SearchBean {
 
     private String msg;
     private String cookie;
-    private String total;
+    private int total;
     private List<CourseDataBean> courseData;
     private List<AssignDataBean> assignData;
     private List<ContentDataBean> contentData;
@@ -36,11 +36,11 @@ public class SearchBean {
         this.cookie = cookie;
     }
 
-    public String getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 

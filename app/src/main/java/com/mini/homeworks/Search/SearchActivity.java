@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -92,8 +93,6 @@ public class SearchActivity extends AppCompatActivity {
         helper = new RecordSQLiteOpenHelper(context);
 
 
-
-
         //设置 删除搜索记录 监听器
         tv_clear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +113,7 @@ public class SearchActivity extends AppCompatActivity {
         mSearchView = (SearchView) searchItem.getActionView();
         // 通过Id得到搜索框界面(SearchView.SearchAutoComplete)
         mSearchAutoComplete = mSearchView.findViewById(R.id.search_src_text);
+        mSearchView.setIconifiedByDefault(true);
 
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -153,7 +153,6 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 
-
     //网络请求
     private void searchCourse(final String s) {
 
@@ -163,6 +162,10 @@ public class SearchActivity extends AppCompatActivity {
         GetCookieAndToken();
         SearchService searchService = RetrofitWrapper.getInstance().create(SearchService.class);
         Call<SearchBean> call = searchService.getSearchBean(cookie, token, s);
+        Log.d("Search?", cookie);
+        Log.d("the key word", s);
+        Log.d("search token",token);
+        Log.d("call      ...", String.valueOf(call));
         call.enqueue(new Callback<SearchBean>() {
             @Override
             public void onResponse(Call<SearchBean> call, Response<SearchBean> response) {
@@ -209,10 +212,10 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     //查询数据，显示到listView列表上
-    private void query(String temp){
+    private void query(String temp) {
         //1.模糊搜索
-        Cursor cursor=helper.getReadableDatabase().rawQuery(
-                "select id as _id,name from rcords where name like '%"+ temp+"%' order by id desc ",null
+        Cursor cursor = helper.getReadableDatabase().rawQuery(
+                "select id as _id,name from rcords where name like '%" + temp + "%' order by id desc ", null
         );
         //2.创建adapter适配器对象，装入结果
         // ArrayAdapter adapter =new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,)
@@ -225,16 +228,16 @@ public class SearchActivity extends AppCompatActivity {
 //        recyclerView.setAdapter(searchAdapter);
 //
 //    }
-    private void SaveCookie (String cookie) {
-        SharedPreferences data = getSharedPreferences("CandT",MODE_PRIVATE);
+    private void SaveCookie(String cookie) {
+        SharedPreferences data = getSharedPreferences("CandT", MODE_PRIVATE);
         SharedPreferences.Editor editor = data.edit();
-        editor.putString("cookie",cookie);
+        editor.putString("cookie", cookie);
         editor.apply();
     }
 
-    private void GetCookieAndToken () {
-        SharedPreferences data = getSharedPreferences("CandT",MODE_PRIVATE);
-        cookie = data.getString("cookie",null);
+    private void GetCookieAndToken() {
+        SharedPreferences data = getSharedPreferences("CandT", MODE_PRIVATE);
+        cookie = data.getString("cookie", null);
         token = data.getString("token", null);
     }
 }

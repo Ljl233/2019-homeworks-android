@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 
 public class VPAdapter extends FragmentPagerAdapter {
 
-    private CourseFragment courseFragment = null;
-    private TaskFragment taskFragment = null;
+    private CourseFragment courseFragment;
+    private TaskFragment taskFragment;
 
     public VPAdapter(FragmentManager fm) {
         super(fm);

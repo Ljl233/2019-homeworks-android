@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,7 +20,6 @@ import java.util.List;
 
 public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHolder> {
 
-    private Context mContext;
     private List<CourseAssignBean.DataBean> mDates;
     private OnItemClickListener mOnItemClickListener;
 
@@ -37,7 +37,7 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = View.inflate(mContext, R.layout.tasks_item, null);
+        View view = View.inflate(parent.getContext(), R.layout.tasks_item, null);
         return new MyViewHolder(view);
     }
 
@@ -77,7 +77,7 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
         TextView tv_ddl;
         TextView tv_begin;
         TextView tv_assignName;
-        RelativeLayout itemLayout;
+        LinearLayout itemLayout;
         ImageView iv_status;
         TextView tv_status;
 

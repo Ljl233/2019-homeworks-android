@@ -70,8 +70,8 @@ public class CourseAssignBean {
 
         private int status;
         private String assignName;
-        private int beginTime;
-        private int endTime;
+        private long beginTime;
+        private long endTime;
         private String assignId;
 
         public int getStatus() {
@@ -90,7 +90,7 @@ public class CourseAssignBean {
             this.assignName = assignName;
         }
 
-        public int getBeginTime() {
+        public long getBeginTime() {
             return beginTime;
         }
 
@@ -98,7 +98,7 @@ public class CourseAssignBean {
             this.beginTime = beginTime;
         }
 
-        public int getEndTime() {
+        public long getEndTime() {
             return endTime;
         }
 

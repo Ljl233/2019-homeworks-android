@@ -54,6 +54,8 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
     private Toolbar tb_head;
     private DrawerLayout dl_navigation;
     public Context context;
+    private ViewPager vp_CourseAndTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,14 +110,14 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
         ll_friends.setOnClickListener(this);
     }
     private void initVP() {
-        ViewPager vp_CourseAndTask = findViewById(R.id.vp_CourseAndTask);
+        vp_CourseAndTask = findViewById(R.id.vp_CourseAndTask);
         TabLayout tl_CourseAndTask = findViewById(R.id.tl_CourseAndTask);
-        tl_CourseAndTask.addTab(tl_CourseAndTask.newTab().setText("课堂列表"));
-        tl_CourseAndTask.addTab(tl_CourseAndTask.newTab().setText("任务列表"));
         tl_CourseAndTask.setTabGravity(TabLayout.GRAVITY_FILL);
         VPAdapter viewPagerAdapter = new VPAdapter(getSupportFragmentManager());
         vp_CourseAndTask.setAdapter(viewPagerAdapter);
         tl_CourseAndTask.setupWithViewPager(vp_CourseAndTask);//关联ViewPager
+        tl_CourseAndTask.getTabAt(0).setText("作业");
+        tl_CourseAndTask.getTabAt(1).setText("任务");
     }
 
     private void initToolbar() {

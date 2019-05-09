@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.mini.homeworks.net.Service.TasksService;
 import com.mini.homeworks.net.bean.TasksBean;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -41,14 +43,15 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
     String cookie;
     String token;
 
-    List<TasksBean.AssignListBean> tasklist, tmptasklist;
+    List<TasksBean.AssignListBean> tasklist = new ArrayList<>();
+    List<TasksBean.AssignListBean> tmptasklist = new ArrayList<>();
     TasksBean.AssignListBean[] task;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.task_view,container,false);
-
+        initTask();
         request_task();
         return view;
     }
@@ -62,10 +65,10 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onResponse(Call<TasksBean> call, Response<TasksBean> response) {
                 if (response.isSuccessful()) {
-                    tasklist = response.body().getAssignList();
+                    tasklist.addAll(response.body().getAssignList());
+                    if(rv_task.getAdapter() != null)rv_task.getAdapter().notifyDataSetChanged();
                     cookie = response.body().getCookie();
                     SaveCookie(cookie);
-                    initTask();
                 } else {
                     Toast.makeText(getActivity(), "加载失败，请重试", Toast.LENGTH_LONG).show();
                 }
@@ -94,6 +97,7 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
 
         task = new TasksBean.AssignListBean[tmptasklist.size()];
         tmptasklist.toArray(task);
+        Log.d("敢为为空？", String.valueOf(getContext()));
         ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(getContext(), R.array.array_collation, R.layout.task_view_spinner_text_item);
         spinnerAdapter.setDropDownViewResource(R.layout.task_view_spinner_dropdown_item);
         spinner_collation.setAdapter(spinnerAdapter);
@@ -115,7 +119,7 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rv_task.setLayoutManager(layoutManager);
-        TaskAdapter taskAdapter = new TaskAdapter(tmptasklist);
+        TaskAdapter taskAdapter = new TaskAdapter(tasklist);
         rv_task.setAdapter(taskAdapter);
         taskAdapter.setOnRecyclerViewItemClickListener(new TaskAdapter.OnItemClickListener() {
             @Override

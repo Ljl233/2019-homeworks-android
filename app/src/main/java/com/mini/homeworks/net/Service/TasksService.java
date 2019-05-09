@@ -7,6 +7,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 
 public interface TasksService {
-    @GET("/api/assignment/list/")
+    @GET("api/assignment/list")
     Call<TasksBean> getTaskBean(@Header("cookie") String cookie, @Header ("token") String token);
 }

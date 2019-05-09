@@ -62,12 +62,12 @@ public class AssignActivity extends AppCompatActivity {
 //        getActionBar().setDisplayHomeAsUpEnabled(true);
 //        getActionBar().setHomeButtonEnabled(true);
 
-        request();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL, false));
         assignAdapter = new AssignAdapter(mAssignList);
         recyclerView.setAdapter(assignAdapter);
 
+        request();
         assignAdapter.setOnItemClickListener(new AssignAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -91,7 +91,8 @@ public class AssignActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<CourseAssignBean> call, Response<CourseAssignBean> response) {
                 if (response.isSuccessful()) {
-                    mAssignList = response.body().getData();
+                    mAssignList.addAll(response.body().getData());
+                    if(recyclerView.getAdapter() != null)recyclerView.getAdapter().notifyDataSetChanged();//更新UI
                     cookie = response.body().getCookie();
                     SaveCookie(cookie);
                 } else
@@ -100,7 +101,7 @@ public class AssignActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<CourseAssignBean> call, Throwable t) {
-                Toast.makeText(AssignActivity.this, "请检查网络连接", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AssignActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

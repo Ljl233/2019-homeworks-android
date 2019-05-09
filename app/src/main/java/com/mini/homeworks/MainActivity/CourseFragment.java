@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +89,7 @@ public class CourseFragment extends Fragment {
 
             @Override
             public void onFailure(Call<CoursesBean> call, Throwable t) {
-                Toast.makeText(getContext(),"请检查网络连接",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
     }
