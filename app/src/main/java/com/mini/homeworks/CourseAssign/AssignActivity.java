@@ -1,15 +1,12 @@
 package com.mini.homeworks.CourseAssign;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -20,7 +17,6 @@ import com.mini.homeworks.R;
 import com.mini.homeworks.net.RetrofitWrapper;
 import com.mini.homeworks.net.Service.CourseAssignListService;
 import com.mini.homeworks.net.bean.CourseAssignBean;
-import com.mini.homeworks.net.bean.CoursesBean;
 
 import java.util.ArrayList;
 import java.util.List;

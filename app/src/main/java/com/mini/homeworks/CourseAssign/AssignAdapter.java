@@ -45,8 +45,8 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
     @Override
     public void onBindViewHolder (MyViewHolder holder, final int position){
         CourseAssignBean.DataBean dataBean = mDates.get(position);
-        String begintime = GetDate.TimeStampToDate(""+dataBean.getBeginTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
-        String endtime = GetDate.TimeStampToDate(""+dataBean.getEndTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
+        String begintime = GetDate.TimeStampToDate(""+dataBean.getBeginTime(), "yyyy-MM-dd HH:mm:ss").substring(0,10);
+        String endtime = GetDate.TimeStampToDate(""+dataBean.getEndTime(), "yyyy-MM-dd HH:mm:ss").substring(0,10);
         holder.tv_begin.setText("开始时间："+begintime+" "+GetDate.DateToWeek(begintime));
         holder.tv_ddl.setText("截止时间："+endtime+" "+GetDate.DateToWeek(endtime));
         holder.tv_assignName.setText(dataBean.getAssignName());
@@ -55,16 +55,19 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
             holder.aitem.setBackgroundResource(R.drawable.rounded_rectangle_bcbcbc);
             holder.iv_status.setImageResource(R.drawable.cross);
             holder.tv_status.setText("已逾期");
+            holder.tv_begin.setTextColor(Color.parseColor("#BCBCBC"));
             holder.tv_ddl.setTextColor(Color.parseColor("#BCBCBC"));
         } else if ( dataBean.getStatus() == 1 || dataBean.getStatus() == 3 ) {
             holder.aitem.setBackgroundResource(R.drawable.rounded_rectangle_3f51b5);
             holder.iv_status.setImageResource(R.drawable.tick);
             holder.tv_status.setText("已完成");
             holder.tv_ddl.setTextColor(Color.parseColor("#3F51B5"));
+            holder.tv_begin.setTextColor(Color.parseColor("#3F51B5"));
         } else if ( dataBean.getStatus() == 0 || dataBean.getStatus() == 2 ) {
             holder.aitem.setBackgroundResource(R.drawable.rounded_rectangle_039be5);
             holder.iv_status.setImageResource(R.drawable.circle);
             holder.tv_status.setText("进行中");
+            holder.tv_begin.setTextColor(Color.parseColor("#039BE5"));
             holder.tv_ddl.setTextColor(Color.parseColor("#039BE5"));
         }
     }

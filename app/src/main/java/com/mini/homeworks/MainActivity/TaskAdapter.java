@@ -46,8 +46,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder (TaskAdapter.MyViewHolder holder, final int position){
         TasksBean.AssignListBean dataBean = mDates.get(position);
-        String begintime = GetDate.TimeStampToDate(""+dataBean.getBeginTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
-        String endtime = GetDate.TimeStampToDate(""+dataBean.getEndTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
+        String begintime = GetDate.TimeStampToDate(""+dataBean.getBeginTime(), "yyyy-MM-dd HH:mm:ss").substring(0,10);
+        String endtime = GetDate.TimeStampToDate(""+dataBean.getEndTime(), "yyyy-MM-dd HH:mm:ss").substring(0,10);
         holder.tv_begin.setText(begintime+" "+GetDate.DateToWeek(begintime));
         holder.tv_ddl.setText(endtime+" "+GetDate.DateToWeek(endtime));
         holder.tv_assignName.setText(dataBean.getAssignName());

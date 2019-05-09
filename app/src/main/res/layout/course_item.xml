@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="64dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
@@ -20,12 +20,13 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="38.095dp"
             android:textColor="#000000"
-            android:textSize="18.2875sp" />
+            android:textAppearance="Source Han Sans CN"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#E0E0E0" />
+        android:background="#FFE0E0E0" />
 </LinearLayout>

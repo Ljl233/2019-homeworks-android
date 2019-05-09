@@ -77,6 +77,8 @@ public class LoginActivity extends AppCompatActivity {
                         clearUserInfo();
                     SaveCookieAndToken(response.body().getCookie(), response.body().getToken());
                     Intent intent = new Intent(LoginActivity.this, CourseAndTaskActivity.class);
+                    intent.putExtra("userName",response.body().getUserName());
+                    intent.putExtra("realName",response.body().getRealName());
                     startActivity(intent);
                 } else {
                     GetWrong();
@@ -134,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
         } else remember.setChecked(false);
     }
     //清空数据
-    private void clearUserInfo(){
+    private void clearUserInfo() {
         SharedPreferences userInfo = getSharedPreferences("user", MODE_PRIVATE);
         SharedPreferences.Editor editor = userInfo.edit();//获取Editor
         editor.clear();

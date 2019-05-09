@@ -41,6 +41,7 @@
                 android:textSize="18.2857sp" />
 
             <TextView
+                android:id="@+id/tv_nav_uesrname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_nav_name"

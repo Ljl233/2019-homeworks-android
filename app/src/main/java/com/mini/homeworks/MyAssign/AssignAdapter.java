@@ -73,8 +73,8 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
         color_back.put( Color.parseColor("#4CB684"), R.drawable.rounded_rectangle_4cb684 );
 
         final AssignmentBean dataBean = data.get(position);
-        String begintime = GetDate.TimeStampToDate(""+dataBean.getBeginTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
-        String endtime = GetDate.TimeStampToDate(""+dataBean.getEndTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
+        String begintime = GetDate.TimeStampToDate(""+dataBean.getBeginTime(), "yyyy-MM-dd HH:mm:ss").substring(0,10);
+        String endtime = GetDate.TimeStampToDate(""+dataBean.getEndTime(), "yyyy-MM-dd HH:mm:ss").substring(0,10);
         holder.tv_begintime.setText("开始时间："+begintime+" "+GetDate.DateToWeek(begintime));
         holder.tv_endtime.setText("截止时间："+endtime+" "+GetDate.DateToWeek(endtime));
         holder.tv_assignName.setText(dataBean.getAssignName());

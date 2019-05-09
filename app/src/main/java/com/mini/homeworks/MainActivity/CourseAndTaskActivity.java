@@ -25,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mini.homeworks.AssignDetail.DetailActivity;
@@ -55,6 +56,8 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
     private DrawerLayout dl_navigation;
     public Context context;
     private ViewPager vp_CourseAndTask;
+    private LinearLayout ll_assignment, ll_information, ll_notice, ll_remind, ll_friends;
+    private TextView tv_nav_name, tv_nav_username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,11 +101,15 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, dl_navigation, tb_head, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         dl_navigation.addDrawerListener(toggle);
         toggle.syncState();
-        LinearLayout ll_assignment = findViewById(R.id.ll_assignment);
-        LinearLayout ll_information = findViewById(R.id.ll_information);
-        LinearLayout ll_notice = findViewById(R.id.ll_notice);
-        LinearLayout ll_remind = findViewById(R.id.ll_remind);
-        LinearLayout ll_friends = findViewById(R.id.ll_friends);
+        tv_nav_name = findViewById(R.id.tv_nav_name);
+        tv_nav_username = findViewById(R.id.tv_nav_uesrname);
+        tv_nav_name.setText(getIntent().getStringExtra("realName"));
+        tv_nav_username.setText(getIntent().getStringExtra("userName"));
+        ll_assignment = findViewById(R.id.ll_assignment);
+        ll_information = findViewById(R.id.ll_information);
+        ll_notice = findViewById(R.id.ll_notice);
+        ll_remind = findViewById(R.id.ll_remind);
+        ll_friends = findViewById(R.id.ll_friends);
         ll_information.setOnClickListener(this);
         ll_notice.setOnClickListener(this);
         ll_remind.setOnClickListener(this);
@@ -116,8 +123,8 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
         VPAdapter viewPagerAdapter = new VPAdapter(getSupportFragmentManager());
         vp_CourseAndTask.setAdapter(viewPagerAdapter);
         tl_CourseAndTask.setupWithViewPager(vp_CourseAndTask);//关联ViewPager
-        tl_CourseAndTask.getTabAt(0).setText("作业");
-        tl_CourseAndTask.getTabAt(1).setText("任务");
+        tl_CourseAndTask.getTabAt(0).setText("课堂列表");
+        tl_CourseAndTask.getTabAt(1).setText("任务列表");
     }
 
     private void initToolbar() {
