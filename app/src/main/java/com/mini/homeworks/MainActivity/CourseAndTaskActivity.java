@@ -14,6 +14,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -202,20 +204,38 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
 
     private void initToolbar() {
         tb_head = findViewById(R.id.tb_head);
-        tb_head.setNavigationIcon(R.mipmap.menu_icon);
         tb_head.setTitle("HomeWorks");
-        tb_head.inflateMenu(R.menu.search);
-        tb_head.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Intent intent = new Intent(CourseAndTaskActivity.this, SearchActivity.class);
-                intent.putExtra("cookie", cookie);
-                intent.putExtra("token", token);
-                startActivity(intent);
-                return true;
-            }
-        });
         setSupportActionBar(tb_head);
+        tb_head.setNavigationIcon(R.mipmap.menu_icon);
+        // tb_head.inflateMenu(R.menu.search);
+//        tb_head.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                Intent intent = new Intent(CourseAndTaskActivity.this, SearchActivity.class);
+//                intent.putExtra("cookie", cookie);
+//                intent.putExtra("token", token);
+//                startActivity(intent);
+//                return true;
+//            }
+        //       });
+    }
+
+    //加载menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.search, menu);
+        return true;
+    }
+
+    //menu点击事件
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(CourseAndTaskActivity.this, SearchActivity.class);
+        intent.putExtra("cookie", cookie);
+        intent.putExtra("token", token);
+        startActivity(intent);
+        return true;
     }
 
     private void initTask(int total) {
@@ -376,7 +396,7 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
 
     private void initCourse(int total) {
         rv_course = findViewById(R.id.rv_course);
-        Log.d("//////////////", "rv_course"+rv_course);
+        Log.d("//////////////", "rv_course" + rv_course);
 
         int[] images = {R.drawable.books, R.drawable.caculator, R.drawable.glasses, R.drawable.notebook, R.drawable.pen};
         int t = 0;
@@ -389,7 +409,7 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
         }
 
         Log.d("?????????????????????????????????????????????", String.valueOf(context));
-        Log.d("//////////////", "rv_course"+rv_course);
+        Log.d("//////////////", "rv_course" + rv_course);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         rv_course.setLayoutManager(layoutManager);
         CourseAdapter courseAdapter = new CourseAdapter(CourseList);

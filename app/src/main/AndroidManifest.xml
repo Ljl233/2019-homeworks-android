@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mini.homeworks">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
@@ -20,6 +21,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -32,14 +34,15 @@
             android:name=".MainActivity.CourseAndTaskActivity"
             android:theme="@style/AppThemeBase"></activity>
 
-        <activity android:name="$Search.SearchActivity" />
+        <activity android:name=".Search.SearchActivity" />
 
         <activity
             android:name=".MyAssign.MyAssign"
             android:theme="@style/MyAssignStyle"></activity>
 
-        <activity android:name=".CourseAssign.AssignActivity"
-            android:theme="@style/AppThemeBase"/>
+        <activity
+            android:name=".CourseAssign.AssignActivity"
+            android:theme="@style/AppThemeBase" />
 
         <activity android:name=".Notification.NotificationActivity" />
 

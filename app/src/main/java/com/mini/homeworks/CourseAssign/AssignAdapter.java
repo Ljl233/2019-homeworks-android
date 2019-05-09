@@ -36,7 +36,7 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = View.inflate(mContext, R.layout.tasks_item, null);
         return new MyViewHolder(view);
     }

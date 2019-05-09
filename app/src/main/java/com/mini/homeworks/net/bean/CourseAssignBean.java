@@ -16,7 +16,7 @@ public class CourseAssignBean {
     private String msg;
     private String cookie;
     private String siteId;
-    private String total;
+    private int total;
     private List<DataBean> data;
 
     public String getMsg() {
@@ -43,11 +43,11 @@ public class CourseAssignBean {
         this.siteId = siteId;
     }
 
-    public String getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 

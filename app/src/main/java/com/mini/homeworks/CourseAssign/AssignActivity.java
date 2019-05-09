@@ -1,11 +1,14 @@
 package com.mini.homeworks.CourseAssign;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -72,10 +75,10 @@ public class AssignActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(AssignActivity.this, DetailActivity.class);
-                intent.putExtra("siteId",siteId);
-                intent.putExtra("assignId",mAssignList.get(position).getAssignId());
-                intent.putExtra("cookie",cookie);
-                intent.putExtra("token",token);
+                intent.putExtra("siteId", siteId);
+                intent.putExtra("assignId", mAssignList.get(position).getAssignId());
+                intent.putExtra("cookie", cookie);
+                intent.putExtra("token", token);
                 startActivity(intent);
             }
         });
@@ -89,7 +92,7 @@ public class AssignActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<CourseAssignBean> call, Response<CourseAssignBean> response) {
                 if (response.isSuccessful()) {
-                    mAssignList=response.body().getData();
+                    mAssignList = response.body().getData();
                     cookie = response.body().getCookie();
                 }
             }
@@ -97,6 +100,18 @@ public class AssignActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<CourseAssignBean> call, Throwable t) {
 
+                Log.d("loading failure","loading failure");
+                AlertDialog.Builder Wrong = new AlertDialog.Builder(AssignActivity.this);
+                //      Wrong.setTitle("加载失败");
+                Wrong.setMessage("加载失败");
+                Wrong.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //   et_userName.getText().clear();
+                        // et_password.getText().clear();
+                    }
+                });
+                Wrong.show();
             }
         });
     }

@@ -81,7 +81,7 @@
 
     <Button
         android:id="@+id/btn_signin"
-        android:layout_width="338.2875dp"
+        android:layout_width="match_parent"
         android:layout_height="36.5714dp"
         android:layout_marginStart="36.5714dp"
         android:layout_marginEnd="36.5714dp"
