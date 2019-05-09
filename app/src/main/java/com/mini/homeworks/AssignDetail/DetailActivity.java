@@ -1,6 +1,7 @@
 package com.mini.homeworks.AssignDetail;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,7 +27,7 @@ import retrofit2.Response;
 
 public class DetailActivity extends AppCompatActivity {
     TextView tv_begin2, tv_ddl2, tv_state, tv_content, tv_pointNum, tv_studentNum, tv_submitContent,
-            tv_feedback, tv_assignAttachmentNum, tv_assignAttachment_name, tv_assignName2,tv_submitAttachmentNum;
+            tv_feedback, tv_assignName2,tv_submitAttachmentNum;
 
     String cookie, token, siteId, assignId;
 
@@ -37,10 +38,6 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        cookie = getIntent().getStringExtra("cookie");
-        token = getIntent().getStringExtra("token");
-        siteId = getIntent().getStringExtra("siteId");
-        assignId = getIntent().getStringExtra("assignId");
         initView();
     }
 
@@ -80,6 +77,9 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void request() {
+        GetCookieAndToken();
+        siteId = getIntent().getStringExtra("siteId");
+        assignId = getIntent().getStringExtra("assignId");
         DetailService detailService = RetrofitWrapper.getInstance().create(DetailService.class);
         Call<DetailBean> call = detailService.getDetailBean(siteId, assignId, cookie, token);
         call.enqueue(new Callback<DetailBean>() {
@@ -87,6 +87,8 @@ public class DetailActivity extends AppCompatActivity {
             public void onResponse(Call<DetailBean> call, Response<DetailBean> response) {
                 if (response.isSuccessful()) {
                     DetailBean detail = response.body();
+                    cookie = response.body().getCookie();
+                    SaveCookie(cookie);
                     initDetail(detail);
                 } else {
                     Toast.makeText(DetailActivity.this, "请求失败，请重试", Toast.LENGTH_LONG).show();
@@ -123,5 +125,18 @@ public class DetailActivity extends AppCompatActivity {
         List<DetailBean.SubmitAttachmentBean> submitAttachmentBeanList = detail.getSubmitAttachment();
         detailAdapter = new DetailAdapter(this,submitAttachmentBeanList);
         listView.setAdapter(detailAdapter);
+    }
+
+    private void SaveCookie (String cookie) {
+        SharedPreferences data = getSharedPreferences("CandT",MODE_PRIVATE);
+        SharedPreferences.Editor editor = data.edit();
+        editor.putString("cookie",cookie);
+        editor.apply();
+    }
+
+    private void GetCookieAndToken () {
+        SharedPreferences data = getSharedPreferences("CandT",MODE_PRIVATE);
+        cookie = data.getString("cookie",null);
+        token = data.getString("token", null);
     }
 }

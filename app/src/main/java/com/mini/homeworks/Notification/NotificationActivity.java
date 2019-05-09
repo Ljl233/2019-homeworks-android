@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -47,11 +48,11 @@ public class NotificationActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private SwitchButton switchButton_allow;
     private SwitchButton switchButton_mail;
-    public String token, cookie;
-    public NotificationAdapter adapter;
+    private String token, cookie;
+    private NotificationAdapter adapter;
     final NotificationService notificationService = RetrofitWrapper.getInstance().create(NotificationService.class);
-    public static final int NOTIFICATION_ID = 1;
-    public Context context;
+    private static final int NOTIFICATION_ID = 1;
+    private Context context;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,6 +81,7 @@ public class NotificationActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
                 //邮件提醒启用状态更改
+                GetCookieAndToken();
                 Call<NotificationBean.MailIsSendModify> mailIsSendModifyCall = notificationService.getIsSend(token);
                 mailIsSendModifyCall.enqueue(new Callback<NotificationBean.MailIsSendModify>() {
                     @Override
@@ -101,13 +103,14 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void setNotification() {
-
-
+        GetCookieAndToken();
         Call<NotificationBean.AssignmentsGet> assignmentsGetCall = notificationService.getAssignments(cookie, token);
         assignmentsGetCall.enqueue(new Callback<NotificationBean.AssignmentsGet>() {
             @Override
             public void onResponse(Call<NotificationBean.AssignmentsGet> call, Response<NotificationBean.AssignmentsGet> response) {
                 assert response.body() != null;
+                cookie = response.body().getCookie();
+                SaveCookie(cookie);
                 List<NotificationBean.AssignmentsGet.DataBean> dataBeans = response.body().getData();
                 int num = dataBeans.size();
                 int[] endTimer = new int[num];
@@ -145,7 +148,6 @@ public class NotificationActivity extends AppCompatActivity {
         toolbar_notification.setTitle("消息提醒");
         setSupportActionBar(toolbar_notification);
         ll_add = findViewById(R.id.ll_add);
-
 
         //创建SQLiteOpenHelper
         MySQLiteOpenHelper dbhelper = new MySQLiteOpenHelper(this, "allow");
@@ -206,6 +208,7 @@ public class NotificationActivity extends AppCompatActivity {
                         EditText editText_hour = dialogView.findViewById(R.id.ed_dialog_hour);
                         int hour = Integer.valueOf(editText_hour.toString()) + Integer.valueOf(editText_day.toString()) * 24;
                         //添加事件节点
+                        GetCookieAndToken();
                         Call<NotificationBean.NoticeTimeAdd> noticeTimeAddCall = notificationService.getNoticeTimeAdd(hour, token);
                         noticeTimeAddCall.enqueue(new Callback<NotificationBean.NoticeTimeAdd>() {
                             @Override
@@ -330,8 +333,18 @@ public class NotificationActivity extends AppCompatActivity {
         });
         return noticeTime[0][0];
     }
+    private void SaveCookie (String cookie) {
+        SharedPreferences data = getSharedPreferences("CandT",MODE_PRIVATE);
+        SharedPreferences.Editor editor = data.edit();
+        editor.putString("cookie",cookie);
+        editor.apply();
+    }
 
-
+    private void GetCookieAndToken () {
+        SharedPreferences data = getSharedPreferences("CandT",MODE_PRIVATE);
+        cookie = data.getString("cookie",null);
+        token = data.getString("token", null);
+    }
 }
 
 

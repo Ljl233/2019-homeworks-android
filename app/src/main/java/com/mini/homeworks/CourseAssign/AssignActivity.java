@@ -2,6 +2,7 @@ package com.mini.homeworks.CourseAssign;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,12 +13,14 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.mini.homeworks.AssignDetail.DetailActivity;
 import com.mini.homeworks.R;
 import com.mini.homeworks.net.RetrofitWrapper;
 import com.mini.homeworks.net.Service.CourseAssignListService;
 import com.mini.homeworks.net.bean.CourseAssignBean;
+import com.mini.homeworks.net.bean.CoursesBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +33,6 @@ public class AssignActivity extends AppCompatActivity {
     private List<CourseAssignBean.DataBean> mAssignList = new ArrayList<>();
     private RecyclerView recyclerView;
     private AssignAdapter assignAdapter;
-    Intent i;
     String cookie;
     String token;
     String siteId;
@@ -39,11 +41,6 @@ public class AssignActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tasks_main);
-        i = this.getIntent();
-        cookie = i.getStringExtra("cookie");
-        token = i.getStringExtra("token");
-        siteId = i.getStringExtra("siteId");
-
         init();
 
     }
@@ -86,6 +83,8 @@ public class AssignActivity extends AppCompatActivity {
 
 
     private void request() {
+        GetCookieAndToken();
+        siteId = getIntent().getStringExtra("siteId");
         CourseAssignListService courseAssignListService = RetrofitWrapper.getInstance().create(CourseAssignListService.class);
         Call<CourseAssignBean> call = courseAssignListService.getTasksBean(siteId, cookie, token);
         call.enqueue(new Callback<CourseAssignBean>() {
@@ -94,26 +93,28 @@ public class AssignActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     mAssignList = response.body().getData();
                     cookie = response.body().getCookie();
-                }
+                    SaveCookie(cookie);
+                } else
+                    Toast.makeText(AssignActivity.this, "加载失败，请重试", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<CourseAssignBean> call, Throwable t) {
-
-                Log.d("loading failure","loading failure");
-                AlertDialog.Builder Wrong = new AlertDialog.Builder(AssignActivity.this);
-                //      Wrong.setTitle("加载失败");
-                Wrong.setMessage("加载失败");
-                Wrong.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //   et_userName.getText().clear();
-                        // et_password.getText().clear();
-                    }
-                });
-                Wrong.show();
+                Toast.makeText(AssignActivity.this, "请检查网络连接", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    private void SaveCookie (String cookie) {
+        SharedPreferences data = getSharedPreferences("CandT",MODE_PRIVATE);
+        SharedPreferences.Editor editor = data.edit();
+        editor.putString("cookie",cookie);
+        editor.apply();
+    }
+
+    private void GetCookieAndToken () {
+        SharedPreferences data = getSharedPreferences("CandT",MODE_PRIVATE);
+        cookie = data.getString("cookie",null);
+        token = data.getString("token", null);
+    }
 }

@@ -2,6 +2,7 @@ package com.mini.homeworks.PersonalInformation;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -30,13 +31,13 @@ import com.mini.homeworks.net.bean.SendVerifyCodeBean;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.GET;
 
 
 public class Information extends AppCompatActivity {
 
     private Toolbar tb_information;
     private EditText et_mailbox;
-    private Button btn_logoff;
     private ImageView iv_clearmailbox;
     private TextView tv_name, tv_num;
     private String token;
@@ -48,15 +49,13 @@ public class Information extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
-        token = getIntent().getStringExtra("token");
-        cookie = getIntent().getStringExtra("cookie");
         initView();
     }
 
     private void initView() {
         tb_information = findViewById(R.id.tb_information);
         et_mailbox = findViewById(R.id.et_mailbox);
-        btn_logoff = findViewById(R.id.btn_logoff);
+        Button btn_logoff = findViewById(R.id.btn_logoff);
         iv_clearmailbox = findViewById(R.id.iv_clearmailbox);
         tv_name = findViewById(R.id.tv_name);
         tv_num = findViewById(R.id.tv_num);
@@ -69,6 +68,7 @@ public class Information extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(Information.this, LoginActivity.class);
+                        startActivity(intent);
                     }
                 });
                 Logoff.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -156,6 +156,7 @@ public class Information extends AppCompatActivity {
     }
 
     private void request_sendVerifyCode( ) {
+        GetCookieAndToken();
         SendVerifyCodeService sendVerifyCodeService = RetrofitWrapper.getInstance().create(SendVerifyCodeService.class);
         Call<SendVerifyCodeBean> call = sendVerifyCodeService.Send(token,newMail);
         call.enqueue(new Callback<SendVerifyCodeBean>() {
@@ -173,6 +174,7 @@ public class Information extends AppCompatActivity {
     }
 
     private void request_init() {
+        GetCookieAndToken();
         InformationService informationService = RetrofitWrapper.getInstance().create(InformationService.class);
         Call<InformationBean> call = informationService.getInformationBean(token);
         call.enqueue(new Callback<InformationBean>() {
@@ -195,6 +197,7 @@ public class Information extends AppCompatActivity {
     }
 
     private void request_changemail(final String newMail , String verifyCode) {
+        GetCookieAndToken();
         ChangeMailService changeMailService = RetrofitWrapper.getInstance().create(ChangeMailService.class);
         Call<ChangeMailBean> call = changeMailService.getReturn(token,verifyCodeToken,new ChangeMailPostData(newMail,verifyCode));
         call.enqueue(new Callback<ChangeMailBean>() {
@@ -214,6 +217,18 @@ public class Information extends AppCompatActivity {
                 showDialog_verify();
             }
         });
+    }
+    private void SaveCookie (String cookie) {
+        SharedPreferences data = getSharedPreferences("CandT",MODE_PRIVATE);
+        SharedPreferences.Editor editor = data.edit();
+        editor.putString("cookie",cookie);
+        editor.apply();
+    }
+
+    private void GetCookieAndToken () {
+        SharedPreferences data = getSharedPreferences("CandT",MODE_PRIVATE);
+        cookie = data.getString("cookie",null);
+        token = data.getString("token", null);
     }
 }
 

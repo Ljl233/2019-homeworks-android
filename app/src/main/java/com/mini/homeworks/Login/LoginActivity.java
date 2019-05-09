@@ -6,9 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -27,28 +25,21 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-    private Button btn_signin;
     private EditText et_password, et_userName;
     private CheckBox remember;
-    private TextView forget;
-    private SharedPreferences sp;
-    private SharedPreferences.Editor editor;
-    private String userName;
-    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("////////////////////", String.valueOf(getIntent().getStringExtra("token")));
         initView();
     }
 
     private void initView() {
-        btn_signin = findViewById(R.id.btn_signin);
+        Button btn_signin = findViewById(R.id.btn_signin);
         et_userName = findViewById(R.id.et_userName);
         et_password = findViewById(R.id.et_password);
-        forget = findViewById(R.id.forget);
+        TextView forget = findViewById(R.id.forget);
         remember = findViewById(R.id.remember);
 
         btn_signin.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
                 request();
             }
         });
-
         forget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,64 +59,39 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        sp = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean isRemember = sp.getBoolean("remember_password", false);
-        if (isRemember) {
-            String userName = sp.getString("userName", "");
-            String password = sp.getString("password", "");
-            et_userName.setText(userName);
-            et_password.setText(password);
-            remember.setChecked(true);
-        }
+        getUserInfo();
     }
 
     private void request() {
         LoginService loginService = RetrofitWrapper.getInstance().create(LoginService.class);
-        userName = et_userName.getText().toString();
-        password = et_password.getText().toString();
-        Call<LoginBean> call = loginService.getCourseBean(new LoginPostData(userName, password));
+        final String username = et_userName.getText().toString();
+        final String password = et_password.getText().toString();
+        Call<LoginBean> call = loginService.getCourseBean(new LoginPostData(username, password));
         call.enqueue(new Callback<LoginBean>() {
             @Override
             public void onResponse(Call<LoginBean> call, Response<LoginBean> response) {
                 if (response.isSuccessful()) {
-                    SaveUserInfo();
+                    if ( remember.isChecked() )
+                        saveUserInfo(username,password);
+                    else
+                        clearUserInfo();
+                    SaveCookieAndToken(response.body().getCookie(), response.body().getToken());
                     Intent intent = new Intent(LoginActivity.this, CourseAndTaskActivity.class);
-                    assert response.body() != null;
-                    intent.putExtra("token", response.body().getToken());
-                    intent.putExtra("cookie", response.body().getCookie());
                     startActivity(intent);
                 } else {
-                    Log.e("not     ", "successful");
                     GetWrong();
                 }
             }
 
             @Override
             public void onFailure(Call<LoginBean> call, Throwable t) {
-                Log.e("                  mmmmmmmmmmmmmmm", "           iiiiiiiiiiiiiiiiiiiiiii");
-                GetWrong();
+                NetWrong();
             }
         });
     }
-
-    public void SaveUserInfo() {
-        editor = sp.edit();
-        if (remember.isChecked()) {
-            String userName = et_userName.getText().toString();
-            String password = et_password.getText().toString();
-            editor.putBoolean("remember_password", true);
-            editor.putString("userName", userName);
-            editor.putString("password", password);
-        } else {
-            editor.clear();
-        }
-        editor.apply();
-    }
-
     public void GetWrong() {
         AlertDialog.Builder Wrong = new AlertDialog.Builder(LoginActivity.this);
-        Wrong.setTitle("登陆失败");
+        Wrong.setTitle("登录失败");
         Wrong.setMessage("学号或密码错误，请重新输入。");
         Wrong.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
@@ -137,4 +102,50 @@ public class LoginActivity extends AppCompatActivity {
         });
         Wrong.show();
     }
+    private void NetWrong() {
+        AlertDialog.Builder Wrong = new AlertDialog.Builder(LoginActivity.this);
+        Wrong.setTitle("登录失败");
+        Wrong.setMessage("请检查网络连接");
+        Wrong.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        Wrong.show();
+    }
+    //保存用户信息
+    private void saveUserInfo(String username, String password){
+        SharedPreferences userInfo = getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();//获取Editor
+        //得到Editor后，写入需要保存的数据
+        editor.putString("username", username);
+        editor.putString("password", password);
+        editor.apply();//提交修改
+    }
+    //读取用户信息
+    private void getUserInfo() {
+        SharedPreferences userInfo = getSharedPreferences("user", MODE_PRIVATE);
+        String username = userInfo.getString("username", null);//读取username
+        String password = userInfo.getString("password", null);//读取password
+        if ( username != null) {
+            et_password.setText(password);
+            et_userName.setText(username);
+            remember.setChecked(true);
+        } else remember.setChecked(false);
+    }
+    //清空数据
+    private void clearUserInfo(){
+        SharedPreferences userInfo = getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();//获取Editor
+        editor.clear();
+        editor.apply();
+    }
+    private void SaveCookieAndToken (String cookie, String token) {
+        SharedPreferences data = getSharedPreferences("CandT",MODE_PRIVATE);
+        SharedPreferences.Editor editor = data.edit();
+        editor.putString("cookie",cookie);
+        editor.putString("token",token);
+        editor.apply();
+    }
+
 }

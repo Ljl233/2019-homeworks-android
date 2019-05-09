@@ -2,6 +2,7 @@ package com.mini.homeworks.Search;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -29,17 +30,18 @@ import java.lang.reflect.Method;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.GET;
 
 import static android.view.View.INVISIBLE;
 
 public class SearchActivity extends AppCompatActivity {
-    Toolbar toolbar;
-    SearchView mSearchView;
-    SearchView.SearchAutoComplete mSearchAutoComplete;
-    String cookie, token;
-    RecyclerView recyclerView;
+    private Toolbar toolbar;
+    private SearchView mSearchView;
+    private SearchView.SearchAutoComplete mSearchAutoComplete;
+    private String cookie, token;
+    private RecyclerView recyclerView;
 
-    Context context;
+    private Context context;
 
     //初始化数据库变量：历史记录
     private RecordSQLiteOpenHelper helper;
@@ -53,8 +55,6 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_search);
-        cookie = getIntent().getStringExtra("cookie");
-        token = getIntent().getStringExtra("token");
 
         //实例化toolbar
         toolbar = findViewById(R.id.toolbar_search);
@@ -160,12 +160,14 @@ public class SearchActivity extends AppCompatActivity {
         //设置清除历史按钮不可见
         tv_clear.setVisibility(INVISIBLE);
         iv_clear.setVisibility(INVISIBLE);
-
+        GetCookieAndToken();
         SearchService searchService = RetrofitWrapper.getInstance().create(SearchService.class);
         Call<SearchBean> call = searchService.getSearchBean(cookie, token, s);
         call.enqueue(new Callback<SearchBean>() {
             @Override
             public void onResponse(Call<SearchBean> call, Response<SearchBean> response) {
+                cookie = response.body().getCookie();
+                SaveCookie(cookie);
                 SearchBean searchBean = response.body();
                 SearchAdapter searchAdapter = new SearchAdapter(searchBean, s);
                 recyclerView.setAdapter(searchAdapter);
@@ -223,4 +225,16 @@ public class SearchActivity extends AppCompatActivity {
 //        recyclerView.setAdapter(searchAdapter);
 //
 //    }
+    private void SaveCookie (String cookie) {
+        SharedPreferences data = getSharedPreferences("CandT",MODE_PRIVATE);
+        SharedPreferences.Editor editor = data.edit();
+        editor.putString("cookie",cookie);
+        editor.apply();
+    }
+
+    private void GetCookieAndToken () {
+        SharedPreferences data = getSharedPreferences("CandT",MODE_PRIVATE);
+        cookie = data.getString("cookie",null);
+        token = data.getString("token", null);
+    }
 }
