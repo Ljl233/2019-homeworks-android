@@ -1,4 +1,4 @@
-package com.mini.homeworks.Utils;
+package com.mini.homeworks.net;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;

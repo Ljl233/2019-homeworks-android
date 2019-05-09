@@ -1,4 +1,4 @@
-package com.mini.homeworks.Notification;
+package com.mini.homeworks.net.bean;
 
 import java.util.List;
 

@@ -15,12 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mini.homeworks.R;
-import com.mini.homeworks.Utils.RetrofitWrapper;
+import com.mini.homeworks.net.RetrofitWrapper;
+import com.mini.homeworks.net.Service.SearchService;
+import com.mini.homeworks.net.bean.SearchBean;
 
 import java.lang.reflect.Method;
 

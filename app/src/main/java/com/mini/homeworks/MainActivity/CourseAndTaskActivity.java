@@ -33,7 +33,11 @@ import com.mini.homeworks.Notification.NotificationActivity;
 import com.mini.homeworks.PersonalInformation.Information;
 import com.mini.homeworks.R;
 import com.mini.homeworks.Search.SearchActivity;
-import com.mini.homeworks.Utils.RetrofitWrapper;
+import com.mini.homeworks.net.RetrofitWrapper;
+import com.mini.homeworks.net.Service.CoursesService;
+import com.mini.homeworks.net.Service.TasksService;
+import com.mini.homeworks.net.bean.CoursesBean;
+import com.mini.homeworks.net.bean.TasksBean;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -55,8 +59,8 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
     private Spinner spinner_collation;
     private Button btn_all, btn_completed, btn_processing, btn_overdue;
     List<CoursesBean.CourseListBean> courselist;
-    List<TaskBean.AssignListBean> tasklist, tmptasklist;
-    TaskBean.AssignListBean[] task;
+    List<TasksBean.AssignListBean> tasklist, tmptasklist;
+    TasksBean.AssignListBean[] task;
     private String cookie;
     private String token;
     public Context context;
@@ -227,7 +231,7 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
         btn_processing.setOnClickListener(this);
         btn_completed.setOnClickListener(this);
 
-        task = new TaskBean.AssignListBean[tmptasklist.size()];
+        task = new TasksBean.AssignListBean[tmptasklist.size()];
         tmptasklist.toArray(task);
         ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.array_collation, R.layout.task_view_spinner_text_item);
         spinnerAdapter.setDropDownViewResource(R.layout.task_view_spinner_dropdown_item);
@@ -271,7 +275,7 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
         for (int i = 0; i < tmptasklist.size(); i++) {
             for (int j = i; j < tmptasklist.size(); j++) {
                 if (task[i].getBeginTime() < task[j].getBeginTime()) {
-                    TaskBean.AssignListBean t = task[i];
+                    TasksBean.AssignListBean t = task[i];
                     task[i] = task[j];
                     task[j] = t;
                 }
@@ -283,7 +287,7 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
         for (int i = 0; i < tmptasklist.size(); i++) {
             for (int j = i; j < tmptasklist.size(); j++) {
                 if (task[i].getEndTime() < task[j].getEndTime()) {
-                    TaskBean.AssignListBean t = task[i];
+                    TasksBean.AssignListBean t = task[i];
                     task[i] = task[j];
                     task[j] = t;
                 }
@@ -326,11 +330,11 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
 
 
     private void request_task() {
-        TaskService taskService = RetrofitWrapper.getInstance().create(TaskService.class);
-        Call<TaskBean> call = taskService.getTaskBean(cookie, token);
-        call.enqueue(new Callback<TaskBean>() {
+        TasksService tasksService = RetrofitWrapper.getInstance().create(TasksService.class);
+        Call<TasksBean> call = tasksService.getTaskBean(cookie, token);
+        call.enqueue(new Callback<TasksBean>() {
             @Override
-            public void onResponse(Call<TaskBean> call, Response<TaskBean> response) {
+            public void onResponse(Call<TasksBean> call, Response<TasksBean> response) {
                 if (response.isSuccessful()) {
                     tasklist = response.body().getAssignList();
                     cookie = response.body().getCookie();
@@ -341,7 +345,7 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
             }
 
             @Override
-            public void onFailure(Call<TaskBean> call, Throwable t) {
+            public void onFailure(Call<TasksBean> call, Throwable t) {
             }
         });
     }

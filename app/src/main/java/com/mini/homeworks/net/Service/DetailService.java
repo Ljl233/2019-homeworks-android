@@ -1,5 +1,7 @@
-package com.mini.homeworks.AssignDetail;
+package com.mini.homeworks.net.Service;
 
+
+import com.mini.homeworks.net.bean.DetailBean;
 
 import retrofit2.*;
 import retrofit2.http.*;

@@ -1,4 +1,4 @@
-package com.mini.homeworks.PersonalInformation;
+package com.mini.homeworks.net.bean;
 
 public class ChangeMailPostData {
 

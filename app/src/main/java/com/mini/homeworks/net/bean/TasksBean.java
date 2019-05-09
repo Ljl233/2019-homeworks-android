@@ -1,23 +1,20 @@
-package com.mini.homeworks.CourseAssign;
+package com.mini.homeworks.net.bean;
 
 import java.util.List;
 
 public class TasksBean {
 
-
     /**
      * msg : String
      * cookie : String
-     * siteId : String
      * total : Int
-     * data : [{"status":"Int","assignName":"Int","beginTime":"Int","endTime":"String","assignId":"String"}]
+     * assignList : [{"siteId":"String","status":"Int","courseName":"String","assignName":"String","teacher":"String","beginTime":"Int","endTime":"Int","assignId":"String"}]
      */
 
     private String msg;
     private String cookie;
-    private String siteId;
-    private String total;
-    private List<DataBean> data;
+    private int total;
+    private List<AssignListBean> assignList;
 
     public String getMsg() {
         return msg;
@@ -35,44 +32,50 @@ public class TasksBean {
         this.cookie = cookie;
     }
 
-    public String getSiteId() {
-        return siteId;
-    }
-
-    public void setSiteId(String siteId) {
-        this.siteId = siteId;
-    }
-
-    public String getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 
-    public List<DataBean> getData() {
-        return data;
+    public List<AssignListBean> getAssignList() {
+        return assignList;
     }
 
-    public void setData(List<DataBean> data) {
-        this.data = data;
+    public void setAssignList(List<AssignListBean> assignList) {
+        this.assignList = assignList;
     }
 
-    public static class DataBean {
+    public static class AssignListBean {
         /**
+         * siteId : String
          * status : Int
-         * assignName : Int
+         * courseName : String
+         * assignName : String
+         * teacher : String
          * beginTime : Int
          * endTime : Int
          * assignId : String
          */
 
+        private String siteId;
         private int status;
+        private String courseName;
         private String assignName;
+        private String teacher;
         private int beginTime;
         private int endTime;
         private String assignId;
+
+        public String getSiteId() {
+            return siteId;
+        }
+
+        public void setSiteId(String siteId) {
+            this.siteId = siteId;
+        }
 
         public int getStatus() {
             return status;
@@ -82,12 +85,28 @@ public class TasksBean {
             this.status = status;
         }
 
+        public String getCourseName() {
+            return courseName;
+        }
+
+        public void setCourseName(String courseName) {
+            this.courseName = courseName;
+        }
+
         public String getAssignName() {
             return assignName;
         }
 
         public void setAssignName(String assignName) {
             this.assignName = assignName;
+        }
+
+        public String getTeacher() {
+            return teacher;
+        }
+
+        public void setTeacher(String teacher) {
+            this.teacher = teacher;
         }
 
         public int getBeginTime() {
@@ -114,5 +133,4 @@ public class TasksBean {
             this.assignId = assignId;
         }
     }
-
 }

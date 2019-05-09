@@ -6,15 +6,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.kyleduo.switchbutton.SwitchButton;
-import com.mini.homeworks.CourseAssign.AssignAdapter;
 import com.mini.homeworks.MySQLiteOpenHelper;
 import com.mini.homeworks.R;
-import com.mini.homeworks.Utils.RetrofitWrapper;
+import com.mini.homeworks.net.RetrofitWrapper;
+import com.mini.homeworks.net.Service.NotificationService;
+import com.mini.homeworks.net.bean.NotificationBean;
 
 import java.util.List;
 

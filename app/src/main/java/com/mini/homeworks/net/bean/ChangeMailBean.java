@@ -1,6 +1,6 @@
-package com.mini.homeworks.PersonalInformation;
+package com.mini.homeworks.net.bean;
 
-public class ChangeMailReturnData {
+public class ChangeMailBean {
     /**
      * msg : String
      */

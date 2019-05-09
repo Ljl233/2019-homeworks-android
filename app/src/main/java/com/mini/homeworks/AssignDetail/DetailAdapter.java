@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.mini.homeworks.R;
+import com.mini.homeworks.net.bean.DetailBean;
 
 import java.util.List;
 

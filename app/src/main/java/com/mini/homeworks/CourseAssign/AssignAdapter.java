@@ -12,16 +12,15 @@ import android.widget.TextView;
 
 import com.mini.homeworks.R;
 import com.mini.homeworks.Utils.GetDate;
+import com.mini.homeworks.net.bean.CourseAssignBean;
 
 import java.time.Instant;
 import java.util.List;
 
-import static com.mini.homeworks.R.drawable.rounded_rectangle_bcbcbc;
-
 public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<TasksBean.DataBean> mDates;
+    private List<CourseAssignBean.DataBean> mDates;
     private OnItemClickListener mOnItemClickListener;
 
     public interface OnItemClickListener {
@@ -31,7 +30,7 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
     public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
-    public AssignAdapter(List<TasksBean.DataBean> mDates){
+    public AssignAdapter(List<CourseAssignBean.DataBean> mDates){
 
         this.mDates = mDates;
     }
@@ -45,7 +44,7 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder (MyViewHolder holder, final int position){
-        TasksBean.DataBean dataBean = mDates.get(position);
+        CourseAssignBean.DataBean dataBean = mDates.get(position);
         String begintime = GetDate.TimeStampToDate(""+dataBean.getBeginTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
         String endtime = GetDate.TimeStampToDate(""+dataBean.getEndTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
         holder.tv_begin.setText("开始时间："+begintime+" "+GetDate.DateToWeek(begintime));

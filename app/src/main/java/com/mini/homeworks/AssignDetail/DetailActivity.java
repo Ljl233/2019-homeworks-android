@@ -1,6 +1,5 @@
 package com.mini.homeworks.AssignDetail;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,9 +8,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mini.homeworks.CourseAssign.AssignActivity;
 import com.mini.homeworks.R;
-import com.mini.homeworks.Utils.RetrofitWrapper;
+import com.mini.homeworks.net.RetrofitWrapper;
+import com.mini.homeworks.net.Service.DetailService;
+import com.mini.homeworks.net.bean.DetailBean;
 
 import java.util.List;
 

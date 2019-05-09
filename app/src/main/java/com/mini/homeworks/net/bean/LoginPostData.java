@@ -1,4 +1,4 @@
-package com.mini.homeworks.Login;
+package com.mini.homeworks.net.bean;
 
 public class LoginPostData{
     private String userName;

@@ -1,11 +1,12 @@
-package com.mini.homeworks.Search;
+package com.mini.homeworks.net.Service;
 
+
+import com.mini.homeworks.net.bean.SearchBean;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Query;
-import retrofit2.http.Url;
 
 public interface SearchService {
     @GET("/api/search/")

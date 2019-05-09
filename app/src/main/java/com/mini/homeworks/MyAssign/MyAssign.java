@@ -1,32 +1,24 @@
 package com.mini.homeworks.MyAssign;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.SparseIntArray;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.mini.homeworks.MyAssign.ManangeData;
 import com.mini.homeworks.AssignDetail.DetailActivity;
-import com.mini.homeworks.MainActivity.TaskBean;
-import com.mini.homeworks.MainActivity.TaskService;
-import com.mini.homeworks.MyAssign.Bean.Assignment;
+import com.mini.homeworks.net.bean.TasksBean;
+import com.mini.homeworks.net.Service.TasksService;
+import com.mini.homeworks.net.bean.AssignmentBean;
 import com.mini.homeworks.MyAssign.Bean.Delete;
 import com.mini.homeworks.MyAssign.Bean.Normal;
 import com.mini.homeworks.MyAssign.Bean.Overhead;
 import com.mini.homeworks.R;
-import com.mini.homeworks.Utils.RetrofitWrapper;
+import com.mini.homeworks.net.RetrofitWrapper;
 
 import org.litepal.LitePal;
 
@@ -42,12 +34,12 @@ public class MyAssign extends AppCompatActivity {
 
     private RecyclerView rv_myassign;
     private Toolbar tb_myassgin;
-    List<TaskBean.AssignListBean> tasklist;
+    List<TasksBean.AssignListBean> tasklist;
     private List<Overhead> overheads;
     private List<Delete> deletes;
     private List<Normal> normal;
     private AssignAdapter courseAdapter;
-    private List<Assignment> assignlist = new ArrayList<>();
+    private List<AssignmentBean> assignlist = new ArrayList<>();
     private String cookie = getIntent().getStringExtra("cookie");
     private String token = getIntent().getStringExtra("token");
 
@@ -132,7 +124,7 @@ public class MyAssign extends AppCompatActivity {
 
 
         for( int i = 0 ; i < overheads.size() ; i++ ) {
-            Assignment tmp = new Assignment();
+            AssignmentBean tmp = new AssignmentBean();
             tmp.setSiteId(overheads.get(i).getSiteId());
             tmp.setBeginTime(overheads.get(i).getBeginTime());
             tmp.setEndTime(overheads.get(i).getEndTime());
@@ -143,7 +135,7 @@ public class MyAssign extends AppCompatActivity {
             assignlist.add(tmp);
         }
         for( int i = 0 ; i < normal.size() ; i++ ) {
-            Assignment tmp = new Assignment();
+            AssignmentBean tmp = new AssignmentBean();
             tmp.setSiteId(normal.get(i).getSiteId());
             tmp.setBeginTime(normal.get(i).getBeginTime());
             tmp.setEndTime(normal.get(i).getEndTime());
@@ -157,7 +149,7 @@ public class MyAssign extends AppCompatActivity {
     }
 
 
-    public void myassign_rv_show( final List<Assignment> assignlist) {
+    public void myassign_rv_show( final List<AssignmentBean> assignlist) {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rv_myassign.setLayoutManager(layoutManager);
@@ -174,11 +166,11 @@ public class MyAssign extends AppCompatActivity {
     }
 
     private void request_task() {
-        TaskService taskService = RetrofitWrapper.getInstance().create(TaskService.class);
-        Call<TaskBean> call = taskService.getTaskBean(cookie,token);
-        call.enqueue(new Callback<TaskBean>() {
+        TasksService tasksService = RetrofitWrapper.getInstance().create(TasksService.class);
+        Call<TasksBean> call = tasksService.getTaskBean(cookie,token);
+        call.enqueue(new Callback<TasksBean>() {
             @Override
-            public void onResponse(Call<TaskBean> call, Response<TaskBean> response) {
+            public void onResponse(Call<TasksBean> call, Response<TasksBean> response) {
                 if (response.isSuccessful()) {
                     tasklist = response.body().getAssignList();
                     initData(response.body().getTotal());
@@ -188,7 +180,7 @@ public class MyAssign extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<TaskBean> call, Throwable t) {
+            public void onFailure(Call<TasksBean> call, Throwable t) {
             }
         });
 

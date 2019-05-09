@@ -1,7 +1,7 @@
-package com.mini.homeworks.MyAssign.Bean;
+package com.mini.homeworks.net.bean;
 
 
-public class Assignment {
+public class AssignmentBean {
     private String siteId;
     private int status;
     private String assignName;

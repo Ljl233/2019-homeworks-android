@@ -1,4 +1,6 @@
-package com.mini.homeworks.Notification;
+package com.mini.homeworks.net.Service;
+
+import com.mini.homeworks.net.bean.NotificationBean;
 
 import retrofit2.Call;
 import retrofit2.http.DELETE;

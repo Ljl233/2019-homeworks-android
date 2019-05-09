@@ -1,4 +1,6 @@
-package com.mini.homeworks.MainActivity;
+package com.mini.homeworks.net.Service;
+
+import com.mini.homeworks.net.bean.CoursesBean;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

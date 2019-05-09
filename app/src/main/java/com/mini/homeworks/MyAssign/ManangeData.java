@@ -1,9 +1,8 @@
 package com.mini.homeworks.MyAssign;
 
 import android.database.sqlite.SQLiteDatabase;
-import android.os.strictmode.SqliteObjectLeakedViolation;
 
-import com.mini.homeworks.MyAssign.Bean.Assignment;
+import com.mini.homeworks.net.bean.AssignmentBean;
 import com.mini.homeworks.MyAssign.Bean.Delete;
 import com.mini.homeworks.MyAssign.Bean.Normal;
 import com.mini.homeworks.MyAssign.Bean.Overhead;
@@ -16,24 +15,24 @@ import java.util.List;
 
 class ManangeData {
 
-    static void OverheadColorChange(Assignment data , int color) {
+    static void OverheadColorChange(AssignmentBean data , int color) {
         Overhead tmp  = new Overhead();
         tmp.setColor(color);
         tmp.updateAll("siteId = ?" , data.getSiteId() );
     }
 
-    static void NormalColorChange(Assignment data, int color ) {
+    static void NormalColorChange(AssignmentBean data, int color ) {
         Normal tmp = new Normal();
         tmp.setColor(color);
         tmp.updateAll("siteId = ? " , data.getSiteId() );
     }
 
-    static void PutOverhead(Assignment data) {
+    static void PutOverhead(AssignmentBean data) {
         SQLiteDatabase db = LitePal.getDatabase();
         List<Overhead> overhead = LitePal.findAll(Overhead.class);
         List<Delete> delete = LitePal.findAll(Delete.class);
         List<Normal> normal = LitePal.findAll(Normal.class);
-        List<Assignment> assignment = new ArrayList<>();
+        List<AssignmentBean> assignmentBean = new ArrayList<>();
 
         Overhead tmp = new Overhead();
         tmp.setAssignId(data.getAssignId());
@@ -46,7 +45,7 @@ class ManangeData {
         overhead.add(tmp);
         tmp.save();  //增加顶置
         for ( int i = 0 ; i < overhead.size() ; i++ ) {
-            Assignment t = new Assignment();
+            AssignmentBean t = new AssignmentBean();
             t.setSiteId(overhead.get(i).getSiteId());
             t.setBeginTime(overhead.get(i).getBeginTime());
             t.setEndTime(overhead.get(i).getEndTime());
@@ -54,14 +53,14 @@ class ManangeData {
             t.setStatus(overhead.get(i).getStatus());
             t.setColor(overhead.get(i).getColor());
             t.setType(0);
-            assignment.add(t);
+            assignmentBean.add(t);
         }
         for( int i = 0 ; i < normal.size() ; i++ ) {
             if ( normal.get(i).getSiteId().equals( data.getAssignId() ) ) {
                 LitePal.deleteAll(Normal.class,"siteId = ?",data.getSiteId());//删除普通
                 break;
             }
-            Assignment t = new Assignment();
+            AssignmentBean t = new AssignmentBean();
             t.setSiteId(normal.get(i).getSiteId());
             t.setBeginTime(normal.get(i).getBeginTime());
             t.setEndTime(normal.get(i).getEndTime());
@@ -69,17 +68,17 @@ class ManangeData {
             t.setStatus(normal.get(i).getStatus());
             t.setColor(normal.get(i).getColor());
             t.setType(1);
-            assignment.add(t);
+            assignmentBean.add(t);
         }
 
     }
 
-    static void Delete(Assignment data) {
+    static void Delete(AssignmentBean data) {
         SQLiteDatabase db = LitePal.getDatabase();
         List<Overhead> overhead = LitePal.findAll(Overhead.class);
         List<Delete> delete = LitePal.findAll(Delete.class);
         List<Normal> normal = LitePal.findAll(Normal.class);
-        List<Assignment> assignment = new ArrayList<>();
+        List<AssignmentBean> assignmentBean = new ArrayList<>();
 
         Delete tmp = new Delete();
         tmp.setAssignId(data.getAssignId());
@@ -97,7 +96,7 @@ class ManangeData {
                         LitePal.deleteAll(Overhead.class,"siteId = ?",data.getSiteId());
                         break;
                     }
-                    Assignment t = new Assignment();
+                    AssignmentBean t = new AssignmentBean();
                     t.setSiteId(overhead.get(i).getSiteId());
                     t.setBeginTime(overhead.get(i).getBeginTime());
                     t.setEndTime(overhead.get(i).getEndTime());
@@ -105,10 +104,10 @@ class ManangeData {
                     t.setStatus(overhead.get(i).getStatus());
                     t.setColor(overhead.get(i).getColor());
                     t.setType(0);
-                    assignment.add(t);
+                    assignmentBean.add(t);
                 }
                 for( int i = 0 ; i < normal.size() ; i++ ) {
-                    Assignment t = new Assignment();
+                    AssignmentBean t = new AssignmentBean();
                     t.setSiteId(normal.get(i).getSiteId());
                     t.setBeginTime(normal.get(i).getBeginTime());
                     t.setEndTime(normal.get(i).getEndTime());
@@ -116,13 +115,13 @@ class ManangeData {
                     t.setStatus(normal.get(i).getStatus());
                     t.setColor(normal.get(i).getColor());
                     t.setType(1);
-                    assignment.add(t);
+                    assignmentBean.add(t);
                 }
                 break;
             }
             case 1: { //删除普通item
                 for ( int i = 0 ; i < overhead.size() ; i++ ) {
-                    Assignment t = new Assignment();
+                    AssignmentBean t = new AssignmentBean();
                     t.setSiteId(overhead.get(i).getSiteId());
                     t.setBeginTime(overhead.get(i).getBeginTime());
                     t.setEndTime(overhead.get(i).getEndTime());
@@ -130,14 +129,14 @@ class ManangeData {
                     t.setStatus(overhead.get(i).getStatus());
                     t.setColor(overhead.get(i).getColor());
                     t.setType(0);
-                    assignment.add(t);
+                    assignmentBean.add(t);
                 }
                 for( int i = 0 ; i < normal.size() ; i++ ) {
                     if ( normal.get(i).getSiteId().equals( data.getAssignId() ) ) {
                         LitePal.deleteAll(Normal.class,"siteId = ?",data.getSiteId());
                         break;
                     }
-                    Assignment t = new Assignment();
+                    AssignmentBean t = new AssignmentBean();
                     t.setSiteId(normal.get(i).getSiteId());
                     t.setBeginTime(normal.get(i).getBeginTime());
                     t.setEndTime(normal.get(i).getEndTime());
@@ -145,19 +144,19 @@ class ManangeData {
                     t.setStatus(normal.get(i).getStatus());
                     t.setColor(normal.get(i).getColor());
                     t.setType(1);
-                    assignment.add(t);
+                    assignmentBean.add(t);
                 }
                 break;
             }
         }
     }
 
-    static void PutNormal(Assignment data) {
+    static void PutNormal(AssignmentBean data) {
         SQLiteDatabase db = LitePal.getDatabase();
         List<Overhead> overhead = LitePal.findAll(Overhead.class);
         List<Delete> delete = LitePal.findAll(Delete.class);
         List<Normal> normal = LitePal.findAll(Normal.class);
-        List<Assignment> assignment = new ArrayList<>();
+        List<AssignmentBean> assignmentBean = new ArrayList<>();
 
         Normal tmp = new Normal();
         tmp.setAssignId(data.getAssignId());
@@ -174,7 +173,7 @@ class ManangeData {
                 LitePal.deleteAll(Overhead.class,"siteId = ?",data.getSiteId());//删除顶置
                 break;
             }
-            Assignment t = new Assignment();
+            AssignmentBean t = new AssignmentBean();
             t.setSiteId(overhead.get(i).getSiteId());
             t.setBeginTime(overhead.get(i).getBeginTime());
             t.setEndTime(overhead.get(i).getEndTime());
@@ -182,10 +181,10 @@ class ManangeData {
             t.setStatus(overhead.get(i).getStatus());
             t.setColor(overhead.get(i).getColor());
             t.setType(0);
-            assignment.add(t);
+            assignmentBean.add(t);
         }
         for( int i = 0 ; i < normal.size() ; i++ ) {
-            Assignment t = new Assignment();
+            AssignmentBean t = new AssignmentBean();
             t.setSiteId(normal.get(i).getSiteId());
             t.setBeginTime(normal.get(i).getBeginTime());
             t.setEndTime(normal.get(i).getEndTime());
@@ -193,7 +192,7 @@ class ManangeData {
             t.setStatus(normal.get(i).getStatus());
             t.setColor(normal.get(i).getColor());
             t.setType(1);
-            assignment.add(t);
+            assignmentBean.add(t);
         }
     }
 

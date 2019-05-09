@@ -1,21 +1,14 @@
 package com.mini.homeworks.Notification;
 
 import android.app.AlarmManager;
-import android.app.Application;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.arch.lifecycle.ViewModelProvider;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -30,16 +23,14 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 
 import com.kyleduo.switchbutton.SwitchButton;
-import com.mini.homeworks.App;
-import com.mini.homeworks.MainActivity.CourseAndTaskActivity;
 import com.mini.homeworks.MySQLiteOpenHelper;
 import com.mini.homeworks.R;
-import com.mini.homeworks.Utils.RetrofitWrapper;
-import com.mini.homeworks.Notification.AlarmTimer;
+import com.mini.homeworks.net.RetrofitWrapper;
+import com.mini.homeworks.net.Service.NotificationService;
+import com.mini.homeworks.net.bean.NotificationBean;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;

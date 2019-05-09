@@ -10,7 +10,7 @@ import android.view.View;
 
 import android.widget.ImageView;
 
-import com.mini.homeworks.MyAssign.Bean.Assignment;
+import com.mini.homeworks.net.bean.AssignmentBean;
 import com.mini.homeworks.R;
 
 import java.lang.reflect.Field;
@@ -43,7 +43,7 @@ class ShowPopupMenu {
 
 
     @SuppressLint("RestrictedApi")
-    static void showPopupMenu(final View view, final Assignment data, final Context mContext) {
+    static void showPopupMenu(final View view, final AssignmentBean data, final Context mContext) {
 
 
         //监听要先找到Dialog

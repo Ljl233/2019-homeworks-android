@@ -1,4 +1,7 @@
-package com.mini.homeworks.PersonalInformation;
+package com.mini.homeworks.net.Service;
+
+import com.mini.homeworks.net.bean.ChangeMailBean;
+import com.mini.homeworks.net.bean.ChangeMailPostData;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -7,7 +10,7 @@ import retrofit2.http.PUT;
 
 public interface ChangeMailService {
     @PUT("/api/mail/modify/")
-    Call<ChangeMailReturnData> getReturn(@Header ("token") String token, @Header("verifyCodeToken") String verifyCodeToken , @Body ChangeMailPostData changeMailPostData);
+    Call<ChangeMailBean> getReturn(@Header ("token") String token, @Header("verifyCodeToken") String verifyCodeToken , @Body ChangeMailPostData changeMailPostData);
 
 }
 

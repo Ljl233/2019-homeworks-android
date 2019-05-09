@@ -3,16 +3,11 @@ package com.mini.homeworks.PersonalInformation;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -22,9 +17,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mini.homeworks.Login.LoginActivity;
-import com.mini.homeworks.MainActivity.CourseAndTaskActivity;
 import com.mini.homeworks.R;
-import com.mini.homeworks.Utils.RetrofitWrapper;
+import com.mini.homeworks.net.RetrofitWrapper;
+import com.mini.homeworks.net.Service.ChangeMailService;
+import com.mini.homeworks.net.Service.InformationService;
+import com.mini.homeworks.net.Service.SendVerifyCodeService;
+import com.mini.homeworks.net.bean.ChangeMailBean;
+import com.mini.homeworks.net.bean.ChangeMailPostData;
+import com.mini.homeworks.net.bean.InformationBean;
+import com.mini.homeworks.net.bean.SendVerifyCodeBean;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -195,10 +196,10 @@ public class Information extends AppCompatActivity {
 
     private void request_changemail(final String newMail , String verifyCode) {
         ChangeMailService changeMailService = RetrofitWrapper.getInstance().create(ChangeMailService.class);
-        Call<ChangeMailReturnData> call = changeMailService.getReturn(token,verifyCodeToken,new ChangeMailPostData(newMail,verifyCode));
-        call.enqueue(new Callback<ChangeMailReturnData>() {
+        Call<ChangeMailBean> call = changeMailService.getReturn(token,verifyCodeToken,new ChangeMailPostData(newMail,verifyCode));
+        call.enqueue(new Callback<ChangeMailBean>() {
             @Override
-            public void onResponse(Call<ChangeMailReturnData> call, Response<ChangeMailReturnData> response) {
+            public void onResponse(Call<ChangeMailBean> call, Response<ChangeMailBean> response) {
                 if ( response.isSuccessful() ){
                     Toast.makeText(Information.this, "修改成功", Toast.LENGTH_LONG).show();
                     et_mailbox.setText(newMail);
@@ -208,7 +209,7 @@ public class Information extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<ChangeMailReturnData> call, Throwable t) {
+            public void onFailure(Call<ChangeMailBean> call, Throwable t) {
                 Toast.makeText(Information.this, "请重试", Toast.LENGTH_LONG).show();
                 showDialog_verify();
             }

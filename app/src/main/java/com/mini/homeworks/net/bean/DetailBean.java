@@ -1,4 +1,4 @@
-package com.mini.homeworks.AssignDetail;
+package com.mini.homeworks.net.bean;
 
 import java.util.List;
 

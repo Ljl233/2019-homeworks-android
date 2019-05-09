@@ -17,7 +17,10 @@ import android.widget.TextView;
 
 import com.mini.homeworks.MainActivity.CourseAndTaskActivity;
 import com.mini.homeworks.R;
-import com.mini.homeworks.Utils.RetrofitWrapper;
+import com.mini.homeworks.net.RetrofitWrapper;
+import com.mini.homeworks.net.Service.LoginService;
+import com.mini.homeworks.net.bean.LoginBean;
+import com.mini.homeworks.net.bean.LoginPostData;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -78,13 +81,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void request() {
-        CourseService courseService = RetrofitWrapper.getInstance().create(CourseService.class);
+        LoginService loginService = RetrofitWrapper.getInstance().create(LoginService.class);
         userName = et_userName.getText().toString();
         password = et_password.getText().toString();
-        Call<CourseBean> call = courseService.getCourseBean(new LoginPostData(userName, password));
-        call.enqueue(new Callback<CourseBean>() {
+        Call<LoginBean> call = loginService.getCourseBean(new LoginPostData(userName, password));
+        call.enqueue(new Callback<LoginBean>() {
             @Override
-            public void onResponse(Call<CourseBean> call, Response<CourseBean> response) {
+            public void onResponse(Call<LoginBean> call, Response<LoginBean> response) {
                 if (response.isSuccessful()) {
                     SaveUserInfo();
                     Intent intent = new Intent(LoginActivity.this, CourseAndTaskActivity.class);
@@ -99,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<CourseBean> call, Throwable t) {
+            public void onFailure(Call<LoginBean> call, Throwable t) {
                 Log.e("                  mmmmmmmmmmmmmmm", "           iiiiiiiiiiiiiiiiiiiiiii");
                 GetWrong();
             }

@@ -1,5 +1,5 @@
-package com.mini.homeworks.Login;
-public class CourseBean {
+package com.mini.homeworks.net.bean;
+public class LoginBean {
 
 
     /**

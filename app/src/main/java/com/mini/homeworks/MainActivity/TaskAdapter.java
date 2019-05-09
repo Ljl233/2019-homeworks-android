@@ -9,13 +9,14 @@ import android.widget.TextView;
 
 import com.mini.homeworks.R;
 import com.mini.homeworks.Utils.GetDate;
+import com.mini.homeworks.net.bean.TasksBean;
 
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<TaskBean.AssignListBean> mDates;
+    private List<TasksBean.AssignListBean> mDates;
     private TaskAdapter.OnItemClickListener mOnItemClickListener;
 
     public void setOnItemClickListener(TaskAdapter.OnItemClickListener mOnItemClickListener) {
@@ -32,7 +33,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
         this.onRecyclerViewItemClickListener = onItemClickListener;
     }
 
-    public TaskAdapter(List<TaskBean.AssignListBean> mDates){
+    public TaskAdapter(List<TasksBean.AssignListBean> mDates){
         this.mDates = mDates;
     }
 
@@ -44,7 +45,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder (TaskAdapter.MyViewHolder holder, final int position){
-        TaskBean.AssignListBean dataBean = mDates.get(position);
+        TasksBean.AssignListBean dataBean = mDates.get(position);
         String begintime = GetDate.TimeStampToDate(""+dataBean.getBeginTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
         String endtime = GetDate.TimeStampToDate(""+dataBean.getEndTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
         holder.tv_begin.setText(begintime+" "+GetDate.DateToWeek(begintime));

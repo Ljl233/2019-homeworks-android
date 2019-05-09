@@ -1,4 +1,4 @@
-package com.mini.homeworks.MainActivity;
+package com.mini.homeworks.net.bean;
 
 import java.util.List;
 

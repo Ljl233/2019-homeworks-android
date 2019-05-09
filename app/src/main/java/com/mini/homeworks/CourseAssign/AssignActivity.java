@@ -11,10 +11,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.mini.homeworks.AssignDetail.DetailActivity;
-import com.mini.homeworks.Login.CourseBean;
-import com.mini.homeworks.MainActivity.CourseAndTaskActivity;
 import com.mini.homeworks.R;
-import com.mini.homeworks.Utils.RetrofitWrapper;
+import com.mini.homeworks.net.RetrofitWrapper;
+import com.mini.homeworks.net.Service.CourseAssignListService;
+import com.mini.homeworks.net.bean.CourseAssignBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AssignActivity extends AppCompatActivity {
-    private List<TasksBean.DataBean> mAssignList = new ArrayList<>();
+    private List<CourseAssignBean.DataBean> mAssignList = new ArrayList<>();
     private RecyclerView recyclerView;
     private AssignAdapter assignAdapter;
     Intent i;
@@ -83,11 +83,11 @@ public class AssignActivity extends AppCompatActivity {
 
 
     private void request() {
-        AssignListService assignListService = RetrofitWrapper.getInstance().create(AssignListService.class);
-        Call<TasksBean> call = assignListService.getTasksBean(siteId, cookie, token);
-        call.enqueue(new Callback<TasksBean>() {
+        CourseAssignListService courseAssignListService = RetrofitWrapper.getInstance().create(CourseAssignListService.class);
+        Call<CourseAssignBean> call = courseAssignListService.getTasksBean(siteId, cookie, token);
+        call.enqueue(new Callback<CourseAssignBean>() {
             @Override
-            public void onResponse(Call<TasksBean> call, Response<TasksBean> response) {
+            public void onResponse(Call<CourseAssignBean> call, Response<CourseAssignBean> response) {
                 if (response.isSuccessful()) {
                     mAssignList=response.body().getData();
                     cookie = response.body().getCookie();
@@ -95,7 +95,7 @@ public class AssignActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<TasksBean> call, Throwable t) {
+            public void onFailure(Call<CourseAssignBean> call, Throwable t) {
 
             }
         });

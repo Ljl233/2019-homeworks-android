@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mini.homeworks.R;
+import com.mini.homeworks.net.bean.SearchBean;
 
 import java.util.List;
 import java.util.regex.Matcher;

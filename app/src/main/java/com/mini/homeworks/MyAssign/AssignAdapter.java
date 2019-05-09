@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.mini.homeworks.MyAssign.Bean.Assignment;
+import com.mini.homeworks.net.bean.AssignmentBean;
 import com.mini.homeworks.R;
 import com.mini.homeworks.Utils.GetDate;
 
@@ -23,7 +23,7 @@ import java.util.List;
 public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<Assignment> data;
+    private List<AssignmentBean> data;
     private AssignAdapter.OnItemClickListener mOnItemClickListener;
 
     public void setOnItemClickListener(AssignAdapter.OnItemClickListener mOnItemClickListener) {
@@ -40,7 +40,7 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
         this.onRecyclerViewItemClickListener = onItemClickListener;
     }
 
-    public AssignAdapter(List<Assignment> mDates){
+    public AssignAdapter(List<AssignmentBean> mDates){
         this.data = data;
     }
 
@@ -72,7 +72,7 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
         color_back.put( Color.parseColor("#CD3278"), R.drawable.rounded_rectangle_cd3278 );
         color_back.put( Color.parseColor("#4CB684"), R.drawable.rounded_rectangle_4cb684 );
 
-        final Assignment dataBean = data.get(position);
+        final AssignmentBean dataBean = data.get(position);
         String begintime = GetDate.TimeStampToDate(""+dataBean.getBeginTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
         String endtime = GetDate.TimeStampToDate(""+dataBean.getEndTime(), "yyyy-MM-dd HH:mm:ss").substring(0,9);
         holder.tv_begintime.setText("开始时间："+begintime+" "+GetDate.DateToWeek(begintime));
