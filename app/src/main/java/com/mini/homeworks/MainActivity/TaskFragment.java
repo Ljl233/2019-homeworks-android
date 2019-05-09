@@ -51,8 +51,8 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.task_view,container,false);
-        initTask();
         request_task();
+        initTask();
         return view;
     }
 
@@ -66,14 +66,13 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
             public void onResponse(Call<TasksBean> call, Response<TasksBean> response) {
                 if (response.isSuccessful()) {
                     tasklist.addAll(response.body().getAssignList());
-                    if(rv_task.getAdapter() != null)rv_task.getAdapter().notifyDataSetChanged();
+                    if(rv_task.getAdapter() != null)
+                        rv_task.getAdapter().notifyDataSetChanged();
                     cookie = response.body().getCookie();
                     SaveCookie(cookie);
-                } else {
+                } else
                     Toast.makeText(getActivity(), "加载失败，请重试", Toast.LENGTH_LONG).show();
-                }
             }
-
             @Override
             public void onFailure(Call<TasksBean> call, Throwable t) {
                 Toast.makeText(getContext(),"请检查网络连接",Toast.LENGTH_SHORT).show();
@@ -95,9 +94,18 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
         btn_processing.setOnClickListener(this);
         btn_completed.setOnClickListener(this);
 
+        btn_all.setTextColor(Color.parseColor("#FFFFFF"));
+        btn_all.setBackgroundColor(Color.parseColor("#4DB6AC"));
+        btn_overdue.setTextColor(Color.parseColor("#42000000"));
+        btn_overdue.setBackgroundColor(Color.parseColor("#1F000000"));
+        btn_processing.setTextColor(Color.parseColor("#42000000"));
+        btn_processing.setBackgroundColor(Color.parseColor("#1F000000"));
+        btn_completed.setTextColor(Color.parseColor("#42000000"));
+        btn_completed.setBackgroundColor(Color.parseColor("#1F000000"));
+        tmptasklist = tasklist;
+
         task = new TasksBean.AssignListBean[tmptasklist.size()];
         tmptasklist.toArray(task);
-        Log.d("敢为为空？", String.valueOf(getContext()));
         ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(getContext(), R.array.array_collation, R.layout.task_view_spinner_text_item);
         spinnerAdapter.setDropDownViewResource(R.layout.task_view_spinner_dropdown_item);
         spinner_collation.setAdapter(spinnerAdapter);
@@ -112,14 +120,13 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // Another interface callback
+                beginorder();
             }
         });
 
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rv_task.setLayoutManager(layoutManager);
-        TaskAdapter taskAdapter = new TaskAdapter(tasklist);
+        TaskAdapter taskAdapter = new TaskAdapter(tmptasklist);
         rv_task.setAdapter(taskAdapter);
         taskAdapter.setOnRecyclerViewItemClickListener(new TaskAdapter.OnItemClickListener() {
             @Override
@@ -161,50 +168,51 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_all: {
-                btn_all.setTextColor(Color.argb((float) 1, 255, 255, 255));
-                btn_all.setBackgroundColor(Color.argb((float) 1, 77, 182, 172));
-                btn_overdue.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
-                btn_overdue.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
-                btn_processing.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
-                btn_processing.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
-                btn_completed.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
-                btn_completed.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
+                btn_all.setTextColor(Color.parseColor("#FFFFFF"));
+                btn_all.setBackgroundColor(Color.parseColor("#4DB6AC"));
+                btn_overdue.setTextColor(Color.parseColor("#42000000"));
+                btn_overdue.setBackgroundColor(Color.parseColor("#1F000000"));
+                btn_processing.setTextColor(Color.parseColor("#42000000"));
+                btn_processing.setBackgroundColor(Color.parseColor("#1F000000"));
+                btn_completed.setTextColor(Color.parseColor("#42000000"));
+                btn_completed.setBackgroundColor(Color.parseColor("#1F000000"));
                 tmptasklist = tasklist;
+                rv_task.getAdapter().notifyDataSetChanged();
                 break;
             }
             case R.id.btn_processing: {
-                btn_processing.setTextColor(Color.argb((float) 1, 255, 255, 255));
-                btn_processing.setBackgroundColor(Color.argb((float) 1, 77, 182, 172));
-                btn_overdue.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
-                btn_overdue.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
-                btn_all.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
-                btn_all.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
-                btn_completed.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
-                btn_completed.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
+                btn_processing.setTextColor(Color.parseColor("#FFFFFF"));
+                btn_processing.setBackgroundColor(Color.parseColor("#4DB6AC"));
+                btn_overdue.setTextColor(Color.parseColor("#42000000"));
+                btn_overdue.setBackgroundColor(Color.parseColor("#1F000000"));
+                btn_all.setTextColor(Color.parseColor("#42000000"));
+                btn_all.setBackgroundColor(Color.parseColor("#1F000000"));
+                btn_completed.setTextColor(Color.parseColor("#42000000"));
+                btn_completed.setBackgroundColor(Color.parseColor("#1F000000"));
                 selectprocessing();
                 break;
             }
             case R.id.btn_completed: {
-                btn_completed.setTextColor(Color.argb((float) 1, 255, 255, 255));
-                btn_completed.setBackgroundColor(Color.argb((float) 1, 77, 182, 172));
-                btn_overdue.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
-                btn_overdue.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
-                btn_processing.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
-                btn_processing.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
-                btn_all.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
-                btn_all.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
+                btn_completed.setTextColor(Color.parseColor("#FFFFFF"));
+                btn_completed.setBackgroundColor(Color.parseColor("#4DB6AC"));
+                btn_overdue.setTextColor(Color.parseColor("#42000000"));
+                btn_overdue.setBackgroundColor(Color.parseColor("#1F000000"));
+                btn_all.setTextColor(Color.parseColor("#42000000"));
+                btn_all.setBackgroundColor(Color.parseColor("#1F000000"));
+                btn_processing.setTextColor(Color.parseColor("#42000000"));
+                btn_processing.setBackgroundColor(Color.parseColor("#1F000000"));
                 selectcompeleted();
                 break;
             }
             case R.id.btn_overdue: {
-                btn_overdue.setTextColor(Color.argb((float) 1, 255, 255, 255));
-                btn_overdue.setBackgroundColor(Color.argb((float) 1, 77, 182, 172));
-                btn_all.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
-                btn_all.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
-                btn_processing.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
-                btn_processing.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
-                btn_completed.setTextColor(Color.argb((float) 0.26, 0, 0, 0));
-                btn_completed.setBackgroundColor(Color.argb((float) 0.12, 0, 0, 0));
+                btn_overdue.setTextColor(Color.parseColor("#FFFFFF"));
+                btn_overdue.setBackgroundColor(Color.parseColor("#4DB6AC"));
+                btn_processing.setTextColor(Color.parseColor("#42000000"));
+                btn_processing.setBackgroundColor(Color.parseColor("#1F000000"));
+                btn_all.setTextColor(Color.parseColor("#42000000"));
+                btn_all.setBackgroundColor(Color.parseColor("#1F000000"));
+                btn_completed.setTextColor(Color.parseColor("#42000000"));
+                btn_completed.setBackgroundColor(Color.parseColor("#1F000000"));
                 selectoverdue();
                 break;
             }
