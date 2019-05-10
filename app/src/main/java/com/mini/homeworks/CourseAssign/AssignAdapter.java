@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,15 +22,16 @@ import java.util.List;
 public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHolder> {
 
     private List<CourseAssignBean.DataBean> mDates;
-    private OnItemClickListener mOnItemClickListener;
+    private OnItemClickListener onRecyclerViewItemClickListener;
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position);
+        void onClick(int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
-        this.mOnItemClickListener = mOnItemClickListener;
+    public void setOnRecyclerViewItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onRecyclerViewItemClickListener = onItemClickListener;
     }
+
     public AssignAdapter(List<CourseAssignBean.DataBean> mDates){
 
         this.mDates = mDates;
@@ -47,10 +49,10 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
         CourseAssignBean.DataBean dataBean = mDates.get(position);
         String begintime = GetDate.TimeStampToDate(""+dataBean.getBeginTime(), "yyyy-MM-dd HH:mm:ss").substring(0,10);
         String endtime = GetDate.TimeStampToDate(""+dataBean.getEndTime(), "yyyy-MM-dd HH:mm:ss").substring(0,10);
-        holder.tv_begin.setText("开始时间："+begintime+" "+GetDate.DateToWeek(begintime));
-        holder.tv_ddl.setText("截止时间："+endtime+" "+GetDate.DateToWeek(endtime));
+        holder.tv_begin.setText("开始时间："+GetDate.DateToWeek(begintime)+" "+begintime);
+        holder.tv_ddl.setText("截止时间："+GetDate.DateToWeek(endtime)+" "+endtime);
         holder.tv_assignName.setText(dataBean.getAssignName());
-        long now = Instant.now().getEpochSecond();
+        long now = Instant.now().getEpochSecond()*1000;
         if ( now > dataBean.getEndTime() ) {
             holder.aitem.setBackgroundResource(R.drawable.rounded_rectangle_bcbcbc);
             holder.iv_status.setImageResource(R.drawable.cross);
@@ -69,6 +71,14 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
             holder.tv_status.setText("进行中");
             holder.tv_begin.setTextColor(Color.parseColor("#039BE5"));
             holder.tv_ddl.setTextColor(Color.parseColor("#039BE5"));
+        }
+        if (onRecyclerViewItemClickListener != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onRecyclerViewItemClickListener.onClick(position);
+                }
+            });
         }
     }
     @Override

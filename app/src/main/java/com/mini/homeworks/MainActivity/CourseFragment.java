@@ -3,6 +3,7 @@ package com.mini.homeworks.MainActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -107,4 +108,8 @@ public class CourseFragment extends Fragment {
         token = data.getString("token", null);
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        //super.onSaveInstanceState(outState);
+    }
 }

@@ -19,14 +19,7 @@ import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> {
 
-    private Context mContext;
-    private List<TasksBean.AssignListBean> mDates;
-    private TaskAdapter.OnItemClickListener mOnItemClickListener;
-
-    public void setOnItemClickListener(TaskAdapter.OnItemClickListener mOnItemClickListener) {
-        this.mOnItemClickListener = mOnItemClickListener;
-    }
-
+    private List<TasksBean.AssignListBean> mDatas;
     private OnItemClickListener onRecyclerViewItemClickListener;
 
     public interface OnItemClickListener {
@@ -37,25 +30,25 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
         this.onRecyclerViewItemClickListener = onItemClickListener;
     }
 
-    public TaskAdapter(List<TasksBean.AssignListBean> mDates){
-        this.mDates = mDates;
+    public TaskAdapter(List<TasksBean.AssignListBean> mDatas){
+        this.mDatas = mDatas;
     }
 
     @Override
     public TaskAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        View view = View.inflate(mContext, R.layout.tasks_item, null);
+        View view = View.inflate(parent.getContext(), R.layout.tasks_item, null);
         return new TaskAdapter.MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder (TaskAdapter.MyViewHolder holder, final int position){
-        TasksBean.AssignListBean dataBean = mDates.get(position);
+        TasksBean.AssignListBean dataBean = mDatas.get(position);
         String begintime = GetDate.TimeStampToDate(""+dataBean.getBeginTime(), "yyyy-MM-dd HH:mm:ss").substring(0,10);
         String endtime = GetDate.TimeStampToDate(""+dataBean.getEndTime(), "yyyy-MM-dd HH:mm:ss").substring(0,10);
-        holder.tv_begin.setText(begintime+" "+GetDate.DateToWeek(begintime));
-        holder.tv_ddl.setText(endtime+" "+GetDate.DateToWeek(endtime));
+        holder.tv_begin.setText("开始时间："+GetDate.DateToWeek(begintime)+" "+begintime);
+        holder.tv_ddl.setText("截止时间："+GetDate.DateToWeek(endtime)+" "+endtime);
         holder.tv_assignName.setText(dataBean.getAssignName());
-        long now = Instant.now().getEpochSecond();
+        long now = Instant.now().getEpochSecond()*1000;
         if ( now > dataBean.getEndTime() ) {
             holder.aitem.setBackgroundResource(R.drawable.rounded_rectangle_bcbcbc);
             holder.iv_status.setImageResource(R.drawable.cross);
@@ -75,10 +68,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
             holder.tv_begin.setTextColor(Color.parseColor("#039BE5"));
             holder.tv_ddl.setTextColor(Color.parseColor("#039BE5"));
         }
+        if (onRecyclerViewItemClickListener != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onRecyclerViewItemClickListener.onClick(position);
+                }
+            });
+        }
     }
     @Override
     public int getItemCount(){
-        return mDates.size();
+        return mDatas.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {

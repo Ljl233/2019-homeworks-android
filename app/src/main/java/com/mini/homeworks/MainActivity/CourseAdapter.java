@@ -54,10 +54,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         //绑定数据优化并强转
-        CourseAdapter.ViewHolder viewHolder = holder;
+        //CourseAdapter.ViewHolder viewHolder = holder;
         //重点在这里判空然后做接口的绑定
         if (onRecyclerViewItemClickListener != null) {
-            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     onRecyclerViewItemClickListener.onClick(position);
@@ -67,7 +67,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         Course course = mCourseList.get(position);
         holder.iv_course_image.setImageResource(course.getImageId());
         holder.tv_course_name.setText(course.getName());
-
         holder.bind(mCourseList.get(position));
     }
 

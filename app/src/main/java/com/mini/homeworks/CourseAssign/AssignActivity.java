@@ -55,8 +55,6 @@ public class AssignActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.task_recycle_view);
 
         setSupportActionBar(toolbar);
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
-//        getActionBar().setHomeButtonEnabled(true);
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL, false));
@@ -64,14 +62,12 @@ public class AssignActivity extends AppCompatActivity {
         recyclerView.setAdapter(assignAdapter);
 
         request();
-        assignAdapter.setOnItemClickListener(new AssignAdapter.OnItemClickListener() {
+        assignAdapter.setOnRecyclerViewItemClickListener(new AssignAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onClick(int position) {
                 Intent intent = new Intent(AssignActivity.this, DetailActivity.class);
                 intent.putExtra("siteId", siteId);
                 intent.putExtra("assignId", mAssignList.get(position).getAssignId());
-                intent.putExtra("cookie", cookie);
-                intent.putExtra("token", token);
                 startActivity(intent);
             }
         });

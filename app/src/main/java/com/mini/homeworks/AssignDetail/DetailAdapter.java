@@ -51,8 +51,12 @@ public class DetailAdapter extends BaseAdapter {
             view = convertView;
             viewHolder = (ViewHolder) view.getTag();
         }
-        viewHolder.submitName.setText(submitAttachment.getName());
-        viewHolder.submitExt.setText(submitAttachment.getExt());
+        if ( submitAttachment.getName() != null )
+            viewHolder.submitName.setText(submitAttachment.getName());
+        else viewHolder.submitName.setText("无");
+        if ( submitAttachment.getExt() != null )
+            viewHolder.submitExt.setText(submitAttachment.getExt());
+        else viewHolder.submitExt.setText("无");
         return view;
     }
     class ViewHolder{

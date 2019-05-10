@@ -6,8 +6,8 @@ public class Normal extends LitePalSupport {
     private String siteId;
     private int status;
     private String assignName;
-    private int beginTime;
-    private int endTime;
+    private long beginTime;
+    private long endTime;
     private int color;
     private String assignId;
     public  void setColor(int color) {
@@ -26,11 +26,11 @@ public class Normal extends LitePalSupport {
         this.siteId = siteId;
     }
 
-    public void setEndTime(int endTime) {
+    public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
 
-    public void setBeginTime(int beginTime) {
+    public void setBeginTime(long beginTime) {
         this.beginTime = beginTime;
     }
 
@@ -50,11 +50,11 @@ public class Normal extends LitePalSupport {
         return siteId;
     }
 
-    public int getEndTime() {
+    public long getEndTime() {
         return endTime;
     }
 
-    public int getBeginTime() {
+    public long getBeginTime() {
         return beginTime;
     }
 

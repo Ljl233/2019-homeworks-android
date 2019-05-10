@@ -65,8 +65,8 @@ public class TasksBean {
         private String courseName;
         private String assignName;
         private String teacher;
-        private int beginTime;
-        private int endTime;
+        private long beginTime;
+        private long endTime;
         private String assignId;
 
         public String getSiteId() {
@@ -109,19 +109,19 @@ public class TasksBean {
             this.teacher = teacher;
         }
 
-        public int getBeginTime() {
+        public long getBeginTime() {
             return beginTime;
         }
 
-        public void setBeginTime(int beginTime) {
+        public void setBeginTime(long beginTime) {
             this.beginTime = beginTime;
         }
 
-        public int getEndTime() {
+        public long getEndTime() {
             return endTime;
         }
 
-        public void setEndTime(int endTime) {
+        public void setEndTime(long endTime) {
             this.endTime = endTime;
         }
 

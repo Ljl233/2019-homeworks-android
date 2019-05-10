@@ -71,7 +71,6 @@ public class MyAssign extends AppCompatActivity {
     }
 
     private void initData(int total) {  //更新数据 每次任务只可能会增加而不会减少
-        SQLiteDatabase db = LitePal.getDatabase();
         List<Overhead> overheads = LitePal.findAll(Overhead.class);
         List<Delete> deletes = LitePal.findAll(Delete.class);
         List<Normal> normal = LitePal.findAll(Normal.class);

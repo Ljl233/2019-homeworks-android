@@ -36,20 +36,20 @@ public class DetailBean {
     private String assignId;
     private String courseName;
     private String assignName;
-    private String status;
-    private String beginTime;
-    private String endTime;
+    private int status;
+    private long beginTime;
+    private long endTime;
     private String content;
-    private String pointNum;
-    private String commitNum;
-    private String isGroup;
-    private String groupNum;
-    private String studentNum;
-    private String groupPoint;
-    private String personalPoint;
+    private int pointNum;
+    private int commitNum;
+    private int isGroup;
+    private int groupNum;
+    private int studentNum;
+    private int groupPoint;
+    private int personalPoint;
     private String feedback;
-    private String assignAttachmentNum;
-    private String submitAttachmentNum;
+    private int assignAttachmentNum;
+    private int submitAttachmentNum;
     private String submitContent;
     private List<AssignAttachmentBean> assignAttachment;
     private List<SubmitAttachmentBean> submitAttachment;
@@ -102,27 +102,27 @@ public class DetailBean {
         this.assignName = assignName;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public String getBeginTime() {
+    public long getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(String beginTime) {
+    public void setBeginTime(long beginTime) {
         this.beginTime = beginTime;
     }
 
-    public String getEndTime() {
+    public long getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
 
@@ -134,59 +134,59 @@ public class DetailBean {
         this.content = content;
     }
 
-    public String getPointNum() {
+    public int getPointNum() {
         return pointNum;
     }
 
-    public void setPointNum(String pointNum) {
+    public void setPointNum(int pointNum) {
         this.pointNum = pointNum;
     }
 
-    public String getCommitNum() {
+    public int getCommitNum() {
         return commitNum;
     }
 
-    public void setCommitNum(String commitNum) {
+    public void setCommitNum(int commitNum) {
         this.commitNum = commitNum;
     }
 
-    public String getIsGroup() {
+    public int getIsGroup() {
         return isGroup;
     }
 
-    public void setIsGroup(String isGroup) {
+    public void setIsGroup(int isGroup) {
         this.isGroup = isGroup;
     }
 
-    public String getGroupNum() {
+    public int getGroupNum() {
         return groupNum;
     }
 
-    public void setGroupNum(String groupNum) {
+    public void setGroupNum(int groupNum) {
         this.groupNum = groupNum;
     }
 
-    public String getStudentNum() {
+    public int getStudentNum() {
         return studentNum;
     }
 
-    public void setStudentNum(String studentNum) {
+    public void setStudentNum(int studentNum) {
         this.studentNum = studentNum;
     }
 
-    public String getGroupPoint() {
+    public int getGroupPoint() {
         return groupPoint;
     }
 
-    public void setGroupPoint(String groupPoint) {
+    public void setGroupPoint(int groupPoint) {
         this.groupPoint = groupPoint;
     }
 
-    public String getPersonalPoint() {
+    public int getPersonalPoint() {
         return personalPoint;
     }
 
-    public void setPersonalPoint(String personalPoint) {
+    public void setPersonalPoint(int personalPoint) {
         this.personalPoint = personalPoint;
     }
 
@@ -198,19 +198,19 @@ public class DetailBean {
         this.feedback = feedback;
     }
 
-    public String getAssignAttachmentNum() {
+    public int getAssignAttachmentNum() {
         return assignAttachmentNum;
     }
 
-    public void setAssignAttachmentNum(String assignAttachmentNum) {
+    public void setAssignAttachmentNum(int assignAttachmentNum) {
         this.assignAttachmentNum = assignAttachmentNum;
     }
 
-    public String getSubmitAttachmentNum() {
+    public int getSubmitAttachmentNum() {
         return submitAttachmentNum;
     }
 
-    public void setSubmitAttachmentNum(String submitAttachmentNum) {
+    public void setSubmitAttachmentNum(int submitAttachmentNum) {
         this.submitAttachmentNum = submitAttachmentNum;
     }
 
@@ -296,7 +296,7 @@ public class DetailBean {
         private String id;
         private String name;
         private String ext;
-        private String uploadTime;
+        private long uploadTime;
         private String sourceUrl;
 
         public String getId() {
@@ -323,11 +323,11 @@ public class DetailBean {
             this.ext = ext;
         }
 
-        public String getUploadTime() {
+        public long getUploadTime() {
             return uploadTime;
         }
 
-        public void setUploadTime(String uploadTime) {
+        public void setUploadTime(long uploadTime) {
             this.uploadTime = uploadTime;
         }
 

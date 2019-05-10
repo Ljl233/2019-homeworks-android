@@ -7,6 +7,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 
 public interface InformationService {
-    @GET("/api/userInfo/")
+    @GET("api/userInfo")
     Call<InformationBean> getInformationBean(@Header("token") String token);
 }

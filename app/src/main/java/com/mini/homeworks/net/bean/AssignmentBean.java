@@ -5,8 +5,8 @@ public class AssignmentBean {
     private String siteId;
     private int status;
     private String assignName;
-    private int beginTime;
-    private int endTime;
+    private long beginTime;
+    private long endTime;
     private String assignId;
     private int color;
     private int type;
@@ -50,19 +50,19 @@ public class AssignmentBean {
         this.assignName = assignName;
     }
 
-    public int getBeginTime() {
+    public long getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(int beginTime) {
+    public void setBeginTime(long beginTime) {
         this.beginTime = beginTime;
     }
 
-    public int getEndTime() {
+    public long getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(int endTime) {
+    public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
 

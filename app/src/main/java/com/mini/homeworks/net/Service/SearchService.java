@@ -9,7 +9,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Query;
 
 public interface SearchService {
-    @GET("/api/search/")
+    @GET("api/search")
     Call<SearchBean> getSearchBean(@Query("keyword") String s,
                                    @Header("cookie") String cookie,
                                    @Header("token") String token

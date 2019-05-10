@@ -11,7 +11,8 @@
             android:id="@+id/iv_course_image"
             android:layout_width="20.95dp"
             android:layout_height="26.67dp"
-            android:layout_marginTop="19.42dp" />
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>
 
         <TextView
             android:id="@+id/tv_course_name"
@@ -20,7 +21,6 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="38.095dp"
             android:textColor="#000000"
-            android:textAppearance="Source Han Sans CN"
             android:textSize="16sp" />
 
     </LinearLayout>

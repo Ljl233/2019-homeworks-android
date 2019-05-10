@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".PersonalInformation.Information" />
+        <activity android:name=".PersonalInformation.Information"
+            android:theme="@style/AppThemeBase"/>
 
         <activity
             android:name=".Login.LoginActivity"
@@ -21,13 +22,13 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
             android:name=".AssignDetail.DetailActivity"
+            android:theme="@style/AppThemeBase"
             android:label="任务详情" />
 
         <activity
@@ -44,7 +45,8 @@
             android:name=".CourseAssign.AssignActivity"
             android:theme="@style/AppThemeBase" />
 
-        <activity android:name=".Notification.NotificationActivity" />
+        <activity android:name=".Notification.NotificationActivity"
+            android:theme="@style/AppThemeBase"/>
 
 
         <receiver

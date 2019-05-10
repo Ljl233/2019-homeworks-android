@@ -1,19 +1,26 @@
 package com.mini.homeworks.PersonalInformation;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.strictmode.IntentReceiverLeakedViolation;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +34,7 @@ import com.mini.homeworks.net.bean.ChangeMailBean;
 import com.mini.homeworks.net.bean.ChangeMailPostData;
 import com.mini.homeworks.net.bean.InformationBean;
 import com.mini.homeworks.net.bean.SendVerifyCodeBean;
+import com.mini.homeworks.net.bean.SendVerifyCodePostData;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,10 +48,12 @@ public class Information extends AppCompatActivity {
     private EditText et_mailbox;
     private ImageView iv_clearmailbox;
     private TextView tv_name, tv_num;
+    private Button btn_logoff;
     private String token;
     private String cookie;
     private String verifyCodeToken;
     private String newMail;
+    private LinearLayout ll_info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,41 +65,50 @@ public class Information extends AppCompatActivity {
     private void initView() {
         tb_information = findViewById(R.id.tb_information);
         et_mailbox = findViewById(R.id.et_mailbox);
-        Button btn_logoff = findViewById(R.id.btn_logoff);
+        btn_logoff = findViewById(R.id.btn_logoff);
         iv_clearmailbox = findViewById(R.id.iv_clearmailbox);
         tv_name = findViewById(R.id.tv_name);
         tv_num = findViewById(R.id.tv_num);
+        ll_info = findViewById(R.id.ll_info);
         btn_logoff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder Logoff = new AlertDialog.Builder(Information.this);
-                Logoff.setTitle("确定退出当前账号？");
-                Logoff.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(Information.this, LoginActivity.class);
-                        startActivity(intent);
-                    }
-                });
-                Logoff.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-                Logoff.show();
+                new AlertDialog.Builder(Information.this)
+                        .setTitle("确定退出当前账号？")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(Information.this, LoginActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .show();
             }
         });
 
+        ll_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm;
+                imm = (InputMethodManager)v.getContext().getSystemService(v.getContext().INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                iv_clearmailbox.setVisibility(View.INVISIBLE);
+            }
+        });
+        setmailbox();
         initToolbar();
         request_init();
-        setmailbox();
-
-
     }
+
 
     private void initToolbar() {
         setSupportActionBar(tb_information);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         tb_information.setNavigationIcon(R.drawable.back_arrow);
         tb_information.setTitle("个人信息");
         tb_information.setTitleTextColor(Color.rgb(255, 255, 255));
@@ -101,10 +120,41 @@ public class Information extends AppCompatActivity {
         });
     }
 
+    private void showDialog_checkmail() {
+        new AlertDialog.Builder(Information.this)
+                .setTitle("将会向此邮箱发送验证码，请确认邮箱填写正确。")
+                .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        newMail = et_mailbox.getText().toString();
+                        request_sendVerifyCode();
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .show();
+    }
 
     private void setmailbox() {
         et_mailbox.setClickable(true);
-        iv_clearmailbox.setVisibility(View.GONE);
+        iv_clearmailbox.setVisibility(View.INVISIBLE);
+        et_mailbox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                //当actionId == XX_SEND 或者 XX_DONE时都触发
+                //或者event.getKeyCode == ENTER 且 event.getAction == ACTION_DOWN时也触发
+                //注意，这是一定要判断event != null。因为在某些输入法上会返回null。
+                if (actionId == EditorInfo.IME_ACTION_SEND
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
+                    showDialog_checkmail();
+                }
+                return false;
+            }
+        });
         et_mailbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,37 +169,31 @@ public class Information extends AppCompatActivity {
                 et_mailbox.setFocusable(true);
                 et_mailbox.requestFocus();
             }
-        });
 
-        et_mailbox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                //当actionId == XX_SEND 或者 XX_DONE时都触发
-                //或者event.getKeyCode == ENTER 且 event.getAction == ACTION_DOWN时也触发
-                //注意，这是一定要判断event != null。因为在某些输入法上会返回null。
-                if (actionId == EditorInfo.IME_ACTION_SEND
-                        || actionId == EditorInfo.IME_ACTION_DONE
-                        || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
-                    newMail = et_mailbox.getText().toString();
-                    request_sendVerifyCode();
-                }
-                return false;
-            }
         });
     }
 
-    private void showDialog_verify ( ){
+    private void showDialog_verify ( ) {
         final EditText et = new EditText(Information.this);
-        new AlertDialog.Builder(Information.this).setTitle("VerifyCode")
+        new AlertDialog.Builder(Information.this).setTitle("请输入验证码：")
                 .setView(et)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String input = et.getText().toString();
                         if (input.equals("")) {
                             Toast.makeText(getApplicationContext(), "内容不能为空！" + input, Toast.LENGTH_LONG).show();
+                            showDialog_verify();
                         }
-                        else
-                            request_changemail(newMail,input);
+                        else {
+                            int verify = 0;
+                            int time = 1;
+                            int l = input.length();
+                            for ( int i = l - 1 ; i >= 0 ; i-- ) {
+                                verify += ( input.charAt(i)-'0' ) * time;
+                                time *= 10;
+                            }
+                            request_changemail(newMail, verify);
+                        }
                     }
                 })
                 .show();
@@ -158,17 +202,20 @@ public class Information extends AppCompatActivity {
     private void request_sendVerifyCode( ) {
         GetCookieAndToken();
         SendVerifyCodeService sendVerifyCodeService = RetrofitWrapper.getInstance().create(SendVerifyCodeService.class);
-        Call<SendVerifyCodeBean> call = sendVerifyCodeService.Send(token,newMail);
+        Call<SendVerifyCodeBean> call = sendVerifyCodeService.Send(token,new SendVerifyCodePostData(newMail));
         call.enqueue(new Callback<SendVerifyCodeBean>() {
             @Override
             public void onResponse(Call<SendVerifyCodeBean> call, Response<SendVerifyCodeBean> response) {
-                verifyCodeToken = response.body().getVerifyCodeToken();
-                showDialog_verify();
+                if ( response.isSuccessful() ) {
+                    verifyCodeToken = response.body().getVerifyCodeToken();
+                    showDialog_verify();
+                } else
+                    Toast.makeText(Information.this,"加载失败，请重试", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(Call<SendVerifyCodeBean> call, Throwable t) {
-
+                Toast.makeText(Information.this,"请检查网络连接", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -185,27 +232,30 @@ public class Information extends AppCompatActivity {
                     tv_num.setText(response.body().getUserName());
                     et_mailbox.setText(response.body().getEmail());
                 } else {
-                    Toast.makeText(Information.this, "请求失败，请重试", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Information.this, "加载失败，请重试", Toast.LENGTH_LONG).show();
                 }
             }
-
             @Override
             public void onFailure(Call<InformationBean> call, Throwable t) {
-
+                Toast.makeText(Information.this, "请检查网络连接",Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void request_changemail(final String newMail , String verifyCode) {
+    private void request_changemail(final String newMail , int verifyCode) {
         GetCookieAndToken();
         ChangeMailService changeMailService = RetrofitWrapper.getInstance().create(ChangeMailService.class);
         Call<ChangeMailBean> call = changeMailService.getReturn(token,verifyCodeToken,new ChangeMailPostData(newMail,verifyCode));
         call.enqueue(new Callback<ChangeMailBean>() {
             @Override
             public void onResponse(Call<ChangeMailBean> call, Response<ChangeMailBean> response) {
-                if ( response.isSuccessful() ){
+                if ( response.isSuccessful() ) {
                     Toast.makeText(Information.this, "修改成功", Toast.LENGTH_LONG).show();
                     et_mailbox.setText(newMail);
+                    et_mailbox.clearFocus();//取消焦点
+                    ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(Information.this.getCurrentFocus().getWindowToken(),
+                                    InputMethodManager.HIDE_NOT_ALWAYS);//关闭输入法
                 } else {
                     Toast.makeText(Information.this, "请重试", Toast.LENGTH_LONG).show();
                     showDialog_verify();
@@ -213,18 +263,11 @@ public class Information extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<ChangeMailBean> call, Throwable t) {
-                Toast.makeText(Information.this, "请重试", Toast.LENGTH_LONG).show();
+                Toast.makeText(Information.this, "请检查网络连接", Toast.LENGTH_LONG).show();
                 showDialog_verify();
             }
         });
     }
-    private void SaveCookie (String cookie) {
-        SharedPreferences data = getSharedPreferences("CandT",MODE_PRIVATE);
-        SharedPreferences.Editor editor = data.edit();
-        editor.putString("cookie",cookie);
-        editor.apply();
-    }
-
     private void GetCookieAndToken () {
         SharedPreferences data = getSharedPreferences("CandT",MODE_PRIVATE);
         cookie = data.getString("cookie",null);

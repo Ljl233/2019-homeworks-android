@@ -31,7 +31,7 @@
     </style>
 
 
-    <style name="MyAssignStyle" parent="AppTheme">
+    <style name="MyAssignStyle" parent="AppThemeBase">
         <item name="android:popupMenuStyle">@style/popmenuStyle</item>
         <item name="android:dropDownListViewStyle">@style/popmenuDivier</item>
         <item name="android:textAppearanceSmallPopupMenu">@style/popmeuText</item>
@@ -51,6 +51,11 @@
     <style name="popmenuDivier">
         <item name="android:divider">#BCBCBC</item>
         <item name="android:dividerHeight">1dp</item>
+    </style>
+
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/colormain</item>
     </style>
 
 </resources>

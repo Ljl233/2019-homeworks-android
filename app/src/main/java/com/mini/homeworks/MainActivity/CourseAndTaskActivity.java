@@ -159,4 +159,8 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
         } else
             super.onBackPressed();
     }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        // super.onSaveInstanceState(outState);
+    }
 }

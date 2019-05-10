@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,31 +37,29 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class TaskFragment extends Fragment implements View.OnClickListener{
 
-    View view;
+    private View view;
     private RecyclerView rv_task;
     private Spinner spinner_collation;
     private Button btn_all, btn_completed, btn_processing, btn_overdue;
-    String cookie;
-    String token;
+    private String cookie;
+    private String token;
 
     List<TasksBean.AssignListBean> tasklist = new ArrayList<>();
     List<TasksBean.AssignListBean> tmptasklist = new ArrayList<>();
-    TasksBean.AssignListBean[] task;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.task_view,container,false);
-        request_task();
         initTask();
+        request_task();
         return view;
     }
-
 
     private void request_task() {
         GetCookieAndToken();
         TasksService tasksService = RetrofitWrapper.getInstance().create(TasksService.class);
-        Call<TasksBean> call = tasksService.getTaskBean(cookie, token);
+        Call<TasksBean> call = tasksService.getTaskBean(cookie,token);
         call.enqueue(new Callback<TasksBean>() {
             @Override
             public void onResponse(Call<TasksBean> call, Response<TasksBean> response) {
@@ -71,7 +70,7 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
                     cookie = response.body().getCookie();
                     SaveCookie(cookie);
                 } else
-                    Toast.makeText(getActivity(), "加载失败，请重试", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "加载失败，请重试", Toast.LENGTH_LONG).show();
             }
             @Override
             public void onFailure(Call<TasksBean> call, Throwable t) {
@@ -104,8 +103,6 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
         btn_completed.setBackgroundColor(Color.parseColor("#1F000000"));
         tmptasklist = tasklist;
 
-        task = new TasksBean.AssignListBean[tmptasklist.size()];
-        tmptasklist.toArray(task);
         ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(getContext(), R.array.array_collation, R.layout.task_view_spinner_text_item);
         spinnerAdapter.setDropDownViewResource(R.layout.task_view_spinner_dropdown_item);
         spinner_collation.setAdapter(spinnerAdapter);
@@ -132,8 +129,8 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra("siteId", tmptasklist.get(position - 1).getSiteId());
-                intent.putExtra("assignId", tmptasklist.get(position - 1).getAssignId());
+                intent.putExtra("siteId", tmptasklist.get(position).getSiteId());
+                intent.putExtra("assignId", tmptasklist.get(position).getAssignId());
                 startActivity(intent);
             }
         });
@@ -142,26 +139,56 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
 
     private void beginorder() {
         for (int i = 0; i < tmptasklist.size(); i++) {
-            for (int j = i; j < tmptasklist.size(); j++) {
-                if (task[i].getBeginTime() < task[j].getBeginTime()) {
-                    TasksBean.AssignListBean t = task[i];
-                    task[i] = task[j];
-                    task[j] = t;
+            for (int j = 0; j < tmptasklist.size() - i - 1; j++) {
+                if (tmptasklist.get(j).getBeginTime() < tmptasklist.get(j+1).getBeginTime()) {
+                    TasksBean.AssignListBean t = tmptasklist.get(j);
+                    tmptasklist.get(j).setAssignId(tmptasklist.get(j+1).getAssignId());
+                    tmptasklist.get(j).setAssignName(tmptasklist.get(j+1).getAssignName());
+                    tmptasklist.get(j).setBeginTime(tmptasklist.get(j+1).getBeginTime());
+                    tmptasklist.get(j).setCourseName(tmptasklist.get(j+1).getCourseName());
+                    tmptasklist.get(j).setEndTime(tmptasklist.get(j+1).getEndTime());
+                    tmptasklist.get(j).setSiteId(tmptasklist.get(j+1).getSiteId());
+                    tmptasklist.get(j).setStatus(tmptasklist.get(j+1).getStatus());
+                    tmptasklist.get(j).setTeacher(tmptasklist.get(j+1).getTeacher());
+                    tmptasklist.get(j+1).setTeacher(t.getTeacher());
+                    tmptasklist.get(j+1).setStatus(t.getStatus());
+                    tmptasklist.get(j+1).setSiteId(t.getSiteId());
+                    tmptasklist.get(j+1).setCourseName(t.getCourseName());
+                    tmptasklist.get(j+1).setAssignName(t.getAssignName());
+                    tmptasklist.get(j+1).setAssignId(t.getAssignId());
+                    tmptasklist.get(j+1).setBeginTime(t.getBeginTime());
+                    tmptasklist.get(j+1).setEndTime(t.getEndTime());
                 }
             }
         }
+        rv_task.getAdapter().notifyDataSetChanged();
     }
 
     private void endorder() {
         for (int i = 0; i < tmptasklist.size(); i++) {
-            for (int j = i; j < tmptasklist.size(); j++) {
-                if (task[i].getEndTime() < task[j].getEndTime()) {
-                    TasksBean.AssignListBean t = task[i];
-                    task[i] = task[j];
-                    task[j] = t;
+            for (int j = 0; j < tmptasklist.size() - i - 1; j++) {
+                if (tmptasklist.get(j).getEndTime() < tmptasklist.get(j+1).getEndTime()) {
+                    TasksBean.AssignListBean t = tmptasklist.get(j);
+                    tmptasklist.get(j).setAssignId(tmptasklist.get(j+1).getAssignId());
+                    tmptasklist.get(j).setAssignName(tmptasklist.get(j+1).getAssignName());
+                    tmptasklist.get(j).setBeginTime(tmptasklist.get(j+1).getBeginTime());
+                    tmptasklist.get(j).setCourseName(tmptasklist.get(j+1).getCourseName());
+                    tmptasklist.get(j).setEndTime(tmptasklist.get(j+1).getEndTime());
+                    tmptasklist.get(j).setSiteId(tmptasklist.get(j+1).getSiteId());
+                    tmptasklist.get(j).setStatus(tmptasklist.get(j+1).getStatus());
+                    tmptasklist.get(j).setTeacher(tmptasklist.get(j+1).getTeacher());
+                    tmptasklist.get(j+1).setTeacher(t.getTeacher());
+                    tmptasklist.get(j+1).setStatus(t.getStatus());
+                    tmptasklist.get(j+1).setSiteId(t.getSiteId());
+                    tmptasklist.get(j+1).setCourseName(t.getCourseName());
+                    tmptasklist.get(j+1).setAssignName(t.getAssignName());
+                    tmptasklist.get(j+1).setAssignId(t.getAssignId());
+                    tmptasklist.get(j+1).setBeginTime(t.getBeginTime());
+                    tmptasklist.get(j+1).setEndTime(t.getEndTime());
                 }
             }
         }
+        rv_task.getAdapter().notifyDataSetChanged();
     }
 
     @Override
@@ -220,36 +247,45 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
     }
 
     private void selectprocessing() {
-        tmptasklist = tasklist;
+        long now = Instant.now().getEpochSecond()*1000;
+        tmptasklist = new ArrayList<>();
         int l = tasklist.size();
-        long now = Instant.now().getEpochSecond();
-        for (int i = 0; i < l; i++) {
-            if (tmptasklist.get(i).getEndTime() <= now ||
-                    tmptasklist.get(i).getBeginTime() >= now ||
-                    (tmptasklist.get(i).getStatus() != 0 && tmptasklist.get(i).getStatus() != 2))
-                tmptasklist.remove(i);
+        for (int i = 0;  i < l ; i++ ) {
+            if (tasklist.get(i).getEndTime() <= now ||
+                    tasklist.get(i).getBeginTime() >= now ||
+                    (tasklist.get(i).getStatus() != 0 && tasklist.get(i).getStatus() != 2))
+                continue;
+            else tmptasklist.add(tasklist.get(i));
         }
+        Log.d("size::::::::",tmptasklist.size()+"");
+        rv_task.getAdapter().notifyDataSetChanged();
     }
 
     private void selectcompeleted() {
-        tmptasklist = tasklist;
+        long now = Instant.now().getEpochSecond()*1000;
+        tmptasklist = new ArrayList<>();
         int l = tasklist.size();
-        long now = Instant.now().getEpochSecond();
-        for (int i = 0; i < l; i++) {
-            if (tmptasklist.get(i).getBeginTime() >= now ||
-                    (tmptasklist.get(i).getStatus() != 1 && tmptasklist.get(i).getStatus() != 3))
-                tmptasklist.remove(i);
+        for (int i = 0;  i < l ; i++ ) {
+            if (tasklist.get(i).getBeginTime() >= now ||
+                    (tasklist.get(i).getStatus() != 1 && tasklist.get(i).getStatus() != 3))
+                continue;
+            else tmptasklist.add(tasklist.get(i));
         }
+        Log.d("size::::::::",tmptasklist.size()+"");
+        rv_task.getAdapter().notifyDataSetChanged();
     }
 
     private void selectoverdue() {
-        tmptasklist = tasklist;
+        long now = Instant.now().getEpochSecond()*1000;
+        tmptasklist = new ArrayList<>();
         int l = tasklist.size();
-        long now = Instant.now().getEpochSecond();
-        for (int i = 0; i < l; i++) {
-            if (tmptasklist.get(i).getEndTime() >= now && tmptasklist.get(i).getBeginTime() < now)
-                tmptasklist.remove(i);
+        for (int i = 0;  i < l ; i++ ) {
+            if (tasklist.get(i).getEndTime() >= now && tasklist.get(i).getBeginTime() < now)
+                continue;
+            else tmptasklist.add(tasklist.get(i));
         }
+        Log.d("size::::::::",tmptasklist.size()+"");
+        rv_task.getAdapter().notifyDataSetChanged();
     }
 
     private void SaveCookie (String cookie) {
