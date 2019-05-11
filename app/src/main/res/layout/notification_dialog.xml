@@ -2,28 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="20dp"
     android:orientation="horizontal">
 
     <EditText
         android:id="@+id/ed_dialog_day"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@null"
-        android:inputType="number" />
+        android:gravity="center"
+        android:inputType="number"
+        android:textCursorDrawable="@null" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="天"
-        android:textSize="35sp"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <EditText
         android:id="@+id/ed_dialog_hour"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@null"
-        android:inputType="number" />
+        android:gravity="center"
+        android:inputType="number"
+        android:textCursorDrawable="@null" />
 
     <TextView
         android:layout_width="wrap_content"

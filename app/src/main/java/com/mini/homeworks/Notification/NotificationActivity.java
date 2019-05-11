@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -191,6 +192,8 @@ public class NotificationActivity extends AppCompatActivity {
         customizeDialog.setTitle(null);
         //绑定View对象
         customizeDialog.setView(dialogView);
+        alertDialog = customizeDialog.create();
+
         //设置按钮
         customizeDialog.setPositiveButton("取消",
                 //OnClickListener
@@ -210,7 +213,9 @@ public class NotificationActivity extends AppCompatActivity {
                         //获取EditView中输入的内容
                         EditText editText_day = dialogView.findViewById(R.id.ed_dialog_day);
                         EditText editText_hour = dialogView.findViewById(R.id.ed_dialog_hour);
-                        int hour = Integer.parseInt(editText_hour.toString().trim()) + Integer.parseInt(editText_day.toString().trim()) * 24;
+                        editText_day.setSelection(editText_day.getText().length());
+                        editText_hour.extendSelection(editText_hour.getText().length());
+                        int hour = Integer.parseInt(editText_hour.getText().toString().trim()) + Integer.parseInt(editText_day.getText().toString().trim()) * 24;
                         //添加事件节点
                         GetCookieAndToken();
                         Call<NotificationBean.NoticeTimeAdd> noticeTimeAddCall = notificationService.getNoticeTimeAdd(hour, token);
@@ -229,7 +234,6 @@ public class NotificationActivity extends AppCompatActivity {
                     }
                 });
         customizeDialog.show();
-
     }
 
     //刷新RecyclerView
