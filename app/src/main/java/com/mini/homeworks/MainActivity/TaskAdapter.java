@@ -1,13 +1,11 @@
 package com.mini.homeworks.MainActivity;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mini.homeworks.R;
@@ -32,6 +30,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
 
     public TaskAdapter(List<TasksBean.AssignListBean> mDatas){
         this.mDatas = mDatas;
+    }
+
+    public void update(List<TasksBean.AssignListBean> aNew) {
+        this.mDatas.clear();
+        this.mDatas.addAll(aNew);
     }
 
     @Override

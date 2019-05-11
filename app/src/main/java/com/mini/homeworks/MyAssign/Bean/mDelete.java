@@ -1,8 +1,9 @@
 package com.mini.homeworks.MyAssign.Bean;
 
+import org.litepal.LitePal;
 import org.litepal.crud.LitePalSupport;
 
-public class Normal extends LitePalSupport {
+public class mDelete extends LitePalSupport {
     private String siteId;
     private int status;
     private String assignName;
@@ -65,4 +66,5 @@ public class Normal extends LitePalSupport {
     public void setAssignId(String assignId) {
         this.assignId = assignId;
     }
+
 }

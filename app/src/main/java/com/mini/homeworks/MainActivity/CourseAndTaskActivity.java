@@ -2,8 +2,6 @@ package com.mini.homeworks.MainActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -11,45 +9,22 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.mini.homeworks.AssignDetail.DetailActivity;
-import com.mini.homeworks.CourseAssign.AssignActivity;
 import com.mini.homeworks.FriendManagement.FriendManagement;
-import com.mini.homeworks.MyAssign.MyAssign;
+import com.mini.homeworks.MyAssign.MyAssignActivity;
 import com.mini.homeworks.MyNotice.MyNotice;
 import com.mini.homeworks.Notification.NotificationActivity;
-import com.mini.homeworks.PersonalInformation.Information;
+import com.mini.homeworks.PersonalInformation.InformationActivity;
 import com.mini.homeworks.R;
 import com.mini.homeworks.Search.SearchActivity;
-import com.mini.homeworks.net.RetrofitWrapper;
-import com.mini.homeworks.net.Service.CoursesService;
-import com.mini.homeworks.net.Service.TasksService;
-import com.mini.homeworks.net.bean.CoursesBean;
-import com.mini.homeworks.net.bean.TasksBean;
-
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class CourseAndTaskActivity extends AppCompatActivity implements OnClickListener {
     private Toolbar tb_head;
@@ -70,7 +45,7 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_information: {
-                Intent intent = new Intent(CourseAndTaskActivity.this, Information.class);
+                Intent intent = new Intent(CourseAndTaskActivity.this, InformationActivity.class);
                 startActivity(intent);
                 break;
             }
@@ -80,7 +55,7 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
                 break;
             }
             case R.id.ll_assignment: {
-                Intent intent = new Intent(CourseAndTaskActivity.this, MyAssign.class);
+                Intent intent = new Intent(CourseAndTaskActivity.this, MyAssignActivity.class);
                 startActivity(intent);
                 break;
             }
@@ -158,9 +133,5 @@ public class CourseAndTaskActivity extends AppCompatActivity implements OnClickL
             dl_navigation.closeDrawer(GravityCompat.START);
         } else
             super.onBackPressed();
-    }
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        // super.onSaveInstanceState(outState);
     }
 }

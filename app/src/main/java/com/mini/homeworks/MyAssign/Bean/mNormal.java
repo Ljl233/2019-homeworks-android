@@ -2,7 +2,7 @@ package com.mini.homeworks.MyAssign.Bean;
 
 import org.litepal.crud.LitePalSupport;
 
-public class Overhead extends LitePalSupport {
+public class mNormal extends LitePalSupport {
     private String siteId;
     private int status;
     private String assignName;

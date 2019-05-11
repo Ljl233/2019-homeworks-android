@@ -1,5 +1,6 @@
 package com.mini.homeworks.MyAssign;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -20,44 +21,35 @@ import java.util.List;
 
 
 
-public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHolder> {
+public class MyAssignAdapter extends RecyclerView.Adapter<MyAssignAdapter.MyViewHolder> {
 
     private Context mContext;
     private List<AssignmentBean> data;
-    private AssignAdapter.OnItemClickListener mOnItemClickListener;
 
-    public void setOnItemClickListener(AssignAdapter.OnItemClickListener mOnItemClickListener) {
-        this.mOnItemClickListener = mOnItemClickListener;
-    }
-
-    private AssignAdapter.OnItemClickListener onRecyclerViewItemClickListener;
+    private MyAssignAdapter.OnItemClickListener onRecyclerViewItemClickListener;
 
     public interface OnItemClickListener {
         void onClick(int position);
     }
 
-    public void setOnRecyclerViewItemClickListener(AssignAdapter.OnItemClickListener onItemClickListener) {
+    public void setOnRecyclerViewItemClickListener(MyAssignAdapter.OnItemClickListener onItemClickListener) {
         this.onRecyclerViewItemClickListener = onItemClickListener;
     }
 
-    public AssignAdapter(List<AssignmentBean> mDates){
+    public MyAssignAdapter(List<AssignmentBean> data) {
         this.data = data;
     }
 
     @NonNull
     @Override
-    public AssignAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        if ( viewType == 0 ) {
-            View view = View.inflate(mContext,R.layout.my_assignment_item,null);
-            return new AssignAdapter.MyViewHolder(view);
-        } else {
-            View view = View.inflate(mContext, R.layout.my_assignment_item, null);
-            return new AssignAdapter.MyViewHolder(view);
-        }
+    public MyAssignAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+        mContext = parent.getContext();
+        View view = View.inflate(parent.getContext(),R.layout.my_assignment_item,null);
+        return new MyAssignAdapter.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder (final AssignAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder (final MyAssignAdapter.MyViewHolder holder, final int position) {
         final SparseIntArray color_back = new SparseIntArray();
         color_back.put( Color.parseColor("#933DA9"), R.drawable.rounded_rectangle_933da9 );
         color_back.put( Color.parseColor("#3F51B5"), R.drawable.rounded_rectangle_3f51b5 );
@@ -79,6 +71,8 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
         holder.tv_endtime.setText("截止时间："+GetDate.DateToWeek(endtime)+" "+endtime);
         holder.tv_assignName.setText(dataBean.getAssignName());
         holder.ll_myassign_item_in.setBackgroundResource(color_back.get(dataBean.getColor()));
+        holder.tv_endtime.setTextColor(color_back.get(dataBean.getColor()));
+        holder.tv_begintime.setTextColor(color_back.get(dataBean.getColor()));
         if(dataBean.getType() == 1) {
             holder.iv_promotion.setVisibility(View.INVISIBLE);
             holder.iv_menu.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +116,7 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
                             holder.tv_endtime.setTextColor(color);
                             holder.tv_begintime.setTextColor(color);
                             holder.ll_myassign_item_in.setBackgroundResource(color_back.get(color));
+                            listener.onUpdateListener();
                         }
                         break;
                     }
@@ -130,28 +125,48 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
                             holder.tv_endtime.setTextColor(color);
                             holder.tv_begintime.setTextColor(color);
                             holder.ll_myassign_item_in.setBackgroundResource(color_back.get(color));
+                            listener.onUpdateListener();
                         }
                         break;
                     }
                     case 2 : { // 2：删除顶置（color = -1）
-                        notifyItemRemoved(position);
+                        listener.onUpdateListener();
                         break;
                     }
                     case 3 : { // 3：删除普通（color = -1）
-                        notifyItemRemoved(position);
+                        listener.onUpdateListener();
                         break;
                     }
                     case 4 : { // 4：顶置（color = -1）
-                        notifyItemRangeChanged(0,position);
+                        listener.onUpdateListener();
                         break;
                     }
                     case 5 : { // 5：取消顶置（color = -1）
-                        notifyItemRangeChanged(0,getItemCount());
+                        listener.onUpdateListener();
                         break;
                     }
                 }
             }
         });
+        if (onRecyclerViewItemClickListener != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onRecyclerViewItemClickListener.onClick(position);
+                }
+            });
+        }
+
+    }
+
+    private UpdateListener listener;//更新列表
+
+    public interface UpdateListener {
+        void onUpdateListener();
+    }
+
+    public void setOnUpdateListener(UpdateListener listener) {
+        this.listener = listener;
     }
 
     @Override

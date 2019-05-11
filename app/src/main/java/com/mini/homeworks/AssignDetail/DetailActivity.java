@@ -89,13 +89,13 @@ public class DetailActivity extends AppCompatActivity {
                     cookie = response.body().getCookie();
                     SaveCookie(cookie);
                     initDetail(detail);
-                } else {
+                } else
                     Toast.makeText(DetailActivity.this, "请求失败，请重试", Toast.LENGTH_LONG).show();
-                }
             }
-
             @Override
             public void onFailure(Call<DetailBean> call, Throwable t) {
+                Log.e("66666666666666666666666666666","666666666666666666666666");
+                t.printStackTrace();
                 Toast.makeText(DetailActivity.this, "404", Toast.LENGTH_LONG).show();
             }
         });

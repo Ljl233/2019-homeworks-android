@@ -11,9 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#4DB6AC"
-        app:collapseIcon="@mipmap/close_icon"
         app:elevation="10dp"
-        app:navigationIcon="@mipmap/back_arrow"
+        app:navigationIcon="@drawable/back_arrow"
         app:title="我的任务"
         app:titleTextColor="@color/white" />
 

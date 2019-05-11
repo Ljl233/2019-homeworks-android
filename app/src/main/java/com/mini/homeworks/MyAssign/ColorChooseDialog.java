@@ -21,6 +21,8 @@ import java.util.Map;
 
 public class ColorChooseDialog extends DialogFragment {
 
+    private Context mContext;
+
     private ColorListener listener;
 
     //监听颜色选择的接口
@@ -38,7 +40,8 @@ public class ColorChooseDialog extends DialogFragment {
     private int color;
 
     //具体颜色选择的逻辑方法
-    void showColorChooseDialog ( int originalcolor, Context context ) {
+    public void showColorChooseDialog ( int originalcolor, Context context ) {
+        this.mContext = context;
 
         color = originalcolor;
 
@@ -61,31 +64,31 @@ public class ColorChooseDialog extends DialogFragment {
         SparseIntArray circle_color = new SparseIntArray();
         //Map<Integer,Integer> circle_color = new HashMap<Integer, Integer>();
         circle_color.put( R.drawable.color_933da9, Color.parseColor("#933DA9") );
-        circle_color.put( R.drawable.color_933da9, Color.parseColor("#3F51B5") );
-        circle_color.put( R.drawable.color_933da9, Color.parseColor("#039BE5") );
-        circle_color.put( R.drawable.color_933da9, Color.parseColor("#F37047") );
-        circle_color.put( R.drawable.color_933da9, Color.parseColor("#4DB6AC") );
-        circle_color.put( R.drawable.color_933da9, Color.parseColor("#E59089") );
-        circle_color.put( R.drawable.color_933da9, Color.parseColor("#DB4437") );
-        circle_color.put( R.drawable.color_933da9, Color.parseColor("#BCBCBC") );
-        circle_color.put( R.drawable.color_933da9, Color.parseColor("#8490C8") );
-        circle_color.put( R.drawable.color_933da9, Color.parseColor("#F6BF26") );
-        circle_color.put( R.drawable.color_933da9, Color.parseColor("#CD3278") );
-        circle_color.put( R.drawable.color_933da9, Color.parseColor("#4CB684") );
+        circle_color.put( R.drawable.color_3f51b5, Color.parseColor("#3F51B5") );
+        circle_color.put( R.drawable.color_039be5, Color.parseColor("#039BE5") );
+        circle_color.put( R.drawable.color_f37047, Color.parseColor("#F37047") );
+        circle_color.put( R.drawable.color_4db6ac, Color.parseColor("#4DB6AC") );
+        circle_color.put( R.drawable.color_e59089, Color.parseColor("#E59089") );
+        circle_color.put( R.drawable.color_db4437, Color.parseColor("#DB4437") );
+        circle_color.put( R.drawable.color_bcbcbc, Color.parseColor("#BCBCBC") );
+        circle_color.put( R.drawable.color_8490c8, Color.parseColor("#8490C8") );
+        circle_color.put( R.drawable.color_f6bf26, Color.parseColor("#F6BF26") );
+        circle_color.put( R.drawable.color_cd3278, Color.parseColor("#CD3278") );
+        circle_color.put( R.drawable.color_4cb684, Color.parseColor("#4CB684") );
 
         SparseIntArray color_circle = new SparseIntArray();
         color_circle.put( Color.parseColor("#933DA9"), R.drawable.color_933da9 );
-        color_circle.put( Color.parseColor("#3F51B5"), R.drawable.color_933da9 );
-        color_circle.put( Color.parseColor("#039BE5"), R.drawable.color_933da9 );
-        color_circle.put( Color.parseColor("#F37047"), R.drawable.color_933da9 );
-        color_circle.put( Color.parseColor("#4DB6AC"), R.drawable.color_933da9 );
-        color_circle.put( Color.parseColor("#E59089"), R.drawable.color_933da9 );
-        color_circle.put( Color.parseColor("#DB4437"), R.drawable.color_933da9 );
-        color_circle.put( Color.parseColor("#BCBCBC"), R.drawable.color_933da9 );
-        color_circle.put( Color.parseColor("#8490C8"), R.drawable.color_933da9 );
-        color_circle.put( Color.parseColor("#F6BF26"), R.drawable.color_933da9 );
-        color_circle.put( Color.parseColor("#CD3278"), R.drawable.color_933da9 );
-        color_circle.put( Color.parseColor("#4CB684"), R.drawable.color_933da9 );
+        color_circle.put( Color.parseColor("#3F51B5"), R.drawable.color_3f51b5 );
+        color_circle.put( Color.parseColor("#039BE5"), R.drawable.color_039be5 );
+        color_circle.put( Color.parseColor("#F37047"), R.drawable.color_f37047 );
+        color_circle.put( Color.parseColor("#4DB6AC"), R.drawable.color_4db6ac );
+        color_circle.put( Color.parseColor("#E59089"), R.drawable.color_e59089 );
+        color_circle.put( Color.parseColor("#DB4437"), R.drawable.color_db4437 );
+        color_circle.put( Color.parseColor("#BCBCBC"), R.drawable.color_bcbcbc );
+        color_circle.put( Color.parseColor("#8490C8"), R.drawable.color_8490c8 );
+        color_circle.put( Color.parseColor("#F6BF26"), R.drawable.color_f6bf26 );
+        color_circle.put( Color.parseColor("#CD3278"), R.drawable.color_cd3278 );
+        color_circle.put( Color.parseColor("#4CB684"), R.drawable.color_4cb684 );
 
         Map<Integer, ImageView> color_view = new HashMap<>();
         color_view.put( Color.parseColor("#933DA9"), iv_myassign_dialog_933da9 );
@@ -102,7 +105,7 @@ public class ColorChooseDialog extends DialogFragment {
         color_view.put( Color.parseColor("#4CB684"), iv_myassign_dialog_4cb684 );
 
         ImageView t = color_view.get(originalcolor);
-        final Resources[] r = {getResources()};
+        final Resources[] r = {mContext.getResources()};
         Drawable[] layers = new Drawable[2];
         layers[0] = r[0].getDrawable(R.drawable.tick);
         layers[1] = r[0].getDrawable(color_circle.get(originalcolor));
@@ -110,14 +113,13 @@ public class ColorChooseDialog extends DialogFragment {
         t.setImageDrawable(layerDrawable);
 
 
-        final AlertDialog.Builder layoutDialog = new AlertDialog.Builder(context);
-        layoutDialog.setView(colorchoose_dialog);
+
 
         iv_myassign_dialog_3f51b5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                color = Color.parseColor("3F51B5");
-                Resources r = getResources();
+                color = Color.parseColor("#3F51B5");
+                Resources r = mContext.getResources();
                 Drawable[] layers = new Drawable[2];
                 layers[0] = r.getDrawable(R.drawable.tick);
                 layers[1] = r.getDrawable(R.drawable.color_3f51b5);
@@ -140,8 +142,8 @@ public class ColorChooseDialog extends DialogFragment {
         iv_myassign_dialog_4cb684.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                color = Color.parseColor("4CB684");
-                Resources r = getResources();
+                color = Color.parseColor("#4CB684");
+                Resources r = mContext.getResources();
                 Drawable[] layers = new Drawable[2];
                 layers[0] = r.getDrawable(R.drawable.tick);
                 layers[1] = r.getDrawable(R.drawable.color_4cb684);
@@ -164,8 +166,8 @@ public class ColorChooseDialog extends DialogFragment {
         iv_myassign_dialog_4db6ac.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                color = Color.parseColor("4DB6AC");
-                Resources r = getResources();
+                color = Color.parseColor("#4DB6AC");
+                Resources r = mContext.getResources();
                 Drawable[] layers = new Drawable[2];
                 layers[0] = r.getDrawable(R.drawable.tick);
                 layers[1] = r.getDrawable(R.drawable.color_4db6ac);
@@ -188,8 +190,8 @@ public class ColorChooseDialog extends DialogFragment {
         iv_myassign_dialog_039be5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                color = Color.parseColor("039BE5");
-                Resources r = getResources();
+                color = Color.parseColor("#039BE5");
+                Resources r = mContext.getResources();
                 Drawable[] layers = new Drawable[2];
                 layers[0] = r.getDrawable(R.drawable.tick);
                 layers[1] = r.getDrawable(R.drawable.color_039be5);
@@ -212,8 +214,8 @@ public class ColorChooseDialog extends DialogFragment {
         iv_myassign_dialog_933da9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                color = Color.parseColor("933DA9");
-                Resources r = getResources();
+                color = Color.parseColor("#933DA9");
+                Resources r = mContext.getResources();
                 Drawable[] layers = new Drawable[2];
                 layers[0] = r.getDrawable(R.drawable.tick);
                 layers[1] = r.getDrawable(R.drawable.color_933da9);
@@ -236,8 +238,8 @@ public class ColorChooseDialog extends DialogFragment {
         iv_myassign_dialog_8490c8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                color = Color.parseColor("8490C8");
-                Resources r = getResources();
+                color = Color.parseColor("#8490C8");
+                Resources r = mContext.getResources();
                 Drawable[] layers = new Drawable[2];
                 layers[0] = r.getDrawable(R.drawable.tick);
                 layers[1] = r.getDrawable(R.drawable.color_8490c8);
@@ -260,8 +262,8 @@ public class ColorChooseDialog extends DialogFragment {
         iv_myassign_dialog_bcbcbc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                color = Color.parseColor("BCBCBC");
-                Resources r = getResources();
+                color = Color.parseColor("#BCBCBC");
+                Resources r = mContext.getResources();
                 Drawable[] layers = new Drawable[2];
                 layers[0] = r.getDrawable(R.drawable.tick);
                 layers[1] = r.getDrawable(R.drawable.color_bcbcbc);
@@ -284,8 +286,8 @@ public class ColorChooseDialog extends DialogFragment {
         iv_myassign_dialog_cd3278.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                color = Color.parseColor("CD3278");
-                Resources r = getResources();
+                color = Color.parseColor("#CD3278");
+                Resources r = mContext.getResources();
                 Drawable[] layers = new Drawable[2];
                 layers[0] = r.getDrawable(R.drawable.tick);
                 layers[1] = r.getDrawable(R.drawable.color_cd3278);
@@ -308,8 +310,8 @@ public class ColorChooseDialog extends DialogFragment {
         iv_myassign_dialog_db4437.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                color = Color.parseColor("DB4437");
-                Resources r = getResources();
+                color = Color.parseColor("#DB4437");
+                Resources r = mContext.getResources();
                 Drawable[] layers = new Drawable[2];
                 layers[0] = r.getDrawable(R.drawable.tick);
                 layers[1] = r.getDrawable(R.drawable.color_db4437);
@@ -332,8 +334,8 @@ public class ColorChooseDialog extends DialogFragment {
         iv_myassign_dialog_e59089.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                color = Color.parseColor("E59089");
-                Resources r = getResources();
+                color = Color.parseColor("#E59089");
+                Resources r = mContext.getResources();
                 Drawable[] layers = new Drawable[2];
                 layers[0] = r.getDrawable(R.drawable.tick);
                 layers[1] = r.getDrawable(R.drawable.color_e59089);
@@ -356,8 +358,8 @@ public class ColorChooseDialog extends DialogFragment {
         iv_myassign_dialog_f6bf26.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                color = Color.parseColor("F6BF26");
-                Resources r = getResources();
+                color = Color.parseColor("#F6BF26");
+                Resources r = mContext.getResources();
                 Drawable[] layers = new Drawable[2];
                 layers[0] = r.getDrawable(R.drawable.tick);
                 layers[1] = r.getDrawable(R.drawable.color_f6bf26);
@@ -380,8 +382,8 @@ public class ColorChooseDialog extends DialogFragment {
         iv_myassign_dialog_f37047.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                color = Color.parseColor("F37047");
-                Resources r = getResources();
+                color = Color.parseColor("#F37047");
+                Resources r = mContext.getResources();
                 Drawable[] layers = new Drawable[2];
                 layers[0] = r.getDrawable(R.drawable.tick);
                 layers[1] = r.getDrawable(R.drawable.color_f37047);
@@ -401,6 +403,8 @@ public class ColorChooseDialog extends DialogFragment {
             }
         });
 
+        final AlertDialog.Builder layoutDialog = new AlertDialog.Builder(context);
+        layoutDialog.setView(colorchoose_dialog);
         tv_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -418,12 +422,7 @@ public class ColorChooseDialog extends DialogFragment {
                 });
             }
         });
-
         layoutDialog.create().show();
-
-
-
-
     }
 
 }

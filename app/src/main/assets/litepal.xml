@@ -4,9 +4,9 @@
 
     <version value ="1" />
     <list>
-        <mapping class="com.mini.homeworks.MyAssign.Bean.Overhead"/>
-        <mapping class="com.mini.homeworks.MyAssign.Bean.Delete"/>
-        <mapping class="com.mini.homeworks.MyAssign.Bean.Normal"/>
+        <mapping class="com.mini.homeworks.MyAssign.Bean.mOverhead"/>
+        <mapping class="com.mini.homeworks.MyAssign.Bean.mDelete"/>
+        <mapping class="com.mini.homeworks.MyAssign.Bean.mNormal"/>
     </list>
 
 </litepal>

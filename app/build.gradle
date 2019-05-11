@@ -40,4 +40,5 @@ dependencies {
     implementation 'org.jetbrains:annotations-java5:15.0'
     implementation 'org.litepal.android:java:3.0.0'
     implementation 'org.litepal.android:core:3.0.0'
+
 }

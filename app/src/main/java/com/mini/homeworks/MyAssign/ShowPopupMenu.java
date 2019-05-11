@@ -23,7 +23,7 @@ class ShowPopupMenu {
 
     //监听菜单操作的接口
     public interface OperationListener{
-        void onOperationListener(int type,int color);
+        void onOperationListener(int type, int color);
         /*
         * type：
         * 0：顶置变色（color = 变化的颜色，若无变化color = -1）

@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.LoginFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,12 +28,14 @@ import com.mini.homeworks.net.bean.TasksBean;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.LOCATION_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 
 public class TaskFragment extends Fragment implements View.OnClickListener{
@@ -43,6 +46,7 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
     private Button btn_all, btn_completed, btn_processing, btn_overdue;
     private String cookie;
     private String token;
+    int i = 0;
 
     List<TasksBean.AssignListBean> tasklist = new ArrayList<>();
     List<TasksBean.AssignListBean> tmptasklist = new ArrayList<>();
@@ -65,8 +69,11 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
             public void onResponse(Call<TasksBean> call, Response<TasksBean> response) {
                 if (response.isSuccessful()) {
                     tasklist.addAll(response.body().getAssignList());
-                    if(rv_task.getAdapter() != null)
+                    if(rv_task.getAdapter() != null) {
+                        tmptasklist.clear();
+                        tmptasklist.addAll(tasklist);
                         rv_task.getAdapter().notifyDataSetChanged();
+                    }
                     cookie = response.body().getCookie();
                     SaveCookie(cookie);
                 } else
@@ -101,26 +108,29 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
         btn_processing.setBackgroundColor(Color.parseColor("#1F000000"));
         btn_completed.setTextColor(Color.parseColor("#42000000"));
         btn_completed.setBackgroundColor(Color.parseColor("#1F000000"));
-        tmptasklist = tasklist;
-
+        tmptasklist.clear();
+        tmptasklist.addAll(tasklist);
         ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(getContext(), R.array.array_collation, R.layout.task_view_spinner_text_item);
         spinnerAdapter.setDropDownViewResource(R.layout.task_view_spinner_dropdown_item);
         spinner_collation.setAdapter(spinnerAdapter);
         spinner_collation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                if (id == 0)
+                if (pos == 0) {
+                    Log.e("msg........................................BEGIN",""+(i++));
                     beginorder();
-                else
+                }
+                else {
+                    Log.e("msg.........................................END",""+(i++));
                     endorder();
+                }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 beginorder();
             }
         });
-
+        spinner_collation.setSelection(0, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rv_task.setLayoutManager(layoutManager);
         TaskAdapter taskAdapter = new TaskAdapter(tmptasklist);
@@ -134,60 +144,18 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent);
             }
         });
-
+        spinner_collation.setSelection(0,true);
+        spinner_collation.setSelection(0);
+        Log.e("what-------",spinner_collation.getSelectedItemId()+"");
     }
 
     private void beginorder() {
-        for (int i = 0; i < tmptasklist.size(); i++) {
-            for (int j = 0; j < tmptasklist.size() - i - 1; j++) {
-                if (tmptasklist.get(j).getBeginTime() < tmptasklist.get(j+1).getBeginTime()) {
-                    TasksBean.AssignListBean t = tmptasklist.get(j);
-                    tmptasklist.get(j).setAssignId(tmptasklist.get(j+1).getAssignId());
-                    tmptasklist.get(j).setAssignName(tmptasklist.get(j+1).getAssignName());
-                    tmptasklist.get(j).setBeginTime(tmptasklist.get(j+1).getBeginTime());
-                    tmptasklist.get(j).setCourseName(tmptasklist.get(j+1).getCourseName());
-                    tmptasklist.get(j).setEndTime(tmptasklist.get(j+1).getEndTime());
-                    tmptasklist.get(j).setSiteId(tmptasklist.get(j+1).getSiteId());
-                    tmptasklist.get(j).setStatus(tmptasklist.get(j+1).getStatus());
-                    tmptasklist.get(j).setTeacher(tmptasklist.get(j+1).getTeacher());
-                    tmptasklist.get(j+1).setTeacher(t.getTeacher());
-                    tmptasklist.get(j+1).setStatus(t.getStatus());
-                    tmptasklist.get(j+1).setSiteId(t.getSiteId());
-                    tmptasklist.get(j+1).setCourseName(t.getCourseName());
-                    tmptasklist.get(j+1).setAssignName(t.getAssignName());
-                    tmptasklist.get(j+1).setAssignId(t.getAssignId());
-                    tmptasklist.get(j+1).setBeginTime(t.getBeginTime());
-                    tmptasklist.get(j+1).setEndTime(t.getEndTime());
-                }
-            }
-        }
+        Collections.sort(tmptasklist, new TaskBeginComparator());
         rv_task.getAdapter().notifyDataSetChanged();
     }
 
     private void endorder() {
-        for (int i = 0; i < tmptasklist.size(); i++) {
-            for (int j = 0; j < tmptasklist.size() - i - 1; j++) {
-                if (tmptasklist.get(j).getEndTime() < tmptasklist.get(j+1).getEndTime()) {
-                    TasksBean.AssignListBean t = tmptasklist.get(j);
-                    tmptasklist.get(j).setAssignId(tmptasklist.get(j+1).getAssignId());
-                    tmptasklist.get(j).setAssignName(tmptasklist.get(j+1).getAssignName());
-                    tmptasklist.get(j).setBeginTime(tmptasklist.get(j+1).getBeginTime());
-                    tmptasklist.get(j).setCourseName(tmptasklist.get(j+1).getCourseName());
-                    tmptasklist.get(j).setEndTime(tmptasklist.get(j+1).getEndTime());
-                    tmptasklist.get(j).setSiteId(tmptasklist.get(j+1).getSiteId());
-                    tmptasklist.get(j).setStatus(tmptasklist.get(j+1).getStatus());
-                    tmptasklist.get(j).setTeacher(tmptasklist.get(j+1).getTeacher());
-                    tmptasklist.get(j+1).setTeacher(t.getTeacher());
-                    tmptasklist.get(j+1).setStatus(t.getStatus());
-                    tmptasklist.get(j+1).setSiteId(t.getSiteId());
-                    tmptasklist.get(j+1).setCourseName(t.getCourseName());
-                    tmptasklist.get(j+1).setAssignName(t.getAssignName());
-                    tmptasklist.get(j+1).setAssignId(t.getAssignId());
-                    tmptasklist.get(j+1).setBeginTime(t.getBeginTime());
-                    tmptasklist.get(j+1).setEndTime(t.getEndTime());
-                }
-            }
-        }
+        Collections.sort(tmptasklist, new TaskEndComparator());
         rv_task.getAdapter().notifyDataSetChanged();
     }
 
@@ -203,7 +171,11 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
                 btn_processing.setBackgroundColor(Color.parseColor("#1F000000"));
                 btn_completed.setTextColor(Color.parseColor("#42000000"));
                 btn_completed.setBackgroundColor(Color.parseColor("#1F000000"));
-                tmptasklist = tasklist;
+                tmptasklist.clear();
+                tmptasklist.addAll(tasklist);
+                spinner_collation.setSelection(0,true);
+                spinner_collation.setSelection(0);
+                Log.e("what-------",spinner_collation.getSelectedItemId()+"");
                 rv_task.getAdapter().notifyDataSetChanged();
                 break;
             }
@@ -248,7 +220,7 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
 
     private void selectprocessing() {
         long now = Instant.now().getEpochSecond()*1000;
-        tmptasklist = new ArrayList<>();
+        tmptasklist.clear();
         int l = tasklist.size();
         for (int i = 0;  i < l ; i++ ) {
             if (tasklist.get(i).getEndTime() <= now ||
@@ -257,34 +229,39 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
                 continue;
             else tmptasklist.add(tasklist.get(i));
         }
-        Log.d("size::::::::",tmptasklist.size()+"");
+        spinner_collation.setSelection(0, true);
+        spinner_collation.setSelection(0);
+        Log.e("what-------",spinner_collation.getSelectedItemId()+"");
         rv_task.getAdapter().notifyDataSetChanged();
     }
 
-    private void selectcompeleted() {
+    private void selectcompeleted() {   //begintime < now && endtime > now && (status == 1 || status == 3 )
         long now = Instant.now().getEpochSecond()*1000;
-        tmptasklist = new ArrayList<>();
+        tmptasklist.clear();
         int l = tasklist.size();
         for (int i = 0;  i < l ; i++ ) {
-            if (tasklist.get(i).getBeginTime() >= now ||
-                    (tasklist.get(i).getStatus() != 1 && tasklist.get(i).getStatus() != 3))
+            if ( tasklist.get(i).getBeginTime() >= now || tasklist.get(i).getEndTime() <= now || ( tasklist.get(i).getStatus() != 1 && tasklist.get(i).getStatus() != 3))
                 continue;
             else tmptasklist.add(tasklist.get(i));
         }
-        Log.d("size::::::::",tmptasklist.size()+"");
+        spinner_collation.setSelection(0, true);
+        spinner_collation.setSelection(0);
+        Log.e("what-------",spinner_collation.getSelectedItemId()+"");
         rv_task.getAdapter().notifyDataSetChanged();
     }
 
     private void selectoverdue() {
         long now = Instant.now().getEpochSecond()*1000;
-        tmptasklist = new ArrayList<>();
+        tmptasklist.clear();
         int l = tasklist.size();
         for (int i = 0;  i < l ; i++ ) {
             if (tasklist.get(i).getEndTime() >= now && tasklist.get(i).getBeginTime() < now)
                 continue;
             else tmptasklist.add(tasklist.get(i));
         }
-        Log.d("size::::::::",tmptasklist.size()+"");
+        spinner_collation.setSelection(0, true);
+        spinner_collation.setSelection(0);
+        Log.e("what-------",spinner_collation.getSelectedItemId()+"");
         rv_task.getAdapter().notifyDataSetChanged();
     }
 

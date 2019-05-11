@@ -1,18 +1,14 @@
 package com.mini.homeworks.PersonalInformation;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.strictmode.IntentReceiverLeakedViolation;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -20,7 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,10 +34,9 @@ import com.mini.homeworks.net.bean.SendVerifyCodePostData;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.GET;
 
 
-public class Information extends AppCompatActivity {
+public class InformationActivity extends AppCompatActivity {
 
     private Toolbar tb_information;
     private EditText et_mailbox;
@@ -73,12 +67,12 @@ public class Information extends AppCompatActivity {
         btn_logoff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(Information.this)
+                new AlertDialog.Builder(InformationActivity.this)
                         .setTitle("确定退出当前账号？")
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(Information.this, LoginActivity.class);
+                                Intent intent = new Intent(InformationActivity.this, LoginActivity.class);
                                 startActivity(intent);
                             }
                         })
@@ -121,7 +115,7 @@ public class Information extends AppCompatActivity {
     }
 
     private void showDialog_checkmail() {
-        new AlertDialog.Builder(Information.this)
+        new AlertDialog.Builder(InformationActivity.this)
                 .setTitle("将会向此邮箱发送验证码，请确认邮箱填写正确。")
                 .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
@@ -174,8 +168,8 @@ public class Information extends AppCompatActivity {
     }
 
     private void showDialog_verify ( ) {
-        final EditText et = new EditText(Information.this);
-        new AlertDialog.Builder(Information.this).setTitle("请输入验证码：")
+        final EditText et = new EditText(InformationActivity.this);
+        new AlertDialog.Builder(InformationActivity.this).setTitle("请输入验证码：")
                 .setView(et)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -210,12 +204,12 @@ public class Information extends AppCompatActivity {
                     verifyCodeToken = response.body().getVerifyCodeToken();
                     showDialog_verify();
                 } else
-                    Toast.makeText(Information.this,"加载失败，请重试", Toast.LENGTH_LONG).show();
+                    Toast.makeText(InformationActivity.this,"加载失败，请重试", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(Call<SendVerifyCodeBean> call, Throwable t) {
-                Toast.makeText(Information.this,"请检查网络连接", Toast.LENGTH_LONG).show();
+                Toast.makeText(InformationActivity.this,"请检查网络连接", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -232,12 +226,12 @@ public class Information extends AppCompatActivity {
                     tv_num.setText(response.body().getUserName());
                     et_mailbox.setText(response.body().getEmail());
                 } else {
-                    Toast.makeText(Information.this, "加载失败，请重试", Toast.LENGTH_LONG).show();
+                    Toast.makeText(InformationActivity.this, "加载失败，请重试", Toast.LENGTH_LONG).show();
                 }
             }
             @Override
             public void onFailure(Call<InformationBean> call, Throwable t) {
-                Toast.makeText(Information.this, "请检查网络连接",Toast.LENGTH_LONG).show();
+                Toast.makeText(InformationActivity.this, "请检查网络连接",Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -250,20 +244,20 @@ public class Information extends AppCompatActivity {
             @Override
             public void onResponse(Call<ChangeMailBean> call, Response<ChangeMailBean> response) {
                 if ( response.isSuccessful() ) {
-                    Toast.makeText(Information.this, "修改成功", Toast.LENGTH_LONG).show();
+                    Toast.makeText(InformationActivity.this, "修改成功", Toast.LENGTH_LONG).show();
                     et_mailbox.setText(newMail);
                     et_mailbox.clearFocus();//取消焦点
                     ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
-                            .hideSoftInputFromWindow(Information.this.getCurrentFocus().getWindowToken(),
+                            .hideSoftInputFromWindow(InformationActivity.this.getCurrentFocus().getWindowToken(),
                                     InputMethodManager.HIDE_NOT_ALWAYS);//关闭输入法
                 } else {
-                    Toast.makeText(Information.this, "请重试", Toast.LENGTH_LONG).show();
+                    Toast.makeText(InformationActivity.this, "请重试", Toast.LENGTH_LONG).show();
                     showDialog_verify();
                 }
             }
             @Override
             public void onFailure(Call<ChangeMailBean> call, Throwable t) {
-                Toast.makeText(Information.this, "请检查网络连接", Toast.LENGTH_LONG).show();
+                Toast.makeText(InformationActivity.this, "请检查网络连接", Toast.LENGTH_LONG).show();
                 showDialog_verify();
             }
         });
