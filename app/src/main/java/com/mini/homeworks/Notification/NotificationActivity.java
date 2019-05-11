@@ -32,6 +32,7 @@ import com.mini.homeworks.net.bean.NotificationBean;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -53,6 +54,7 @@ public class NotificationActivity extends AppCompatActivity {
     final NotificationService notificationService = RetrofitWrapper.getInstance().create(NotificationService.class);
     private static final int NOTIFICATION_ID = 1;
     private Context context;
+    private List<NotificationBean.NoticeConfigGet.NoticeTimeListBean> listBeans = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class NotificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notification);
         token = getIntent().getStringExtra("token");
         cookie = getIntent().getStringExtra("cookie");
+        context = this;
 
         //初始化控件
         initView();
@@ -125,7 +128,7 @@ public class NotificationActivity extends AppCompatActivity {
                 try {
                     Date date = format.parse(d);
 
-                            AlarmTimer.setAlarmTimer(context, getTimeNodes(), "TIMER_ACTION", AlarmManager.ELAPSED_REALTIME, date);
+                    AlarmTimer.setAlarmTimer(context, getTimeNodes(), "TIMER_ACTION", AlarmManager.ELAPSED_REALTIME, date);
 
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -166,12 +169,13 @@ public class NotificationActivity extends AppCompatActivity {
             switchButton_allow.setChecked(false);
             ContentValues values = new ContentValues();
             values.put("switch_allow", 0);
-            values.put("switchBotton_mail", 1);
+            values.put("switchButton_mail", 1);
             notification_database.insert("notification", null, values);
 
         } else {
             Cursor cursor = notification_database.query("notification", new String[]{"switch_allow",
-                    "name"}, "id=?", new String[]{"1"}, null, null, null);
+                    "switchButton_mail"}, "id=?", new String[]{"1"}, null, null, null);
+            // notification_database.close();
 
 
         }
@@ -206,7 +210,7 @@ public class NotificationActivity extends AppCompatActivity {
                         //获取EditView中输入的内容
                         EditText editText_day = dialogView.findViewById(R.id.ed_dialog_day);
                         EditText editText_hour = dialogView.findViewById(R.id.ed_dialog_hour);
-                        int hour = Integer.valueOf(editText_hour.toString()) + Integer.valueOf(editText_day.toString()) * 24;
+                        int hour = Integer.parseInt(editText_hour.toString().trim()) + Integer.parseInt(editText_day.toString().trim()) * 24;
                         //添加事件节点
                         GetCookieAndToken();
                         Call<NotificationBean.NoticeTimeAdd> noticeTimeAddCall = notificationService.getNoticeTimeAdd(hour, token);
@@ -235,21 +239,23 @@ public class NotificationActivity extends AppCompatActivity {
         noticeConfigGetCall.enqueue(new Callback<NotificationBean.NoticeConfigGet>() {
             @Override
             public void onResponse(@NonNull Call<NotificationBean.NoticeConfigGet> call, Response<NotificationBean.NoticeConfigGet> response) {
-                assert response.body() != null;
-                adapter = new NotificationAdapter(response.body());
-                //设置监听事件
-                adapter.setOnItemClickListener(new NotificationAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
+                if (response.body() != null) {
+                    adapter = new NotificationAdapter(response.body());
+                    //设置监听事件
+                    adapter.setOnItemClickListener(new NotificationAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onItemLongClick(View view, int position) {
-                        showPopMenu(view, position);
-                    }
-                });
-                recyclerView.setAdapter(adapter);
+                        @Override
+                        public void onItemLongClick(View view, int position) {
+                            showPopMenu(view, position);
+                        }
+                    });
+                    recyclerView.setAdapter(adapter);
+                }
+
             }
 
             @Override
@@ -262,7 +268,7 @@ public class NotificationActivity extends AppCompatActivity {
 
     public boolean isDatabaseEmpty() {
         boolean flag;
-        String sql = "select count(*) from time";
+        String sql = "select count(*) from notification";
         Cursor cursor = notification_database.rawQuery(sql, null);
         cursor.moveToFirst();
         int count = cursor.getInt(0);
@@ -317,13 +323,14 @@ public class NotificationActivity extends AppCompatActivity {
         configGetCall.enqueue(new Callback<NotificationBean.NoticeConfigGet>() {
             @Override
             public void onResponse(@NonNull Call<NotificationBean.NoticeConfigGet> call, @NonNull Response<NotificationBean.NoticeConfigGet> response) {
-                assert response.body() != null;
-                List<NotificationBean.NoticeConfigGet.NoticeTimeListBean> listBeans = response.body().getNoticeTimeList();
-                noticeTime[0] = new int[listBeans.size()];
-                for (int i = 0; i < listBeans.size(); i++) {
-                    noticeTime[0][i]=listBeans.get(i).getNoticeTime();
+                if (response.body() != null) {
+                    listBeans.addAll(response.body().getNoticeTimeList());
+                    noticeTime[0] = new int[listBeans.size()];
+                    for (int i = 0; i < listBeans.size(); i++) {
+                        noticeTime[0][i] = listBeans.get(i).getNoticeTime();
+                    }
+                    Arrays.sort(noticeTime[0]);
                 }
-                Arrays.sort(noticeTime[0]);
             }
 
             @Override
@@ -333,16 +340,17 @@ public class NotificationActivity extends AppCompatActivity {
         });
         return noticeTime[0][0];
     }
-    private void SaveCookie (String cookie) {
-        SharedPreferences data = getSharedPreferences("CandT",MODE_PRIVATE);
+
+    private void SaveCookie(String cookie) {
+        SharedPreferences data = getSharedPreferences("CandT", MODE_PRIVATE);
         SharedPreferences.Editor editor = data.edit();
-        editor.putString("cookie",cookie);
+        editor.putString("cookie", cookie);
         editor.apply();
     }
 
-    private void GetCookieAndToken () {
-        SharedPreferences data = getSharedPreferences("CandT",MODE_PRIVATE);
-        cookie = data.getString("cookie",null);
+    private void GetCookieAndToken() {
+        SharedPreferences data = getSharedPreferences("CandT", MODE_PRIVATE);
+        cookie = data.getString("cookie", null);
         token = data.getString("token", null);
     }
 }

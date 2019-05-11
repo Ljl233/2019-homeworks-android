@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.mini.homeworks.R;
 import com.mini.homeworks.net.bean.SearchBean;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,7 +23,7 @@ import java.util.regex.Pattern;
 public class SearchAdapter extends RecyclerView.Adapter {
     private SearchBean searchBean;
     private String key;
-    private Context mContext;
+    List<SearchBean.AssignDataBean> mAssign = new ArrayList<>();
     int type1 = 1;
     int type2 = 2;
     int type3 = 3;
@@ -40,17 +42,23 @@ public class SearchAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.search_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.search_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder VH, int position) {
         ViewHolder viewHolder = (ViewHolder) VH;
-        List<SearchBean.AssignDataBean> mAssign = searchBean.getAssignData();
+
+        mAssign.addAll(searchBean.getAssignData());
+
 //设置颜色
-        viewHolder.textView_1.setText(StringFormatUtil(mAssign.get(position).getAssignName(), key, R.color.colorAccent));
-        viewHolder.textView_2.setText(StringFormatUtil(mAssign.get(position).getCourseName(), key, R.color.colorAccent));
+        if (mAssign.isEmpty()) viewHolder.textView_1.setText("没搜索到相关作业");
+        else {
+            viewHolder.textView_1.setText(StringFormatUtil(mAssign.get(position).getAssignName(), key, R.color.colormain));
+            viewHolder.textView_2.setText(StringFormatUtil(mAssign.get(position).getCourseName(), key, R.color.colormain));
+
+        }
 
     }
 
@@ -87,7 +95,7 @@ public class SearchAdapter extends RecyclerView.Adapter {
 
     }
 
-    public static SpannableString StringFormatUtil(String data, String key, int color) {
+    private static SpannableString StringFormatUtil(String data, String key, int color) {
         SpannableString s = new SpannableString(data);
         if (data.contains(key) && !TextUtils.isEmpty(key)) {
 
