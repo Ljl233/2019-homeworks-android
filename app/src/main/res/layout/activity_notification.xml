@@ -35,7 +35,8 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="290dp"
+            android:layout_width="0dp"
+            android:layout_weight="4"
             android:layout_height="wrap_content"
             android:layout_marginStart="18.2875dp"
             android:layout_marginTop="18.2875dp"
@@ -47,7 +48,8 @@
         <com.kyleduo.switchbutton.SwitchButton
             android:id="@+id/switch_allow"
             style="@style/SwitchButtonStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             tools:ignore="RtlHardcoded" />
@@ -70,7 +72,8 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="290dp"
+            android:layout_width="0dp"
+            android:layout_weight="4"
             android:layout_height="wrap_content"
             android:layout_marginStart="18.28dp"
             android:layout_marginTop="18.28dp"
@@ -82,7 +85,8 @@
         <com.kyleduo.switchbutton.SwitchButton
             android:id="@+id/switch_allow_mail"
             style="@style/SwitchButtonStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             tools:ignore="RtlHardcoded" />
@@ -100,81 +104,6 @@
         android:textSize="13.7143sp" />
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="54.8571dp"
-        android:layout_marginStart="9.1429dp"
-        android:layout_marginEnd="9.1429dp"
-        android:background="@color/white"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18.2875dp"
-            android:layout_marginTop="17.1429dp"
-            android:layout_marginBottom="18.2875dp"
-            android:text="1、据截止时间2天0时"
-            android:textColor="#000000"
-            android:textSize="16sp" />
-
-
-    </LinearLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="9.1429dp"
-        android:layout_marginEnd="9.1429dp"
-        android:background="#1f000000" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="54.8571dp"
-        android:layout_marginStart="9.1429dp"
-        android:layout_marginEnd="9.1429dp"
-        android:background="@color/white"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18.2875dp"
-            android:layout_marginTop="17.1429dp"
-            android:layout_marginBottom="18.2875dp"
-            android:text="2、据截止时间1天0时"
-            android:textColor="#000000"
-            android:textSize="16sp" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="9.1429dp"
-        android:layout_marginEnd="9.1429dp"
-        android:background="#1f000000" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="54.8571dp"
-        android:layout_marginStart="9.1429dp"
-        android:layout_marginEnd="9.1429dp"
-        android:background="@color/white"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18.2875dp"
-            android:layout_marginTop="17.1429dp"
-            android:layout_marginBottom="18.2875dp"
-            android:text="3、据截止时间0天8时"
-            android:textColor="#000000"
-            android:textSize="16sp" />
-
-    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_notification"

@@ -28,7 +28,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     //当数据库创建的时候被调用
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "create table notification(id integer primary key ,switch_allow varchar(64),switchBotton_mail varchar(64))";
+        String sql = "create table notification(id integer primary key ,switch_allow varchar(64),switchButton_mail varchar(64))";
         db.execSQL(sql);
     }
 

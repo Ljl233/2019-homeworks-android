@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +27,7 @@ import com.mini.homeworks.net.Service.SearchService;
 import com.mini.homeworks.net.bean.SearchBean;
 
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 
 import retrofit2.Call;
@@ -39,6 +41,7 @@ public class SearchActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private SearchView mSearchView;
     private SearchView.SearchAutoComplete mSearchAutoComplete;
+    SearchAdapter searchAdapter;
     private String cookie, token;
     private RecyclerView recyclerView;
 
@@ -60,6 +63,8 @@ public class SearchActivity extends AppCompatActivity {
         //实例化toolbar
         toolbar = findViewById(R.id.toolbar_search);
         recyclerView = findViewById(R.id.ry_search);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
         setSupportActionBar(toolbar);
         //返回键 当搜索框显示时， 按下ToolBar的返回按钮关闭搜索框，否则关闭当前界面
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -161,10 +166,10 @@ public class SearchActivity extends AppCompatActivity {
         iv_clear.setVisibility(INVISIBLE);
         GetCookieAndToken();
         SearchService searchService = RetrofitWrapper.getInstance().create(SearchService.class);
-        Call<SearchBean> call = searchService.getSearchBean(cookie, token, s);
+        Call<SearchBean> call = searchService.getSearchBean(s, cookie, token);
         Log.d("Search?", cookie);
         Log.d("the key word", s);
-        Log.d("search token",token);
+        Log.d("search token", token);
         Log.d("call      ...", String.valueOf(call));
         call.enqueue(new Callback<SearchBean>() {
             @Override
@@ -172,14 +177,22 @@ public class SearchActivity extends AppCompatActivity {
                 cookie = response.body().getCookie();
                 SaveCookie(cookie);
                 SearchBean searchBean = response.body();
-                SearchAdapter searchAdapter = new SearchAdapter(searchBean, s);
+                searchAdapter = new SearchAdapter(searchBean, s);
                 recyclerView.setAdapter(searchAdapter);
+                if (recyclerView.getAdapter() != null)
+                    recyclerView.getAdapter().notifyDataSetChanged();//更新UI
+
 
             }
 
             @Override
             public void onFailure(Call<SearchBean> call, Throwable t) {
-                Toast.makeText(SearchActivity.this, "请求失败，请重试", Toast.LENGTH_LONG).show();
+                Toast.makeText(SearchActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Log.d("Search?", cookie);
+                Log.d("the key word", s);
+                Log.d("search token", token);
+                Log.d("information", t.getLocalizedMessage());
+                Log.d("information", t.toString());
             }
         });
     }

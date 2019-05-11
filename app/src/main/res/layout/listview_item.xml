@@ -8,14 +8,14 @@
         android:id="@+id/tv_submitAttachmentId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="加油"
+        android:text=""
         android:textSize="42px" />
 
     <TextView
         android:id="@+id/tv_submitAttachmentExt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=".txt"
+        android:text=""
         android:textSize="42px" />
 
 </LinearLayout>

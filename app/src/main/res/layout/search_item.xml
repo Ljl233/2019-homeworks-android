@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="59.4286dp"
         android:layout_marginTop="11.0476dp"
-        android:text="科目名"
+        android:text=""
 
         android:textColor="#000000"
         android:textSize="13.7143sp" />
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="59.4286dp"
         android:layout_marginTop="4.5714dp"
-        android:text="作业名"
+        android:text=""
         android:textSize="13.7143sp" />
 
 </LinearLayout>
