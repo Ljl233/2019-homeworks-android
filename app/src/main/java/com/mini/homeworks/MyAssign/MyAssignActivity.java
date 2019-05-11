@@ -55,7 +55,7 @@ public class MyAssignActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_assign);
-        verifyStoragePermissions();//请求文件读写权限
+        //verifyStoragePermissions();//请求文件读写权限
         initView();
         LitePal.deleteAll(mOverhead.class);
         LitePal.deleteAll(mNormal.class);
