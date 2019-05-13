@@ -93,13 +93,13 @@ public class MyAssignAdapter extends RecyclerView.Adapter<MyAssignAdapter.MyView
             });
         }
         long now = Instant.now().getEpochSecond()*1000;
-        if ( now > dataBean.getEndTime() ) {
+        if ( now > dataBean.getEndTime() && ( dataBean.getStatus() == 0 || dataBean.getStatus() == 2 ) ) {
             holder.iv_status.setImageResource(R.drawable.cross);
             holder.tv_status.setText("已逾期");
         } else if ( dataBean.getStatus() == 1 || dataBean.getStatus() == 3 ) {
             holder.iv_status.setImageResource(R.drawable.tick);
             holder.tv_status.setText("已完成");
-        } else if ( dataBean.getStatus() == 0 || dataBean.getStatus() == 2 ) {
+        } else if ( now < dataBean.getEndTime() && ( dataBean.getStatus() == 0 || dataBean.getStatus() == 2 ) ) {
             holder.iv_status.setImageResource(R.drawable.circle);
             holder.tv_status.setText("进行中");
         }
