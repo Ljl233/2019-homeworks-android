@@ -235,12 +235,11 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
         rv_task.getAdapter().notifyDataSetChanged();
     }
 
-    private void selectcompeleted() {   //begintime < now && endtime > now && (status == 1 || status == 3 )
-        long now = Instant.now().getEpochSecond()*1000;
+    private void selectcompeleted() {
         tmptasklist.clear();
         int l = tasklist.size();
         for (int i = 0;  i < l ; i++ ) {
-            if ( tasklist.get(i).getBeginTime() >= now || tasklist.get(i).getEndTime() <= now || ( tasklist.get(i).getStatus() != 1 && tasklist.get(i).getStatus() != 3))
+            if ( tasklist.get(i).getStatus() != 1 && tasklist.get(i).getStatus() != 3 )
                 continue;
             else tmptasklist.add(tasklist.get(i));
         }
@@ -255,7 +254,7 @@ public class TaskFragment extends Fragment implements View.OnClickListener{
         tmptasklist.clear();
         int l = tasklist.size();
         for (int i = 0;  i < l ; i++ ) {
-            if (tasklist.get(i).getEndTime() >= now && tasklist.get(i).getBeginTime() < now)
+            if ( tasklist.get(i).getEndTime() <= now || ( tasklist.get(i).getStatus() != 0 && tasklist.get(i).getStatus() != 2) )
                 continue;
             else tmptasklist.add(tasklist.get(i));
         }

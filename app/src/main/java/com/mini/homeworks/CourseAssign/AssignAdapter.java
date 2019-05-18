@@ -53,7 +53,7 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
         holder.tv_ddl.setText("截止时间："+GetDate.DateToWeek(endtime)+" "+endtime);
         holder.tv_assignName.setText(dataBean.getAssignName());
         long now = Instant.now().getEpochSecond()*1000;
-        if ( now > dataBean.getEndTime() ) {
+        if ( now > dataBean.getEndTime() && ( dataBean.getStatus() == 0 || dataBean.getStatus() == 2 ) ) {
             holder.aitem.setBackgroundResource(R.drawable.rounded_rectangle_bcbcbc);
             holder.iv_status.setImageResource(R.drawable.cross);
             holder.tv_status.setText("已逾期");
@@ -65,7 +65,7 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.MyViewHold
             holder.tv_status.setText("已完成");
             holder.tv_ddl.setTextColor(Color.parseColor("#3F51B5"));
             holder.tv_begin.setTextColor(Color.parseColor("#3F51B5"));
-        } else if ( dataBean.getStatus() == 0 || dataBean.getStatus() == 2 ) {
+        } else if ( now < dataBean.getEndTime() && ( dataBean.getStatus() == 0 || dataBean.getStatus() == 2 ) ) {
             holder.aitem.setBackgroundResource(R.drawable.rounded_rectangle_039be5);
             holder.iv_status.setImageResource(R.drawable.circle);
             holder.tv_status.setText("进行中");

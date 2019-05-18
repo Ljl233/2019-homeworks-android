@@ -55,7 +55,7 @@ public class MyAssignActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_assign);
-        verifyStoragePermissions();//请求文件读写权限
+        //verifyStoragePermissions();//请求文件读写权限
         initView();
         LitePal.deleteAll(mOverhead.class);
         LitePal.deleteAll(mNormal.class);
@@ -157,11 +157,11 @@ public class MyAssignActivity extends AppCompatActivity {
                 tmp.setAssignId(tasklist.get(i).getAssignId());
                 long now = Instant.now().getEpochSecond()*1000;
                 //未提交：0，待批阅：1，已驳回：2，已批阅：3
-                if (tmp.getEndTime() > now && tmp.getBeginTime() <= now && ( tmp.getStatus() == 0 || tmp.getStatus() == 2 ) )
+                if ( tmp.getEndTime() > now && tmp.getBeginTime() <= now && ( tmp.getStatus() == 0 || tmp.getStatus() == 2 ) )
                     tmp.setColor( Color.parseColor("#039BE5") );
-                else if ( tmp.getBeginTime() < now && now < tmp.getEndTime() && ( tmp.getStatus() == 1 || tmp.getStatus() == 3 ) )
+                else if ( tmp.getStatus() == 1 || tmp.getStatus() == 3 )
                     tmp.setColor( Color.parseColor("#3F51B5"));
-                else if ( tmp.getEndTime() < now || tmp.getBeginTime() >= now )
+                else if ( tmp.getEndTime() < now && ( tmp.getStatus() == 0 || tmp.getStatus() == 2 ) )
                     tmp.setColor( Color.parseColor("#BCBCBC") );
                 mNormal.add(tmp);
                 tmp.save();
