@@ -51,6 +51,7 @@ public class NotificationActivity extends AppCompatActivity {
     private SwitchButton switchButton_allow;
     private SwitchButton switchButton_mail;
     private String token, cookie;
+    private Toolbar toolbar;
     private NotificationAdapter adapter;
     final NotificationService notificationService = RetrofitWrapper.getInstance().create(NotificationService.class);
     private static final int NOTIFICATION_ID = 1;
@@ -64,9 +65,16 @@ public class NotificationActivity extends AppCompatActivity {
         token = getIntent().getStringExtra("token");
         cookie = getIntent().getStringExtra("cookie");
         context = this;
-
+        toolbar=findViewById(R.id.toolbar_notification);
         //初始化控件
         initView();
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         //设置监听事件
         ll_add.setOnClickListener(new View.OnClickListener() {
             @Override

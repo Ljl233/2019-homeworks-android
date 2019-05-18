@@ -23,6 +23,14 @@
         android:layout_marginStart="18.2875dp"
         android:layout_marginTop="18.2875dp"
         android:layout_marginEnd="18.2875dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="24dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="24sp"
+        android:text="你的老师很体贴你哦，从来没有在云课堂上布置过作业。"/>
 
 
 </LinearLayout>
